@@ -1,6 +1,6 @@
 {
   "name": "slush-globeapp",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "slushfile.js",
   "scripts": {
@@ -15,7 +15,9 @@
   "bugs": {
     "url": "https://github.com/BostonGlobe/slush-globeapp/issues"
   },
-  "keywords": ["slushgenerator"],
+  "keywords": [
+    "slushgenerator"
+  ],
   "homepage": "https://github.com/BostonGlobe/slush-globeapp",
   "dependencies": {
     "chalk": "^1.0.0",
