@@ -28,3 +28,37 @@ apply_mq_cache()
 clearfix()
 	overflow auto
 	zoom 1
+
+//=======================
+// Vertical Rhythm
+//=======================
+rhythm(scale)
+	if scale in $type-scale
+		$map = $type-scale[scale]
+		$em-size = unit(($map / 16), 'em')
+		font-size: $em-size
+		margin-bottom: ($root-lh / $em-size)
+    
+		if $em-size < 1.5em
+			line-height: unit(($root-lh / $em-size), '')
+
+	    if $em-size > 1.5em
+			line-height: unit((($root-lh * 2) / $em-size), '')
+	    
+	    if $em-size > 3em
+			line-height: unit((($root-lh * 3) / $em-size), '')
+	else
+    	error('Not a defined scale')
+
+grid-overlay($px-offset = false)
+	background-image: linear-gradient(to bottom,#0ff 0,rgba(255,255,255,0)1px)
+	background-size: 100% ($root-lh)em
+	if $px-offset
+		background-position: 0 unit($px-offset, 'px')
+    
+//=======================
+// Font Stacks & Weights
+//=======================
+font(family = $serif, weight = 400)
+	font-family family
+	font-weight weight
