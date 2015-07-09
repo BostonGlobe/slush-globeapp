@@ -1,0 +1,57 @@
+<!-- analytics -->
+<!-- depends on the function loadJS in async-load-js.js -->
+<script type='text/javascript'>
+
+    (function() {    
+        var chartbeat = function() {
+            window._sf_startpt=(new Date()).getTime();
+            window._sf_async_config={uid:8544,domain:"bostonglobe.com"};
+            _sf_async_config.path = location.pathname;
+
+             // Section and Author tagging
+            _sf_async_config.sections = "{{copy.chartbeat_section}}";
+            _sf_async_config.authors = "infographic";   //used for page type
+            
+
+            (function(){
+                 function loadChartbeat() {
+                 window._sf_endpt=(new Date()).getTime();
+                 var e = document.createElement('script');
+                 e.setAttribute('language', 'javascript');
+                 e.setAttribute('type', 'text/javascript');
+                 e.setAttribute('src',
+                        (("https:" == document.location.protocol) ? "https://s3.amazonaws.com/" : "http://") + "static.chartbeat.com/js/chartbeat.js");
+                 document.body.appendChild(e);
+                 }
+                 var oldonload = window.onload;
+                 window.onload = (typeof window.onload != 'function') ?
+                 loadChartbeat : function() { oldonload(); loadChartbeat(); };
+            })();
+        };
+
+        var omniture = function() {
+            loadJS('https://apps.bostonglobe.com/common/js/omniture/s_code_bgcom.js', function() {
+                s.pageName='{{copy.section}} | {{copy.title}}',s.channel='{{copy.section}}',s.prop1='"{{copy.section}} | Specials';
+                s.server='',s.pageType='',s.prop2='',s.prop3='',s.prop4='',s.prop5='',s.prop6='Infographic',s.prop7='',s.prop8='',s.prop9='',s.prop10='',s.prop14='',s.prop41=s.eVar41='BostonGlobe.com';
+
+                s_code=s.t();if(s_code)document.write(s_code)
+            });
+        };
+
+        var meter = function() {
+            window.methode = {};
+            loadJS('https://www.bostonglobe.com/js/metercheck.js', function() {
+                window.bglobe.freeviewMeter.init({pageId : '{{copy.page_id}}' , registrationWall : 'non-exempt', webType : 'app', sectionPath : 'apps', debug: false });
+            });
+        };
+
+        var production = window.location.hostname.indexOf('apps') === 0;
+
+        if(production) {
+            chartbeat();
+            omniture();
+            meter();
+        }
+    })();
+
+</script>
