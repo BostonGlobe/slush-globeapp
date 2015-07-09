@@ -15,6 +15,7 @@
   "bugs": {
     "url": "https://github.com/BostonGlobe/slush-globeapp/issues"
   },
+  "keywords": ["slushgenerator"],
   "homepage": "https://github.com/BostonGlobe/slush-globeapp",
   "dependencies": {
     "chalk": "^1.0.0",
