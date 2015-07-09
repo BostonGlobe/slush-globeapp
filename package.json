@@ -1,7 +1,7 @@
 {
   "name": "slush-globeapp",
   "version": "0.0.3",
-  "description": "",
+  "description": "Generator for scaffloding Globe app",
   "main": "slushfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,9 +15,6 @@
   "bugs": {
     "url": "https://github.com/BostonGlobe/slush-globeapp/issues"
   },
-  "keywords": [
-    "slushgenerator"
-  ],
   "homepage": "https://github.com/BostonGlobe/slush-globeapp",
   "dependencies": {
     "chalk": "^1.0.0",
