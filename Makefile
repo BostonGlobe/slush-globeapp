@@ -26,7 +26,8 @@ all:
 		gulp-uglify \
 		request \
 		require-dir \
-		run-sequence;
+		run-sequence \
+		'underscore.string';
 
 	# make node_modules.zip
 	cd templates; zip -q -r node_modules.zip node_modules;
