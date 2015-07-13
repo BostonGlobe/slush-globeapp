@@ -48,7 +48,7 @@ rhythm(scale)
 	    if $em-size > 3em
 			line-height: unit((($root-lh * 3) / $em-size), '')
 	else
-    	error('Not a defined scale')
+		error('Not a defined scale')
 
 grid-overlay($px-offset = false)
 	background-image: linear-gradient(to bottom,#0ff 0,rgba(255,255,255,0)1px)
