@@ -11,7 +11,7 @@ var s = require('underscore.string');
 
 
 function getGraphicName() {
-	return [moment().format('YYYY-M-D'), s.slugify(shell.pwd().split('/').slice(-1)[0])].join('_');
+	return [moment().format('YYYY-MM-DD'), s.slugify(shell.pwd().split('/').slice(-1)[0])].join('_');
 }
 
 function initGitRepo() {
