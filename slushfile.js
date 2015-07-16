@@ -18,6 +18,8 @@ function initGitRepo() {
 	shell.exec('git init');
 	shell.exec('git ignore node_modules');
 	shell.exec('git ignore dist');
+	shell.exec('git ignore npm-debug.log');
+	shell.exec('git ignore .tmp');
 	shell.exec('git add .');
 	shell.exec('git commit -m "first commit"');
 }
