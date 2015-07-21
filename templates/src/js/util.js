@@ -16,10 +16,14 @@
         var href = window.location.href;
         var text = document.title;
         var encoded = encodeURIComponent(text);
-        var twitter = 'https://twitter.com/intent/tweet?text=' + encoded + '&via=BostonGlobe&url=' + encodeURI(href);
+        
         var facebook = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURI(href);
-        document.getElementsByClassName(params.element.facebook)[0].setAttribute('href', facebook);
-        document.getElementsByClassName(params.element.twitter)[0].setAttribute('href', twitter);
+        var facebookNode = document.getElementsByClassName(params.element.facebook);
+        if (facebookNode && facebookNode[0]) facebookNode[0].setAttribute('href', facebook);
+
+        var twitter = 'https://twitter.com/intent/tweet?text=' + encoded + '&via=BostonGlobe&url=' + encodeURI(href);
+        var twitterNode = document.getElementsByClassName(params.element.twitter);
+        if (twitterNode && twitterNode[0]) twitterNode[0].setAttribute('href', twitter);
     };
 
     var removeMobileHover = function() {
