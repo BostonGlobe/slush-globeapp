@@ -17,6 +17,7 @@
     "gulp-smoosher": "0.0.7",
     "gulp-stylus": "^2.0.5",
     "gulp-uglify": "^1.2.0",
+    "gulp-zip": "^3.0.2",
     "request": "^2.60.0",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.1.2",

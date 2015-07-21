@@ -6,6 +6,6 @@ var chmod = require('gulp-chmod');
 gulp.task('smoosh-prod', function() {
     gulp.src('.tmp/*.html')
         .pipe(smoosher())
-        .pipe(chmod(664))
+        .pipe(chmod(666))
         .pipe(gulp.dest('dist/prod'));
 });

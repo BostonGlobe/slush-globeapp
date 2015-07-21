@@ -14,6 +14,6 @@ gulp.task('assets-dev', function() {
 gulp.task('assets-prod', function() {
 	return gulp.src(src)
 		.pipe(changed('dist/prod/assets'))
-		.pipe(chmod(664))
+		.pipe(chmod(666))
 		.pipe(gulp.dest('dist/prod/assets'));
 });

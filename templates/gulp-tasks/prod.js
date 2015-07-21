@@ -21,6 +21,7 @@ function runTasks(cb) {
 		'js-prod',
 		'smoosh-prod',
 		'assets-prod',
+		'zip-prod',
 		cb
 	);
 }

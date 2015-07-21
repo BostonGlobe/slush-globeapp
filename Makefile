@@ -1,7 +1,7 @@
 all:
 
 	# clean files
-	# cd templates; rm node_modules.zip package.json;
+	cd templates; rm node_modules.zip package.json;
 
 	# make a blank package.json
 	cd templates; echo '{"dependencies":{}}' >> package.json
@@ -25,6 +25,7 @@ all:
 		gulp-smoosher \
 		gulp-stylus \
 		gulp-uglify \
+		gulp-zip \
 		request \
 		require-dir \
 		run-sequence \
