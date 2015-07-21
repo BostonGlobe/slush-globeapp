@@ -51,7 +51,7 @@ If the data is too sensitive or a google doc is overkill, you can update **src/d
 - If you setup your ssh credentials, it will also upload the files to the apps server. Otherwise, you must manually put them on the server.
 - Your project is now internally visible at http://dev.apps.bostonglobe.com/graphics/[year]/[month]/[project-name].
 
-#### Step 3: publish assets
+#### Step 2: publish assets
 - In Terminal, connect to shell (your username is usually first initial last name): `ssh rgoldenberg@shell.boston.com`.
 - Navigate to your project directory: `cd /web/bgapps/html/graphics/[year]/[month]/[project-name]`.
 - Run the command `upload *` in the root **and** each subdirectroy. (ex. `cd css`, then `upload *` to upload all files in that folder).
