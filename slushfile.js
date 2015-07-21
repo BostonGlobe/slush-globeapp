@@ -31,7 +31,7 @@ function pushGitRepo() {
 gulp.task('copy-templates-directory', function(done) {
 
 	// make user feel at ease
-	console.log('** Scaffolding app **');
+	console.log('*** Scaffolding app ***');
 
 	gulp.src(__dirname + '/templates/**')
 		.pipe(gulp.dest('./'))
@@ -49,7 +49,6 @@ gulp.task('copy-templates-directory', function(done) {
 
 			done();
 		});
-
 });
 
 gulp.task('add-to-git-repo', function(done) {
@@ -104,13 +103,32 @@ gulp.task('add-to-git-repo', function(done) {
 		}
 
 	});
+});
 
+gulp.task('setup-ssh', function(done) {
+	inquirer.prompt([
+		{
+			type: 'input',
+			name: 'username',
+			message: 'Enter your shell username'
+		},
+		{
+			type: 'input',
+			name: 'filepath',
+			message: 'Enter the path to your app [year]/[month]/[name]'
+		}], 
+		function(answers) {
+			shell.sed('-i', '||USERNAME||', answers.username, 'ssh-config.js');
+			shell.sed('-i', '||PATH-TO-APP||', answers.filepath, 'ssh-config.js');
+			done();
+		});
 });
 
 gulp.task('default', function(done) {
 	runSequence(
 		'copy-templates-directory',
 		'add-to-git-repo',
+		'setup-ssh',
 		done
 	);
 });

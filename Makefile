@@ -1,7 +1,7 @@
 all:
 
 	# clean files
-	cd templates; rm node_modules.zip package.json;
+	# cd templates; rm node_modules.zip package.json;
 
 	# make a blank package.json
 	cd templates; echo '{"dependencies":{}}' >> package.json
@@ -28,6 +28,7 @@ all:
 		request \
 		require-dir \
 		run-sequence \
+		shelljs \
 		'underscore.string';
 
 	# make node_modules.zip
