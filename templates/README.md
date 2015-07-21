@@ -47,15 +47,9 @@ If the data is too sensitive or a google doc is overkill, you can update **src/d
 
 ## Deploy
 #### Step 1: gulp 
-Run `gulp prod` to deploy. Outputs files into `dist/prod` folder in root.
-
-#### Step 2: put project files on server
-- Create project directory on server. On a Mac, Finder -> Go -> Connect to Server.
-- Enter `smb://widget.boston.com/web/bgapps/html` (username globe\first.last and password).
-- Navigate to graphics/[year]/[month] and create a folder for your project (ex. graphics/2015/01/football-homerun).
-- Copy over your all the files in the **prod** folder to the server.
+- Run `gulp prod` to deploy. Outputs files into `dist/prod` folder in root. 
+- If you setup your ssh credentials, it will also upload the files to the apps server. Otherwise, you must manually put them on the server.
 - Your project is now internally visible at http://dev.apps.bostonglobe.com/graphics/[year]/[month]/[project-name].
-- Update these files whenever you want.
 
 #### Step 3: publish assets
 - In Terminal, connect to shell (your username is usually first initial last name): `ssh rgoldenberg@shell.boston.com`.
