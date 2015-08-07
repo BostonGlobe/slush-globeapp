@@ -112,7 +112,7 @@ gulp.task('setup-ssh', function(done) {
 			type: 'input',
 			name: 'filepath',
 			message: 'Enter the path to your app [year]/[month]/[name]'
-		}], 
+		}],
 		function(answers) {
 			shell.sed('-i', '||USERNAME||', answers.username, 'ssh-config.js');
 			shell.sed('-i', '||PATH-TO-APP||', answers.filepath, 'ssh-config.js');
