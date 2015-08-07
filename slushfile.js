@@ -60,7 +60,9 @@ gulp.task('copy-templates-directory', function(done) {
 
 				if (answers.webpack){
 
-					files.forEach(f => shell.mv('-f', f, f.replace('-webpack', '')));
+					files.forEach(function(f){
+						shell.mv('-f', f, f.replace('-webpack', ''))
+					});
 
 				} else {
 
@@ -68,9 +70,9 @@ gulp.task('copy-templates-directory', function(done) {
 
 				}
 
+				done();
 			});
 
-			done();
 		});
 });
 
