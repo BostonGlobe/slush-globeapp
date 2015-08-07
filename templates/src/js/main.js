@@ -1,5 +1,6 @@
-'use strict';
+(function() {
+	'use strict';
 
-require('./util');
 
-// ADD YOUR CODE HERE
+
+})();
