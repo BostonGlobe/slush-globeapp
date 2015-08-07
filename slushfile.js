@@ -29,7 +29,7 @@ gulp.task('copy-templates-directory', function(done) {
 	// make user feel at ease
 	console.log('*** Scaffolding app ***');
 
-	gulp.src(__dirname + '/templates/**')
+	gulp.src(__dirname + '/templates/**', {dot: true})
 		.pipe(gulp.dest('./'))
 		.on('finish', function() {
 
