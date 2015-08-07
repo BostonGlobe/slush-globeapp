@@ -9,7 +9,6 @@ var fs          = require('fs');
 var moment      = require('moment');
 var s           = require('underscore.string');
 
-
 function getGraphicName() {
 	return [moment().format('YYYY-MM-DD'), s.slugify(shell.pwd().split('/').slice(-1)[0])].join('_');
 }
@@ -50,7 +49,7 @@ gulp.task('copy-templates-directory', function(done) {
 					name: 'webpack',
 					message: 'Add webpack?'
 				}
-			], function(answers){
+			], function(answers) {
 
 				var files = [
 					'gulp-tasks/js-webpack.js',
@@ -58,10 +57,10 @@ gulp.task('copy-templates-directory', function(done) {
 					'src/html/partials/base/base-js-webpack.hbs'
 				];
 
-				if (answers.webpack){
+				if (answers.webpack) {
 
-					files.forEach(function(f){
-						shell.mv('-f', f, f.replace('-webpack', ''))
+					files.forEach(function(f) {
+						shell.mv('-f', f, f.replace('-webpack', ''));
 					});
 
 				} else {
@@ -93,7 +92,7 @@ gulp.task('add-to-git-repo', function(done) {
 		}
 	], function(answers) {
 
-		switch(answers.git) {
+		switch (answers.git) {
 
 			case 'None':
 				done();
@@ -113,11 +112,12 @@ gulp.task('add-to-git-repo', function(done) {
 				], function(innerAnswers) {
 
 					initGitRepo();
-					shell.exec("curl --user " + innerAnswers.username + ":" + innerAnswers.password + " https://api.bitbucket.org/1.0/repositories/ --data name=" + getGraphicName() + " --data is_private='true'");
-					shell.exec("git remote add origin https://" + innerAnswers.username + "@bitbucket.org/" + innerAnswers.username + "/" + getGraphicName() + ".git");
+					shell.exec('curl --user ' + innerAnswers.username + ':' + innerAnswers.password + ' https://api.bitbucket.org/1.0/repositories/ --data name=' + getGraphicName() + ' --data is_private="true"');
+					shell.exec('git remote add origin https://' + innerAnswers.username + '@bitbucket.org/' + innerAnswers.username + '/' + getGraphicName() + '.git');
 					pushGitRepo();
 					done();
 				});
+
 			break;
 			case 'GitHub':
 				initGitRepo();
