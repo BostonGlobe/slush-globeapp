@@ -1,13 +1,13 @@
 'use strict';
 
-var gulp = require('gulp');
-var inquirer = require('inquirer');
+var gulp        = require('gulp');
+var inquirer    = require('inquirer');
 var runSequence = require('run-sequence');
-var shell = require('shelljs');
-var request = require('request');
-var fs = require('fs');
-var moment = require('moment');
-var s = require('underscore.string');
+var shell       = require('shelljs');
+var request     = require('request');
+var fs          = require('fs');
+var moment      = require('moment');
+var s           = require('underscore.string');
 
 
 function getGraphicName() {
