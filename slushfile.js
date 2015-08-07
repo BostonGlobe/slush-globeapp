@@ -1,13 +1,13 @@
 'use strict';
 
-var gulp = require('gulp');
-var inquirer = require('inquirer');
+var gulp        = require('gulp');
+var inquirer    = require('inquirer');
 var runSequence = require('run-sequence');
-var shell = require('shelljs');
-var request = require('request');
-var fs = require('fs');
-var moment = require('moment');
-var s = require('underscore.string');
+var shell       = require('shelljs');
+var request     = require('request');
+var fs          = require('fs');
+var moment      = require('moment');
+var s           = require('underscore.string');
 
 
 function getGraphicName() {
@@ -27,7 +27,7 @@ function pushGitRepo() {
 gulp.task('copy-templates-directory', function(done) {
 
 	// make user feel at ease
-	console.log('*** Scaffolding app ***');
+	console.log('*** Scaffolding app. Take a deep breath. ***');
 
 	gulp.src(__dirname + '/templates/**', {dot: true})
 		.pipe(gulp.dest('./'))
@@ -43,7 +43,36 @@ gulp.task('copy-templates-directory', function(done) {
 			// add correct graphic name to README
 			shell.sed('-i', /APPNAME/g, getGraphicName(), 'README.md');
 
-			done();
+			// add webpack
+			inquirer.prompt([
+				{
+					type: 'confirm',
+					name: 'webpack',
+					message: 'Add webpack?'
+				}
+			], function(answers){
+
+				var files = [
+					'gulp-tasks/js-webpack.js',
+					'src/js/main-webpack.js',
+					'src/html/partials/base/base-js-webpack.hbs'
+				];
+
+				if (answers.webpack){
+
+					files.forEach(function(f){
+						shell.mv('-f', f, f.replace('-webpack', ''))
+					});
+
+				} else {
+
+					shell.rm('-f', files);
+
+				}
+
+				done();
+			});
+
 		});
 });
 
