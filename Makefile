@@ -10,6 +10,7 @@ all:
 	cd templates; sudo npm install --save \
 		archieml \
 		browser-sync \
+		babel-loader \
 		del \
 		gulp \
 		gulp-autoprefixer \
@@ -30,7 +31,8 @@ all:
 		require-dir \
 		run-sequence \
 		shelljs \
-		'underscore.string';
+		'underscore.string' \
+		webpack-stream;
 
 	# make node_modules.zip
 	cd templates; zip -q -r node_modules.zip node_modules;
