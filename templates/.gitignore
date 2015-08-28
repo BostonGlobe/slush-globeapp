@@ -1,6 +1,7 @@
+.DS_Store
 node_modules
 dist
 npm-debug.log
 .tmp
 *.sw*
-ssh-config.js
+config.js

@@ -17,7 +17,7 @@ function runTasks(cb) {
 	runSequence(
 		'clean-prod',
 		'html-prod',
-	 	'css-prod',
+		'css-prod',
 		'js-prod',
 		'smoosh-prod',
 		'assets-prod',
