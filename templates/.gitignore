@@ -4,4 +4,4 @@ dist
 npm-debug.log
 .tmp
 *.sw*
-config.js
+ssh-config.js
