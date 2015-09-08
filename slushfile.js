@@ -103,17 +103,13 @@ gulp.task('add-to-git-repo', function(done) {
 						type: 'input',
 						name: 'username',
 						message: 'Enter your Bitbucket username'
-					},
-					{
-						type: 'password',
-						name: 'password',
-						message: 'Enter your Bitbucket password'
 					}
 				], function(innerAnswers) {
 
 					initGitRepo();
-					shell.exec('curl --user ' + innerAnswers.username + ':' + innerAnswers.password + ' https://api.bitbucket.org/1.0/repositories/ --data name=' + getGraphicName() + ' --data is_private="true"');
-					shell.exec('git remote add origin https://' + innerAnswers.username + '@bitbucket.org/' + innerAnswers.username + '/' + getGraphicName() + '.git');
+					shell.exec('curl -X POST -v -u ' + innerAnswers.username + ' -H "Content-Type: application/json" https://api.bitbucket.org/2.0/repositories/bostonglobe/' + getGraphicName() + ' -d \'{"scm": "git", "is_private": "true" }\'');
+
+					shell.exec('git remote add origin https://' + innerAnswers.username + '@bitbucket.org/bostonglobe/' + getGraphicName() + '.git');
 					pushGitRepo();
 					done();
 				});
