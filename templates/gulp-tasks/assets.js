@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var changed = require('gulp-changed');
-var chmod = require('gulp-chmod');
 
 var src = 'src/assets/**/*';
 
@@ -14,6 +13,5 @@ gulp.task('assets-dev', function() {
 gulp.task('assets-prod', function() {
 	return gulp.src(src)
 		.pipe(changed('dist/prod/assets'))
-		.pipe(chmod(666))
 		.pipe(gulp.dest('dist/prod/assets'));
 });

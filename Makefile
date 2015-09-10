@@ -17,12 +17,12 @@ all:
 		gulp-babel \
 		gulp-callback \
 		gulp-changed \
-		gulp-chmod \
 		gulp-hb \
 		gulp-minify-css \
 		gulp-plumber \
 		gulp-rename \
 		gulp-replace \
+		gulp-shell \
 		gulp-smoosher \
 		gulp-stylus \
 		gulp-uglify \

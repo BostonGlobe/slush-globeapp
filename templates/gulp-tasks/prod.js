@@ -22,6 +22,7 @@ function runTasks(cb) {
 		'smoosh-prod',
 		'assets-prod',
 		'zip-prod',
+		'chmod-prod',
 		cb
 	);
 }
