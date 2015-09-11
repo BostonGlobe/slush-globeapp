@@ -8,7 +8,7 @@ var request     = require('request');
 var fs          = require('fs');
 var moment      = require('moment');
 var s           = require('underscore.string');
-var pkg					= require('./package.json');
+var pkg         = require('./package.json');
 
 function getGraphicName() {
 	return [moment().format('YYYY-MM-DD'), s.slugify(shell.pwd().split('/').slice(-1)[0])].join('_');
