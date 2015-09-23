@@ -1,4 +1,6 @@
 module.exports = {
 	section: '',
-	slug: ''
+	imageDirectory: '',
+	imageLibrary: '',
+	story: []
 };
