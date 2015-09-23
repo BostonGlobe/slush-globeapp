@@ -7,7 +7,9 @@ Please note: do not reproduce Boston Globe logos or fonts without written permis
 ## Setup
 The app uses handlebars to precompile to HTML. All HTML should be be placed in **src/html/partials/graphic/graphic.hbs**.
 
-#### Copy
+## Copy
+
+#### Graphics
 Using a shared google doc for all copy is recommended. The app uses [ArchieML](http://archieml.org) as a micro CMS.
 
 *Setup google doc*
@@ -45,6 +47,27 @@ If the data is too sensitive or a google doc is overkill, you can update **src/d
 }
 ```
 
+#### Long form 
+So you want to tussle with Methode huh? You are brave. Fill out `story-config.js` like such: 
+
+```
+module.exports = {
+	section: 'Metro',
+	imageDirectory: 'assets/img',
+	imageLibrary: '',
+	story: [{
+		slug: 'story-slug.xml' 
+	}]
+};
+
+```
+
+This pipes text and images from Methode into graphic.hbs.
+
+You can have it pull from multiple stories by adding more story objects. `imageLibrary` options include 'imager' and 'picturefill'. You are responsible for setting up the JS.
+
+All customization should be done in `fetch-story.js`.
+
 ## Deploy
 #### Step 1: gulp 
 - Run `gulp prod` to deploy. Outputs files into `dist/prod` folder in root. 
@@ -58,3 +81,4 @@ If the data is too sensitive or a google doc is overkill, you can update **src/d
 
 ### Public url
 - **https**://apps.bostonglobe.com/graphics/[year]/[month]/[project-name]
+- A zipped archive is also pushed to apps. It has the full unminified code for the future when gulp and stuff are fossils.
