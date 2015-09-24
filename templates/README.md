@@ -56,7 +56,7 @@ module.exports = {
 	imageDirectory: 'assets/img',
 	imageLibrary: '',
 	story: [{
-		slug: 'story-slug.xml' 
+		slug: 'story-slug' 
 	}]
 };
 

@@ -3,14 +3,18 @@ var fs = require('fs');
 var request = require('request');
 var configPath = process.cwd() + '/story-config.js';
 var config = require(configPath);
-var base = 'http://prdedit.bostonglobe.com/eom/Boston/Content/';
+
 var _queue = [];
 var _output = '';
 
-gulp.task('fetch-story', function(done) {
+gulp.task('fetch-methode-story', function(cb) {
 	if (config.story.length) {
+
+		config.imageDirectory = config.imageDirectory || 'assets';
+
 		var next = function(index) {
 			// fetch xml
+			var base = 'http://prdedit.bostonglobe.com/eom/Boston/Content/';
 			var url = base + config.section + '/Stories/' + config.story[index].slug + '.xml';
 			console.log('fetching', url);
 			request(url, function(error, response, body) {
@@ -51,12 +55,11 @@ gulp.task('fetch-story', function(done) {
 				next(index);
 			} else {
 				fs.writeFileSync('src/html/partials/graphic/graphic.hbs', _output);
-				downloadImages();
+				downloadImages(cb);
 			}
 		};
 
 		next(0);
-
 	} else {
 		console.error('No stories in story-config.js');
 	}
@@ -84,17 +87,13 @@ function createImageMarkup(c) {
 	// match src
 	var src = c.match(/<photo-inline (.*?) fileref="(.*?)" (.*?)>([\S\s]*?)<\/photo-inline>/)[2];
 
-	// match alt (TODO: strip out html tags?)
-	var alt = c.match(/<alt-tag (.*?)>([\S\s]*?)<\/alt-tag>/)[2];
-	alt = alt.replace(/\<p\>|\<\/p\>/g,'');
-
-	// match caption (TODO: strip out html tags?)
+	// match caption and remove
 	var caption = c.match(/<caption (.*?)>([\S\s]*?)<\/caption>/)[2];
-	caption = caption.replace(/\<p\>|\<\/p\>/g,'');
+	caption = caption.replace(/\<p\>|\<\/p\>/g,'').trim();
 
-	// match credit (TODO: strip out html tags?)
+	// match credit and remove
 	var credit = c.match(/<credit (.*?)>([\S\s]*?)<\/credit>/)[2];
-	credit = credit.replace(/\<p\>|\<\/p\>/g,'');
+	credit = credit.replace(/\<p\>|\<\/p\>/g,'').trim();
 
 	var imgPath = src.split('?')[0];
 
@@ -138,7 +137,7 @@ function createFigure(params) {
 		figure += 'TODO';
 	} else {
 		src = config.imageDirectory + '/' + name + '_' + imgSizes.medium + '.' + extension;
-		figure += '<img src="' + src + '" alt="' + params.caption + '/>';
+		figure += '<img src="' + src + '" alt="' + params.caption + '" />';
 	}
 
 	figure += '<small>' + params.credit + '</small>';
@@ -152,7 +151,7 @@ function appendOutput(content, story) {
 	_output += content;
 }
 
-function downloadImages() {
+function downloadImages(cb) {
 	var next = function(index) {
 		var path = 'src/' + config.imageDirectory + '/' + _queue[index].src;
 		try {
@@ -179,7 +178,7 @@ function downloadImages() {
 		if (index < _queue.length) {
 			next(index);
 		} else {
-			process.exit();
+			cb();
 		}
 	};
 
