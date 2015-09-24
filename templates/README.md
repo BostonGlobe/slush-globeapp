@@ -9,8 +9,31 @@ The app uses handlebars to precompile to HTML. All HTML should be be placed in *
 
 ## Copy
 
-#### Graphics
-Using a shared google doc for all copy is recommended. The app uses [ArchieML](http://archieml.org) as a micro CMS.
+You can pull copy from either [Methode](#methode) or a [Google Doc](#google-doc).
+
+#### Methode
+So you want to tussle with Methode huh? You are brave. Fill out `story-config.js` like such: 
+
+```
+module.exports = {
+	section: 'Metro',
+	imageDirectory: 'assets/img',
+	imageLibrary: '',
+	story: [{
+		slug: 'story-slug' 
+	}]
+};
+
+```
+
+This pipes text and images from Methode into graphic.hbs and downloads the images locally (at multiple resolutions if desired).
+
+You can have it pull from multiple stories by adding more story objects. `imageLibrary` options include 'imager' and 'picturefill'. You are responsible for setting up the corresponding javascript.
+
+Customization should be done in `fetch-methode-story.js`.
+
+#### Google Doc
+Using a shared google doc for all copy for an interactive is recommended. The app uses [ArchieML](http://archieml.org) as a micro CMS.
 
 *Setup google doc*
 - Create a google doc (outside of Globe domain)
@@ -24,7 +47,11 @@ Using a shared google doc for all copy is recommended. The app uses [ArchieML](h
 - To get the latest copy, run `node copy.js` in root
 - This will update **src/data/copy.json** which is handlebars pulls from
 
-If the data is too sensitive or a google doc is overkill, you can update **src/data/copy.json** directly. The following snippet is a bare minimum needed to fill out the basic information for seo and analytics:
+
+If the data is too sensitive or a google doc is overkill, you can update **src/data/copy.json** directly. 
+
+#### SEO and Analytics
+The following snippet is a bare minimum needed to fill out the basic information for seo and analytics. If you are using a [Google Doc](#google-doc), you can add this in there. Otherwise, put the following code in `src/data/copy.json`.
 
 ```
 {
@@ -46,27 +73,6 @@ If the data is too sensitive or a google doc is overkill, you can update **src/d
 	}]
 }
 ```
-
-#### Long form 
-So you want to tussle with Methode huh? You are brave. Fill out `story-config.js` like such: 
-
-```
-module.exports = {
-	section: 'Metro',
-	imageDirectory: 'assets/img',
-	imageLibrary: '',
-	story: [{
-		slug: 'story-slug' 
-	}]
-};
-
-```
-
-This pipes text and images from Methode into graphic.hbs.
-
-You can have it pull from multiple stories by adding more story objects. `imageLibrary` options include 'imager' and 'picturefill'. You are responsible for setting up the JS.
-
-All customization should be done in `fetch-story.js`.
 
 ## Deploy
 #### Step 1: gulp 

@@ -1,13 +1,13 @@
 var gulp = require('gulp');
 var fs = require('fs');
 var request = require('request');
-var configPath = process.cwd() + '/story-config.js';
-var config = require(configPath);
+var configPath = process.cwd() + '/copy-config.js';
+var config = require(configPath).methode;
 
 var _queue = [];
 var _output = '';
 
-gulp.task('fetch-methode-story', function(cb) {
+gulp.task('fetch-methode', function(cb) {
 	if (config.story.length) {
 
 		config.imageDirectory = config.imageDirectory || 'assets';
@@ -61,7 +61,8 @@ gulp.task('fetch-methode-story', function(cb) {
 
 		next(0);
 	} else {
-		console.error('No stories in story-config.js');
+		console.error('No methode story');
+		cb();
 	}
 });
 

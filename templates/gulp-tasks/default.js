@@ -14,6 +14,8 @@ gulp.task('default', ['dev'], function() {
 gulp.task('dev', function() {
 	runSequence(
 		'clean-dev',
+		'fetch-google',
+		'fetch-methode',
 		'css-dev',
 		'js-dev',
 		'assets-dev',
