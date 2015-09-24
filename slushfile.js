@@ -48,7 +48,8 @@ gulp.task('copy-templates-directory', function(done) {
 				{
 					type: 'confirm',
 					name: 'webpack',
-					message: 'Add webpack?'
+					message: 'Add webpack?',
+					default: false
 				}
 			], function(answers) {
 
