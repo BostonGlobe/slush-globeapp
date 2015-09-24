@@ -1,6 +1,11 @@
 module.exports = {
-	section: '',
-	imageDirectory: '',
-	imageLibrary: '',
-	story: []
+	google: {
+		id: ''
+	},
+	methode: {
+		section: '',
+		imageDirectory: '',
+		imageLibrary: '',
+		story: []	
+	}
 };
