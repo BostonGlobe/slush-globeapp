@@ -30,7 +30,7 @@ This pipes text and images from Methode into graphic.hbs and downloads the image
 
 You can have it pull from multiple stories by adding more story objects. `imageLibrary` options include 'imager' and 'picturefill'. You are responsible for setting up the corresponding javascript.
 
-Customization should be done in `fetch-methode-story.js`.
+Customization should be done in `fetch-methode-story.js`. Be sure to add `src/html/partials/graphic/graphic.hbs` and your methode image directory to the `.gitignore` file.
 
 #### Google Doc
 Using a shared google doc for all copy for an interactive is recommended. The app uses [ArchieML](http://archieml.org) as a micro CMS.
