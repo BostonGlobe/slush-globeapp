@@ -114,16 +114,12 @@ function createFigure(params) {
 	var extension = imgSplit[1];
 
 	// populate download queue
-	var imgSizes = {
-		small: 585,
-		medium: 1200,
-		large: 1920
-	};
+	var imgSizes = [585,1200,1920];
 
-	for (var sz in imgSizes) {
+	for (var i in imgSizes) {
 		_queue.push({
-			url: 'http://prdedit.bostonglobe.com/rf/image_' + imgSizes[sz] + 'w' + params.imgPath,
-			src: name + '_' + imgSizes[sz] + '.' + extension
+			url: 'http://prdedit.bostonglobe.com/rf/image_' + imgSizes[i] + 'w' + params.imgPath,
+			src: name + '_' + imgSizes[i] + '.' + extension
 		});
 	}
 
@@ -132,13 +128,37 @@ function createFigure(params) {
 	var figure = '<figure>';
 
 	if (params.lib === 'imager') {
+
 		src = config.imageDirectory + '/' + name + '_{width}' + '.' + extension;
 		figure += '<img data-src="' + src + '" alt="' + params.caption + '" class="img--replace" />';
+
 	} else if (params.lib === 'picturefill') {
-		figure += 'TODO';
+
+		figure += '<picture>';
+		figure += '<!--[if IE 9]><video style="display: none;"><![endif]-->';
+		for (var j = imgSizes.length - 1; j > -1; j--) {
+			src = config.imageDirectory + '/' + name + '_' + imgSizes[j] + '.' + extension;
+			figure += '<source srcset="' + src  + '" ';
+			if (j > 0) {
+				figure += 'media="(min-width: ' + Math.floor(imgSizes[j-1] / 1.5) + 'px)"';
+			} else {
+				figure += 'media="(min-width: 1px)"';
+			}
+
+			figure += '>';
+		}
+
+		figure += '<!--[if IE 9]></video><![endif]-->';
+
+		src = config.imageDirectory + '/' + name + '_' + imgSizes[0] + '.' + extension;
+		figure += '<img srcset="' + src + '" alt="' + alt + '">';
+		figure += '</picture>';
+
 	} else {
+
 		src = config.imageDirectory + '/' + name + '_' + imgSizes.medium + '.' + extension;
 		figure += '<img src="' + src + '" alt="' + params.caption + '" />';
+
 	}
 
 	figure += '<small>' + params.credit + '</small>';
