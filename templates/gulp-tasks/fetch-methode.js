@@ -97,7 +97,6 @@ function createImageMarkup(c) {
 	credit = credit.replace(/\<p\>|\<\/p\>/g,'').trim();
 
 	var imgPath = src.split('?')[0];
-
 	var figure = createFigure({
 		lib: config.imageLibrary,
 		imgPath: imgPath,
@@ -130,7 +129,7 @@ function createFigure(params) {
 	if (params.lib === 'imager') {
 
 		src = config.imageDirectory + '/' + name + '_{width}' + '.' + extension;
-		figure += '<img data-src="' + src + '" alt="' + params.caption + '" class="img--replace" />';
+		figure += '<img data-src="' + src + '" alt="' + params.caption + '" class="delayed-image-load" />';
 
 	} else if (params.lib === 'picturefill') {
 
@@ -151,12 +150,12 @@ function createFigure(params) {
 		figure += '<!--[if IE 9]></video><![endif]-->';
 
 		src = config.imageDirectory + '/' + name + '_' + imgSizes[0] + '.' + extension;
-		figure += '<img srcset="' + src + '" alt="' + alt + '">';
+		figure += '<img srcset="' + src + '" alt="' + params.caption + '">';
 		figure += '</picture>';
 
 	} else {
 
-		src = config.imageDirectory + '/' + name + '_' + imgSizes.medium + '.' + extension;
+		src = config.imageDirectory + '/' + name + '_' + imgSizes[0] + '.' + extension;
 		figure += '<img src="' + src + '" alt="' + params.caption + '" />';
 
 	}
