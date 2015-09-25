@@ -4,6 +4,7 @@ var rename = require('gulp-rename');
 var gcallback = require('gulp-callback');
 var fs = require('fs');
 var plumber = require('gulp-plumber');
+var reportError = require('../report-error.js');
 
 var srcCopy = 'src/data/copy.json';
 var srcIndex = 'src/html/index.hbs';
@@ -18,11 +19,7 @@ gulp.task('html-dev', function(cb) {
 			// var data = fs.readFileSync(srcCopy, {encoding: 'utf8'});
 			// data = JSON.parse(data);
 			gulp.src(srcIndex)
-				.pipe(plumber({
-					errorHandler: function(err) {
-						console.log(err); this.emit('end');
-					}
-				}))
+				.pipe(plumber({ errorHandler: reportError }))
 				.pipe(hb({
 					data: 'src/data/*.json',
 					helpers: 'src/html/helpers/*.js',

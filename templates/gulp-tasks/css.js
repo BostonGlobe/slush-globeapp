@@ -6,15 +6,12 @@ var minifycss = require('gulp-minify-css');
 var browserSync = require('browser-sync');
 var plumber = require('gulp-plumber');
 var replace = require('gulp-replace');
+var reportError = require('../report-error.js');
 
 //compile styl to css and autoprefix
 gulp.task('css-dev', function() {
 	gulp.src('src/css/config.styl')
-		.pipe(plumber({
-			errorHandler: function(err) {
-				console.log(err); this.emit('end');
-			}
-		}))
+		.pipe(plumber({ errorHandler: reportError }))
         .pipe(stylus())
 		.pipe(autoprefixer())
 		.pipe(rename('main.css'))

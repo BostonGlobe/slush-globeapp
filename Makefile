@@ -19,6 +19,7 @@ all:
 		gulp-changed \
 		gulp-hb \
 		gulp-minify-css \
+		gulp-notify \
 		gulp-plumber \
 		gulp-rename \
 		gulp-replace \
@@ -26,6 +27,7 @@ all:
 		gulp-smoosher \
 		gulp-stylus \
 		gulp-uglify \
+		gulp-util \
 		gulp-zip \
 		request \
 		require-dir \
