@@ -74,6 +74,9 @@ function deMethodeify(content) {
 	// remove channel...
 	content = content.replace(/<span.*channel=\"\!\".*\/*.span>/g, '');
 
+	// remove empty p tags
+	content = content.replace(/<p><\/p>/g, '');
+
 	// replace *** with hr
 	content = content.replace(/\<p\> *\*\*\* *\<\/p\>/g, '<hr>');
 
