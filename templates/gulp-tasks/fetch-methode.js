@@ -28,7 +28,7 @@ gulp.task('fetch-methode', function(cb) {
 
 					// insert graphic templates
 					content = content.replace(/<annotation.*(graphic:)(.*)<\/annotation>(.|[\r\n]+).*(<\/p>)/g, function(a, b, c) {
-						return '</p>\n{{> graphic/graphic-' + c + '}}';
+						return '</p>\n{{> graphic/graphic-' + c.trim() + '}}';
 					});
 
 					// replace photo tags with desired markup
