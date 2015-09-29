@@ -68,8 +68,8 @@ gulp.task('fetch-methode', function(cb) {
 
 function deMethodeify(content) {
 	// remove notes
-	content = content.replace(/<span class="@notes".*\/*.span>/g, '');
-	content = content.replace(/<p class="@notes".*\/*.p>/g, '');
+	content = content.replace(/<span class="@notes"(.|\n)*?\/span>/g, '');
+	content = content.replace(/<p class="@notes"(.|\n)*?\/p>/g, '');
 
 	// remove channel...
 	content = content.replace(/<span.*channel=\"\!\".*\/*.span>/g, '');
