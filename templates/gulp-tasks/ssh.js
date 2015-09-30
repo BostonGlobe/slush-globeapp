@@ -4,7 +4,7 @@ var shell = require('shelljs');
 var configPath = process.cwd() + '/ssh-config.js';
 var config = require(configPath);
 
-var command = '(cd dist/prod; scp -r . ' + config.username + '@' + config.host + ':' + config.filepath + ')';
+var command = '(cd dist/prod; scp -rpC . ' + config.username + '@' + config.host + ':' + config.filepath + ')';
 
 gulp.task('ssh-prod', function(cb) {
 	if (configured()) {

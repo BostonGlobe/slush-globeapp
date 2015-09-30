@@ -23,7 +23,6 @@ all:
 		gulp-plumber \
 		gulp-rename \
 		gulp-replace \
-		gulp-shell \
 		gulp-smoosher \
 		gulp-stylus \
 		gulp-uglify \
