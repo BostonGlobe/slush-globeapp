@@ -156,6 +156,28 @@ function createFigure(params) {
 		figure += '<img srcset="' + src + '" alt="' + params.caption + '">';
 		figure += '</picture>';
 
+	} else if (params.lib === 'lazysizes') {
+		// picturefill + lazysizes.js (changes srcset to data-srcset)
+		figure += '<picture>';
+		figure += '<!--[if IE 9]><video style="display: none;"><![endif]-->';
+		for (var j = imgSizes.length - 1; j > -1; j--) {
+			src = config.imageDirectory + '/' + name + '_' + imgSizes[j] + '.' + extension;
+			figure += '<source data-srcset="' + src  + '" ';
+			if (j > 0) {
+				figure += 'media="(min-width: ' + Math.floor(imgSizes[j-1] / 1.5) + 'px)"';
+			} else {
+				figure += 'media="(min-width: 1px)"';
+			}
+
+			figure += '>';
+		}
+
+		figure += '<!--[if IE 9]></video><![endif]-->';
+
+		src = config.imageDirectory + '/' + name + '_' + imgSizes[0] + '.' + extension;
+		figure += '<img data-srcset="' + src + '" alt="' + params.caption + '">';
+		figure += '</picture>';
+
 	} else {
 
 		src = config.imageDirectory + '/' + name + '_' + imgSizes[0] + '.' + extension;
