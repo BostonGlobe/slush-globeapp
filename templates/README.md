@@ -5,23 +5,24 @@ This project was generated with [slush-globeapp](https://github.com/BostonGlobe/
 Please note: do not reproduce Boston Globe logos or fonts without written permission.
 
 ## Setup
-The app uses handlebars to precompile to HTML. All HTML should be be placed in **src/html/partials/graphic/graphic.hbs**.
+The app uses handlebars to precompile to HTML. All HTML should be be placed in `src/html/partials/graphic/graphic.hbs`.
 
 ## Copy
 
 You can pull copy from either [Methode](#methode) or a [Google Doc](#google-doc).
 
 #### Methode
-So you want to tussle with Methode huh? You are brave. Fill out `story-config.js` like such: 
+So you want to tussle with Methode huh? You are brave. Fill out `copy-config.js` like such: 
 
 ```
 module.exports = {
-	section: 'Metro',
-	imageDirectory: 'assets/img',
-	imageLibrary: '',
-	story: [{
-		slug: 'story-slug' 
-	}]
+	...
+	methode: {
+		section: 'Metro',
+		imageDirectory: 'assets/img',
+		imageLibrary: '',
+		story: ['story-slug']
+	}
 };
 
 ```
@@ -32,6 +33,8 @@ You can have it pull from multiple stories by adding more story objects. `imageL
 
 Customization should be done in `fetch-methode-story.js`. Be sure to add `src/html/partials/graphic/graphic.hbs` and your methode image directory to the `.gitignore` file.
 
+Running `gulp fetch-methode` at any point will pull down the latest.
+
 #### Google Doc
 Using a shared google doc for all copy for an interactive is recommended. The app uses [ArchieML](http://archieml.org) as a micro CMS.
 
@@ -41,14 +44,11 @@ Using a shared google doc for all copy for an interactive is recommended. The ap
 - Make public: share button -> advanced -> change "private only you can access" to "public on the web"
 - In the address bar, grab the ID
 	- ...com/document/d/ **1IiA5a5iCjbjOYvZVgPcjGzMy5PyfCzpPF-LnQdCdFI0** /edit
-- In **copy.js** paste in the ID
+- In `copy-config.js` paste in the ID
 
-*Run archie*
-- To get the latest copy, run `node copy.js` in root
-- This will update **src/data/copy.json** which is handlebars pulls from
+If the data is too sensitive or a google doc is overkill, you can update `src/data/copy.json` directly. 
 
-
-If the data is too sensitive or a google doc is overkill, you can update **src/data/copy.json** directly. 
+Running `gulp fetch-google` at any point will pull down the latest.
 
 #### SEO and Analytics
 The following snippet is a bare minimum needed to fill out the basic information for seo and analytics. If you are using a [Google Doc](#google-doc), you can add this in there. Otherwise, put the following code in `src/data/copy.json`.
