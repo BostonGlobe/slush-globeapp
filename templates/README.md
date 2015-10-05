@@ -21,7 +21,7 @@ module.exports = {
 		section: 'Metro',
 		imageDirectory: 'assets/img',
 		imageLibrary: '',
-		story: ['story-slug']
+		story: [{slug: 'story-slug'}]
 	}
 };
 
