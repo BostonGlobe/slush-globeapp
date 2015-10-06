@@ -175,7 +175,7 @@ function createFigure(params) {
 		figure += '<!--[if IE 9]></video><![endif]-->';
 
 		src = config.imageDirectory + '/' + name + '_' + imgSizes[0] + '.' + extension;
-		figure += '<img data-srcset="' + src + '" alt="' + params.caption + '">';
+		figure += '<img class="lazyload" data-srcset="' + src + '" alt="' + params.caption + '">';
 		figure += '</picture>';
 
 	} else {
