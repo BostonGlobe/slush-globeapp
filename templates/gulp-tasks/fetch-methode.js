@@ -84,6 +84,9 @@ function deMethodeify(content) {
 	content = content.replace(/<b>/g, '<strong>');
 	content = content.replace(/<\/b>/g, '</strong>');
 
+	// -- to mdash
+	content = content.replace(/--/g, '&mdash;');
+	
 	return content;
 }
 
