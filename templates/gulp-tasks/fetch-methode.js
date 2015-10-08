@@ -27,7 +27,7 @@ gulp.task('fetch-methode', function(cb) {
 					content = deMethodeify(content);
 
 					// insert graphic templates
-					content = content.replace(/<annotation.*(graphic:)(.*)<\/annotation>(.|[\r\n]+).*(<\/p>)/g, function(a, b, c) {
+					content = content.replace(/<annotation.*(graphic:)(.*)<\/annotation>(.*|[\r\n]+).*(<\/p>)/g, function(a, b, c) {
 						return '</p>\n{{> graphic/graphic-' + c.trim() + '}}';
 					});
 
