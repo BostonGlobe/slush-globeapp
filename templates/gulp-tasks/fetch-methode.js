@@ -117,14 +117,12 @@ function createFigure(params) {
 	var imgSplit = imgFull.split('.');
 	var name = imgSplit[0];
 	var extension = imgSplit[1];
+	var imageSizes = config.imageSizes.length ? config.imageSizes : [1200];
 
-	// populate download queue
-	var imgSizes = [585,1200,1920];
-
-	for (var i in imgSizes) {
+	for (var i in imageSizes) {
 		_queue.push({
-			url: 'http://prdedit.bostonglobe.com/rf/image_' + imgSizes[i] + 'w' + params.imgPath,
-			src: name + '_' + imgSizes[i] + '.' + extension
+			url: 'http://prdedit.bostonglobe.com/rf/image_' + imageSizes[i] + 'w' + params.imgPath,
+			src: name + '_' + imageSizes[i] + '.' + extension
 		});
 	}
 
@@ -141,11 +139,11 @@ function createFigure(params) {
 
 		figure += '<picture>';
 		figure += '<!--[if IE 9]><video style="display: none;"><![endif]-->';
-		for (var j = imgSizes.length - 1; j > -1; j--) {
-			src = config.imageDirectory + '/' + name + '_' + imgSizes[j] + '.' + extension;
+		for (var j = imageSizes.length - 1; j > -1; j--) {
+			src = config.imageDirectory + '/' + name + '_' + imageSizes[j] + '.' + extension;
 			figure += '<source srcset="' + src  + '" ';
 			if (j > 0) {
-				figure += 'media="(min-width: ' + Math.floor(imgSizes[j-1] / 1.5) + 'px)"';
+				figure += 'media="(min-width: ' + Math.floor(imageSizes[j-1] / 1.5) + 'px)"';
 			} else {
 				figure += 'media="(min-width: 1px)"';
 			}
@@ -155,7 +153,7 @@ function createFigure(params) {
 
 		figure += '<!--[if IE 9]></video><![endif]-->';
 
-		src = config.imageDirectory + '/' + name + '_' + imgSizes[0] + '.' + extension;
+		src = config.imageDirectory + '/' + name + '_' + imageSizes[0] + '.' + extension;
 		figure += '<img srcset="' + src + '" alt="' + params.caption + '">';
 		figure += '</picture>';
 
@@ -163,11 +161,11 @@ function createFigure(params) {
 		// picturefill + lazysizes.js (changes srcset to data-srcset)
 		figure += '<picture>';
 		figure += '<!--[if IE 9]><video style="display: none;"><![endif]-->';
-		for (var j = imgSizes.length - 1; j > -1; j--) {
-			src = config.imageDirectory + '/' + name + '_' + imgSizes[j] + '.' + extension;
+		for (var j = imageSizes.length - 1; j > -1; j--) {
+			src = config.imageDirectory + '/' + name + '_' + imageSizes[j] + '.' + extension;
 			figure += '<source data-srcset="' + src  + '" ';
 			if (j > 0) {
-				figure += 'media="(min-width: ' + Math.floor(imgSizes[j-1] / 1.5) + 'px)"';
+				figure += 'media="(min-width: ' + Math.floor(imageSizes[j-1] / 1.5) + 'px)"';
 			} else {
 				figure += 'media="(min-width: 1px)"';
 			}
@@ -177,13 +175,13 @@ function createFigure(params) {
 
 		figure += '<!--[if IE 9]></video><![endif]-->';
 
-		src = config.imageDirectory + '/' + name + '_' + imgSizes[0] + '.' + extension;
+		src = config.imageDirectory + '/' + name + '_' + imageSizes[0] + '.' + extension;
 		figure += '<img class="lazyload" data-srcset="' + src + '" alt="' + params.caption + '">';
 		figure += '</picture>';
 
 	} else {
 
-		src = config.imageDirectory + '/' + name + '_' + imgSizes[0] + '.' + extension;
+		src = config.imageDirectory + '/' + name + '_' + imageSizes[0] + '.' + extension;
 		figure += '<img src="' + src + '" alt="' + params.caption + '" />';
 
 	}
