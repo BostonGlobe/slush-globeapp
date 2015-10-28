@@ -1,77 +1,90 @@
 // some default functionality needed to setup apps
 (function() {
-    var init = function() {
-        setupSocial({
-            element: {
-                facebook: 'share-fb',
-                twitter: 'share-tw'
-            }
-        });
+	var init = function() {
+		setupSocial({
+			element: {
+				facebook: 'share-fb',
+				twitter: 'share-tw'
+			}
+		});
 
-        removeMobileHover();
-        copyrightYear();
-    };
+		removeMobileHover();
+		copyrightYear();
+	};
 
-    var setupSocial = function(params) {
-        var href = window.location.href;
-        var text = document.title;
-        var encoded = encodeURIComponent(text);
-        
-        var facebook = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURI(href);
-        var facebookNode = document.getElementsByClassName(params.element.facebook);
-        if (facebookNode && facebookNode[0]) facebookNode[0].setAttribute('href', facebook);
+	var setupSocial = function(params) {
+		var href = window.location.href;
+		var text = document.title;
+		var encoded = encodeURIComponent(text);
 
-        var twitter = 'https://twitter.com/intent/tweet?text=' + encoded + '&via=BostonGlobe&url=' + encodeURI(href);
-        var twitterNode = document.getElementsByClassName(params.element.twitter);
-        if (twitterNode && twitterNode[0]) twitterNode[0].setAttribute('href', twitter);
-    };
+		var facebook = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURI(href);
+		var facebookNode = document.getElementsByClassName(params.element.facebook);
+		for (var f = 0; f < facebookNode.length; f++) {
+			facebookNode[f].setAttribute('href', facebook);
+		}
 
-    var removeMobileHover = function() {
-        // Inspired by: https://gist.github.com/rcmachado/7303143 and http://mvartan.com/2014/12/20/fixing-sticky-hover-on-mobile-devices/
-        if(isMobile.any()) {
-            // Loop through each stylesheet
-            for(var sheetI = document.styleSheets.length - 1; sheetI >= 0; sheetI--) {
-                var sheet = document.styleSheets[sheetI];
-                // Verify if cssRules exists in sheet
-                if(sheet.cssRules) {
-                    // Loop through each rule in sheet
-                    for(var ruleI = sheet.cssRules.length - 1; ruleI >= 0; ruleI--) {
-                        var rule = sheet.cssRules[ruleI];
-                        // Verify rule has selector text
-                        if(rule.selectorText) {
-                        // Replace hover psuedo-class with active psuedo-class
-                            rule.selectorText = rule.selectorText.replace(":hover", ":active");
-                        }
-                    }
-                }
-            }
-        }
-    };
+		var twitter = 'https://twitter.com/intent/tweet?text=' + encoded + '&via=BostonGlobe&url=' + encodeURI(href);
+		var twitterNode = document.getElementsByClassName(params.element.twitter);
+		for (var t = 0; t < twitterNode.length; t++) {
+			twitterNode[t].setAttribute('href', twitter);
+		}
+	};
 
-    var copyrightYear = function() {
-        var d = new Date();
-        var year = d.getFullYear();
-        var el = document.getElementsByClassName('g-footer--copyright-year');
-        if(el.length) {
-            el[0].innerHTML = year;    
-        }
-    };
+	var removeMobileHover = function() {
+		// Inspired by: https://gist.github.com/rcmachado/7303143 and http://mvartan.com/2014/12/20/fixing-sticky-hover-on-mobile-devices/
+		if (isMobile.any()) {
+			// Loop through each stylesheet
+			for (var sheetI = document.styleSheets.length - 1; sheetI >= 0; sheetI--) {
+				var sheet = document.styleSheets[sheetI];
 
-    window.isMobile = { 
-        Android: function() { return navigator.userAgent.match(/Android/i); }, 
-        BlackBerry: function() { return navigator.userAgent.match(/BlackBerry/i); }, 
-        iOS: function() { return navigator.userAgent.match(/iPhone|iPad|iPod/i); }, 
-        Opera: function() { return navigator.userAgent.match(/Opera Mini/i); }, 
-        Windows: function() { return navigator.userAgent.match(/IEMobile/i); }, 
-        any: function() { return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); }
-    };
+				// Verify if cssRules exists in sheet
+				if (sheet.cssRules) {
 
-    window.ieVersionOrLess = function(x) {
-        x = x || 0;
-        var htmlClasses = document.getElementsByTagName('html')[0].className;
-        var matches = htmlClasses.match(/ie(\d+)/);
-        return matches && +matches[1] <= x;
-    };
+					// Loop through each rule in sheet
+					for (var ruleI = sheet.cssRules.length - 1; ruleI >= 0; ruleI--) {
+						var rule = sheet.cssRules[ruleI];
 
-    init();
+						// Verify rule has selector text
+						if (rule.selectorText) {
+
+						// Replace hover psuedo-class with active psuedo-class
+							rule.selectorText = rule.selectorText.replace(":hover", ":active");
+						}
+					}
+				}
+			}
+		}
+	};
+
+	var copyrightYear = function() {
+		var d = new Date();
+		var year = d.getFullYear();
+		var el = document.getElementsByClassName('g-footer--copyright-year');
+		if (el.length) {
+			el[0].innerHTML = year;
+		}
+	};
+
+	window.isMobile = {
+		Android: function() { return navigator.userAgent.match(/Android/i); },
+
+		BlackBerry: function() { return navigator.userAgent.match(/BlackBerry/i); },
+
+		iOS: function() { return navigator.userAgent.match(/iPhone|iPad|iPod/i); },
+
+		Opera: function() { return navigator.userAgent.match(/Opera Mini/i); },
+
+		Windows: function() { return navigator.userAgent.match(/IEMobile/i); },
+
+		any: function() { return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); }
+	};
+
+	window.ieVersionOrLess = function(x) {
+		x = x || 0;
+		var htmlClasses = document.getElementsByTagName('html')[0].className;
+		var matches = htmlClasses.match(/ie(\d+)/);
+		return matches && +matches[1] <= x;
+	};
+
+	init();
 })();
