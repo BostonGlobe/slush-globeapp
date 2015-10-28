@@ -1,8 +1,8 @@
 var gulp = require('gulp');
 var shell = require('shelljs');
 
-var configPath = process.cwd() + '/ssh-config.js';
-var config = require(configPath);
+var configPath = process.cwd() + '/config.js';
+var config = require(configPath).deploy.ssh;
 
 var command = '(cd dist/prod; scp -rpC . ' + config.username + '@' + config.host + ':' + config.filepath + ')';
 
@@ -17,5 +17,5 @@ gulp.task('ssh-prod', function(cb) {
 });
 
 function configured() {
-	return config.username && config.filepath !== '/web/bgapps/html/graphics/';
+	return config.username && config.filepath && config.filepath !== '/web/bgapps/html/graphics/';
 }

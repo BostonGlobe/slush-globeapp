@@ -1,8 +1,8 @@
 var gulp = require('gulp');
 var fs = require('fs');
 var request = require('request');
-var configPath = process.cwd() + '/copy-config.js';
-var config = require(configPath).methode;
+var configPath = process.cwd() + '/config.js';
+var config = require(configPath).copy.methode;
 
 var _queue = [];
 var _output = '';
@@ -80,13 +80,13 @@ function deMethodeify(content) {
 	// replace *** with hr
 	content = content.replace(/\<p\> *\*\*\* *\<\/p\>/g, '<hr>');
 
-	// bold tag
-	content = content.replace(/<b>/g, '<strong>');
-	content = content.replace(/<\/b>/g, '</strong>');
+	// remove bold tag
+	content = content.replace(/<b>/g, '');
+	content = content.replace(/<\/b>/g, '');
 
 	// -- to mdash
 	content = content.replace(/--/g, '&mdash;');
-	
+
 	return content;
 }
 
@@ -213,7 +213,10 @@ function downloadImages(cb) {
 					advance(index);
 				} else {
 					fs.writeFile(path, body, 'binary', function(err) {
-						if (err) { console.error(err); }
+						if (err) {
+							console.error(err);
+						}
+
 						advance(index);
 					});
 				}
