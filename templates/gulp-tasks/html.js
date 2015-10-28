@@ -2,12 +2,15 @@ var gulp = require('gulp');
 var hb = require('gulp-hb');
 var rename = require('gulp-rename');
 var gcallback = require('gulp-callback');
+var include = require('gulp-file-include');
 var fs = require('fs');
 var plumber = require('gulp-plumber');
 var reportError = require('../report-error.js');
 
 var srcCopy = 'src/data/copy.json';
 var srcIndex = 'src/html/index.hbs';
+
+var svgPath = process.cwd() + '/svg/';
 
 gulp.task('html-dev', function(cb) {
 
@@ -27,6 +30,7 @@ gulp.task('html-dev', function(cb) {
 					bustCache: true,
 					debug: false
 				}))
+				.pipe(include({ basepath: svgPath }))
 				.pipe(rename('index.html'))
 				.pipe(gulp.dest('dist/dev'))
 				.pipe(gcallback(function() {
@@ -54,6 +58,7 @@ gulp.task('html-prod', function(cb) {
 					bustCache: true,
 					debug: false
 				}))
+				.pipe(include({ basepath: svgPath }))
 				.pipe(rename('index.html'))
 				.pipe(gulp.dest('.tmp'))
 				.pipe(gcallback(function() {

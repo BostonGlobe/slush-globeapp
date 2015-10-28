@@ -17,6 +17,7 @@ all:
 		gulp-babel \
 		gulp-callback \
 		gulp-changed \
+		gulp-file-include \
 		gulp-hb \
 		gulp-minify-css \
 		gulp-notify \
