@@ -25,22 +25,22 @@ figure
 		font($sans, $bold)
 		font-size 0.65em
 		color $gray-medium
-		padding 0.5em 0
+		padding 0
 		text-align right 
 		text-transform uppercase 
 		
 	figcaption 
 		display block
-		font($mono, $regular)
+		font($serif, $regular)
 		font-size 0.8em
 		color $gray
 		line-height 1.8
 
 // fade image in after load with lazysizes
-.lazyload, .lazyloading
-	opacity 0
+.lazyload
+	filter blur(1px)
 
 .lazyloaded
-	opacity 1
-	transition opacity 300ms
+	filter blur(none)
+	transition filter 300ms
 	

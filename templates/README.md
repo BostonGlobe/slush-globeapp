@@ -12,26 +12,50 @@ The app uses handlebars to precompile to HTML. All HTML should be be placed in `
 You can pull copy from either [Methode](#methode) or a [Google Doc](#google-doc).
 
 #### Methode
-So you want to tussle with Methode huh? You are brave. Fill out `copy-config.js` like such: 
+So you want to tussle with Methode huh? You are brave. Fill out `config.js` like such: 
 
 ```
-module.exports = {
 	...
 	methode: {
 		section: 'Metro',
-		imageDirectory: 'assets/img',
-		imageLibrary: '',
-		story: [{slug: 'story-slug'}]
+		story: [{slug: 'BGCOM-apps-test'}]
 	}
-};
 
 ```
 
 This pipes text and images from Methode into graphic.hbs and downloads the images locally (at multiple resolutions if desired).
 
-You can have it pull from multiple stories by adding more story objects. `imageLibrary` options include 'imager', 'picturefill', and 'lazysizes' (picturefill + lazysizes.js). You are responsible for setting up the corresponding javascript.
+##### Image options:
 
-Customization should be done in `fetch-methode-story.js`. Be sure to add `src/html/partials/graphic/graphic.hbs` and your methode image directory to the `.gitignore` file.
+*imageDirectory*
+
+Takes a string. The location of the folder you want to put these images. The default is `assets/`, so anything entered will be appended to that. The folder must exist before you run the gulp command.
+
+Example:
+
+``` imageDirectory: 'img'```
+
+*imageLibrary*
+
+Takes a string. The responsive image library you want to use instead of plain old ```img``` elements. Possible values include: ```picturefill, lazy-picturefill, imager```. You are responsible for setting up the JavaScript to make them work. (instructions tbd)
+
+Example:
+
+``` imageLibrary: 'picturefill'```
+
+
+*imageSizes*
+
+Takes an array of numbers (low to high). Defaults to ```[1200]```. If using a responsive image library, it takes 1 or more values. With ```lazy-picturefill```, make sure the first value is ```371```.
+
+Example:
+
+``` imageSizes: [371, 585, 1200, 1920]```
+
+Available sizes include: 371, 460, 585, 835, 960, 1200, 1920.
+
+
+If you are using Methode for copy, be sure to add `src/html/partials/graphic/graphic.hbs` and your methode image directory to the `.gitignore` file.
 
 Running `gulp fetch-methode` at any point will pull down the latest.
 
@@ -44,7 +68,7 @@ Using a shared google doc for all copy for an interactive is recommended. The ap
 - Make public: share button -> advanced -> change "private only you can access" to "public on the web"
 - In the address bar, grab the ID
 	- ...com/document/d/ **1IiA5a5iCjbjOYvZVgPcjGzMy5PyfCzpPF-LnQdCdFI0** /edit
-- In `copy-config.js` paste in the ID
+- In `config.js` paste in the ID
 
 If the data is too sensitive or a google doc is overkill, you can update `src/data/copy.json` directly. 
 

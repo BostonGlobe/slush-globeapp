@@ -5,10 +5,7 @@ module.exports = {
 		},
 		methode: {
 			section: '',
-			story: [],
-			imageDirectory: '',
-			imageLibrary: '',
-			imageSizes: []
+			story: []
 		}
 	},
 	deploy: {

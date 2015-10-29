@@ -21,27 +21,34 @@ gulp.task('fetch-methode', function(cb) {
 				// did we get a valid response?
 				if (!error && response.statusCode === 200) {
 					// extract the html between content tags
-					var content = body.match(/(<content>)([\s\S]*)(<\/content>)/)[2];
+					var content = body.match(/(<content>)([\s\S]*)(<\/content>)/);
 
-					// replace all the weird bits and bobs
-					content = deMethodeify(content);
+					if (content.length) {
+						content = content[2];
+						
+						// replace all the weird bits and bobs
+						content = deMethodeify(content);
 
-					// insert graphic templates
-					content = content.replace(/<annotation.*(graphic:)(.*)<\/annotation>(.*|[\r\n]+).*(<\/p>)/g, function(a, b, c) {
-						return '</p>\n{{> graphic/graphic-' + c.trim() + '}}';
-					});
+						// insert graphic templates
+						content = content.replace(/<annotation.*(graphic:)(.*)<\/annotation>(.*|[\r\n]+).*(<\/p>)/g, function(a, b, c) {
+							return '</p>\n{{> graphic/graphic-' + c.trim() + '}}';
+						});
 
-					// replace photo tags with desired markup
-					content = content.replace(/<photogrp-inline (.*?)>([\S\s]*?)<\/photogrp-inline>/g, function(a, b, c) {
-						return createImageMarkup(c);
-					});
+						// replace photo tags with desired markup
+						content = content.replace(/<photogrp-inline (.*?)>([\S\s]*?)<\/photogrp-inline>/g, function(a, b, c) {
+							return createImageMarkup(c);
+						});
 
-					appendOutput(content, config.story[index]);
+						appendOutput(content, config.story[index]);
+
+					} else {
+						console.error('empty methode file, check config settings');
+						advance(index);
+					}
 
 				} else {
 					// http error. log and quit.
-					console.log('error');
-					console.log(JSON.stringify(error, null, 4));
+					console.error(JSON.stringify(error, null, 4));
 					advance(index);
 				}
 
@@ -157,7 +164,8 @@ function createFigure(params) {
 		figure += '<img srcset="' + src + '" alt="' + params.caption + '">';
 		figure += '</picture>';
 
-	} else if (params.lib === 'lazysizes') {
+	} else if (params.lib === 'lazy-picturefill') {
+
 		// picturefill + lazysizes.js (changes srcset to data-srcset)
 		figure += '<picture>';
 		figure += '<!--[if IE 9]><video style="display: none;"><![endif]-->';
@@ -176,11 +184,12 @@ function createFigure(params) {
 		figure += '<!--[if IE 9]></video><![endif]-->';
 
 		src = config.imageDirectory + '/' + name + '_' + imageSizes[0] + '.' + extension;
-		figure += '<img class="lazyload" data-srcset="' + src + '" alt="' + params.caption + '">';
+		figure += '<img class="lazyload" src="' + src + '" data-srcset="' + src + '" alt="' + params.caption + '">';
 		figure += '</picture>';
 
 	} else {
 
+		// plain old image
 		src = config.imageDirectory + '/' + name + '_' + imageSizes[0] + '.' + extension;
 		figure += '<img src="' + src + '" alt="' + params.caption + '" />';
 
