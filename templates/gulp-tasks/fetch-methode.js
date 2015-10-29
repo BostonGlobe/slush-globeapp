@@ -124,7 +124,7 @@ function createFigure(params) {
 	var imgSplit = imgFull.split('.');
 	var name = imgSplit[0];
 	var extension = imgSplit[1];
-	var imageSizes = config.imageSizes.length ? config.imageSizes : [1200];
+	var imageSizes = config.imageSizes && config.imageSizes.length ? config.imageSizes : [1200];
 
 	for (var i in imageSizes) {
 		_queue.push({
