@@ -6,11 +6,11 @@ var config = require(configPath).copy.methode;
 
 var _queue = [];
 var _output = '';
+var _imageDirectory = 'assets/';
 
 gulp.task('fetch-methode', function(cb) {
 	if (config.story.length) {
-
-		config.imageDirectory = config.imageDirectory || 'assets';
+		_imageDirectory += config.imageDirectory || '';
 
 		var next = function(index) {
 			// fetch xml
@@ -101,6 +101,8 @@ function createImageMarkup(c) {
 	// match src
 	var src = c.match(/<photo-inline (.*?) fileref="(.*?)" (.*?)>([\S\s]*?)<\/photo-inline>/)[2];
 
+	var insert = c.match(/<photo-inline (.*?) dtxInsert="(.*?)" (.*?)>([\S\s]*?)<\/photo-inline>/)[2];
+
 	// match caption and remove
 	var caption = c.match(/<caption (.*?)>([\S\s]*?)<\/caption>/)[2];
 	caption = caption.replace(/\<p\>|\<\/p\>/g,'').trim();
@@ -139,7 +141,7 @@ function createFigure(params) {
 
 	if (params.lib === 'imager') {
 
-		src = config.imageDirectory + '/' + name + '_{width}' + '.' + extension;
+		src = _imageDirectory + '/' + name + '_{width}' + '.' + extension;
 		figure += '<img data-src="' + src + '" alt="' + params.caption + '" class="delayed-image-load" />';
 
 	} else if (params.lib === 'picturefill') {
@@ -147,7 +149,7 @@ function createFigure(params) {
 		figure += '<picture>';
 		figure += '<!--[if IE 9]><video style="display: none;"><![endif]-->';
 		for (var j = imageSizes.length - 1; j > -1; j--) {
-			src = config.imageDirectory + '/' + name + '_' + imageSizes[j] + '.' + extension;
+			src = _imageDirectory + '/' + name + '_' + imageSizes[j] + '.' + extension;
 			figure += '<source srcset="' + src  + '" ';
 			if (j > 0) {
 				figure += 'media="(min-width: ' + Math.floor(imageSizes[j-1] / 1.5) + 'px)"';
@@ -160,7 +162,7 @@ function createFigure(params) {
 
 		figure += '<!--[if IE 9]></video><![endif]-->';
 
-		src = config.imageDirectory + '/' + name + '_' + imageSizes[0] + '.' + extension;
+		src = _imageDirectory + '/' + name + '_' + imageSizes[0] + '.' + extension;
 		figure += '<img srcset="' + src + '" alt="' + params.caption + '">';
 		figure += '</picture>';
 
@@ -170,7 +172,7 @@ function createFigure(params) {
 		figure += '<picture>';
 		figure += '<!--[if IE 9]><video style="display: none;"><![endif]-->';
 		for (var j = imageSizes.length - 1; j > -1; j--) {
-			src = config.imageDirectory + '/' + name + '_' + imageSizes[j] + '.' + extension;
+			src = _imageDirectory + '/' + name + '_' + imageSizes[j] + '.' + extension;
 			figure += '<source data-srcset="' + src  + '" ';
 			if (j > 0) {
 				figure += 'media="(min-width: ' + Math.floor(imageSizes[j-1] / 1.5) + 'px)"';
@@ -183,14 +185,14 @@ function createFigure(params) {
 
 		figure += '<!--[if IE 9]></video><![endif]-->';
 
-		src = config.imageDirectory + '/' + name + '_' + imageSizes[0] + '.' + extension;
+		src = _imageDirectory + '/' + name + '_' + imageSizes[0] + '.' + extension;
 		figure += '<img class="lazyload" src="' + src + '" data-srcset="' + src + '" alt="' + params.caption + '">';
 		figure += '</picture>';
 
 	} else {
 
 		// plain old image
-		src = config.imageDirectory + '/' + name + '_' + imageSizes[0] + '.' + extension;
+		src = _imageDirectory + '/' + name + '_' + imageSizes[0] + '.' + extension;
 		figure += '<img src="' + src + '" alt="' + params.caption + '" />';
 
 	}
@@ -208,7 +210,7 @@ function appendOutput(content, story) {
 
 function downloadImages(cb) {
 	var next = function(index) {
-		var path = 'src/' + config.imageDirectory + '/' + _queue[index].src;
+		var path = 'src/' + _imageDirectory + '/' + _queue[index].src;
 		try {
 			var exists = fs.lstatSync(path);
 			advance(index);
