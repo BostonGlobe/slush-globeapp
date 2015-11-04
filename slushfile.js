@@ -141,7 +141,7 @@ gulp.task('setup-ssh', function(done) {
 			message: 'Enter the path to your app [year]/[month]/[name]'
 		}],
 		function(answers) {
-			shell.sed('-i', '||USERNAME||', answers.username, 'username.js');
+			shell.exec('echo "' + answers.username + '" >> username.js');
 			shell.sed('-i', '||PATH-TO-APP||', answers.filepath, 'config.js');
 			done();
 		});
