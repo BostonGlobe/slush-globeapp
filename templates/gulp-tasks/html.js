@@ -56,7 +56,11 @@ gulp.task('html-prod', function(cb) {
 					helpers: 'src/html/helpers/*.js',
 					partials: 'src/html/partials/**/*.hbs',
 					bustCache: true,
-					debug: false
+					debug: false,
+					dataEach: function (context, file) {
+						context.isProduction = true;
+						return context;
+					}
 				}))
 				.pipe(include({ basepath: svgPath }))
 				.pipe(rename('index.html'))

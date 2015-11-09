@@ -1,1 +1,13 @@
-{}
+{
+	"title": "Graphic title",
+	"description": "Description of graphic",
+	"keywords": "Comma, delimited, for, seo",
+	"url": "https://apps.bostonglobe.com/graphics/path/to/graphic",
+	"image_url": "https://apps.bostonglobe.com/graphics/path/to/image",
+	"page_id": "apps.mmddyy.title-no-spaces",
+	"section": "Metro",
+	"chartbeat_section": "metro",
+	"header_color": "",
+	"credits": [],
+	"paywall": false
+}

@@ -86,5 +86,63 @@
 		return matches && +matches[1] <= x;
 	};
 
+	window.payTheWall = function() {
+		let el = document.getElementsByClassName('paywall')[0];
+		el.classList.remove('hide');
+		disableScroll();
+		if (isMobile.any()) {
+			el.style.backgroundSize = 'cover';
+			el.style.background = 'url("https://apps.bostonglobe.com/common/paywall/press.jpg")';
+		} else {
+			var filepath = 'https://apps.bostonglobe.com/common/paywall/press';
+			
+			var html = '';
+			html += '<video loop muted autoplay poster="' + filepath + '.jpg" class="fullscreen-bg__video">';
+			html += '<source src="' + filepath + '.mp4" type="video/mp4">';
+			html += '</video>';
+			
+			var div = document.createElement('div');
+			div.classList.add('fullscreen-bg');
+			div.innerHTML = html;
+			el.insertBefore(div, el.firstChild);
+		}
+	};
+
+	window.preventDefault = function(e) {
+		e = e || window.event;
+		if (e.preventDefault) {
+			e.preventDefault();
+		}
+		e.returnValue = false;  
+	};
+
+	window.preventDefaultForScrollKeys = function(e) {
+		var keys = {38: 1, 40: 1, 32: 1};
+	    if (keys[e.keyCode]) {
+	        preventDefault(e);
+	        return false;
+	    }
+	};
+
+	window.disableScroll = function() {
+		if (window.addEventListener) {
+			window.addEventListener('DOMMouseScroll', preventDefault, false);
+		}
+		window.onwheel = preventDefault; // modern standard
+		window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
+		window.ontouchmove  = preventDefault; // mobile
+		document.onkeydown  = preventDefaultForScrollKeys;
+	};
+
+	window.enableScroll = function() {
+		if (window.removeEventListener) {
+			window.removeEventListener('DOMMouseScroll', preventDefault, false);
+		}
+		window.onmousewheel = document.onmousewheel = null; 
+		window.onwheel = null; 
+		window.ontouchmove = null;  
+		document.onkeydown = null;  
+	};
+
 	init();
 })();
