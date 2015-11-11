@@ -89,7 +89,6 @@ The following snippet is a bare minimum needed to fill out the basic information
 	"chartbeat_section": "metro",
 	"header_color": "",
 	"credits": [],
-	"google_analytics": "",
 	"paywall": false
 }
 ```

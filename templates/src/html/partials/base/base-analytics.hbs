@@ -29,8 +29,13 @@
             })();
         };
 
-        var google = function() {
-            loadJS('//www.google-analytics.com/analytics.js');
+        var omniture = function() {
+            loadJS('https://apps.bostonglobe.com/common/js/omniture/s_code_bgcom.js', function() {
+                s.pageName='{{copy.section}} | {{copy.title}}',s.channel='{{copy.section}}',s.prop1='"{{copy.section}} | Specials';
+                s.server='',s.pageType='',s.prop2='',s.prop3='',s.prop4='',s.prop5='',s.prop6='Infographic',s.prop7='',s.prop8='',s.prop9='',s.prop10='',s.prop14='',s.prop41=s.eVar41='BostonGlobe.com';
+
+                s_code=s.t();if(s_code)document.write(s_code)
+            });
         };
 
         var meter = function() {
@@ -47,7 +52,7 @@
         };
 
         chartbeat();
-        google();
+        omniture();
         meter();
     })();
 
