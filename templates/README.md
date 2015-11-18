@@ -80,6 +80,7 @@ The following snippet is a bare minimum needed to fill out the basic information
 ```
 {
 	"title": "Graphic title",
+	"author": "",
 	"description": "Description of graphic",
 	"keywords": "Comma, delimited, for, seo",
 	"url": "https://apps.bostonglobe.com/graphics/path/to/graphic",

@@ -3,6 +3,13 @@
 <script type='text/javascript'>
 
     (function() {    
+        var _loaded = {
+            'omniture': false,
+            'meter': false
+        };
+
+        var _showPaywall;
+
         var chartbeat = function() {
             window._sf_startpt=(new Date()).getTime();
             window._sf_async_config={uid:8544,domain:"bostonglobe.com"};
@@ -30,27 +37,71 @@
         };
 
         var omniture = function() {
-            loadJS('https://apps.bostonglobe.com/common/js/omniture/s_code_bgcom.js', function() {
-                s.pageName='{{copy.section}} | {{copy.title}}',s.channel='{{copy.section}}',s.prop1='"{{copy.section}} | Specials';
-                s.server='',s.pageType='',s.prop2='',s.prop3='',s.prop4='',s.prop5='',s.prop6='Infographic',s.prop7='',s.prop8='',s.prop9='',s.prop10='',s.prop14='',s.prop41=s.eVar41='BostonGlobe.com';
-
-                s_code=s.t();if(s_code)document.write(s_code)
+            loadJS('https://apps.bostonglobe.com/common/js/omniture/s_code_bgcom.27.5.js', function() {
+                checkLoad('omniture');
             });
         };
 
         var meter = function() {
             window.methode = {};
             loadJS('https://www.bostonglobe.com/js/metercheck.js', function() {
-                var showPaywall = {{copy.paywall}};
-                var registrationWallVal= showPaywall ? 'non-exempt' : 'exempt';
+                var hasPaywall = {{copy.paywall}};
+                var registrationWallVal = hasPaywall ? 'non-exempt' : 'exempt';
                 window.bglobe.freeviewMeter.init({pageId : '{{copy.page_id}}' , registrationWall : registrationWallVal, webType : 'app', sectionPath : 'apps', debug:  false });
                 
-                if(methode.freeviewCount > 5 && showPaywall && window.payTheWall) {
+                if(methode.freeviewCount > 5 && hasPaywall && window.payTheWall) {
+                    _showPaywall = true;
                     payTheWall();
                 }
+
+                checkLoad('meter');
             });
         };
 
+        var setupTracking = function() {
+            s.pageName='{{copy.section}} | {{copy.title}}';
+            s.channel='{{copy.section}}';
+            s.prop1='{{copy.section}} | Specials';
+            s.prop6='Infographic';
+            s.prop41=s.eVar41='BostonGlobe.com';
+            s.eVar20 = methode.subscribed ? 'logged in' : 'logged out';
+            s.prop35 = methode.subscribed ? 'logged in' : 'logged out';
+            s.prop3 = '{{copy.author}}';
+            s.prop67 = '{{copy.page_id}}';
+            s.eVar67 = '{{copy.page_id}}';
+
+            // PAYWALL
+            if (_showPaywall) {
+                s.channel = 'Member Center';
+                s.prop1 = 'Member Center | BGC Registration';
+                if (window.innerWidth <= 768) {
+                    // assume mobile 
+                    s.pageName = 'Member Center | BGC Registration | Fullpage Paywall Challenge';
+                    s.prop6 = 'BGC Registration Page - Fullpage';
+                } else {
+                    // assume desktop
+                    s.pageName = 'Member Center | BGC Registration | Modal Paywall Challenge';
+                    s.prop6 = 'BGC Registration Page - Modal';
+                }
+            }
+            console.log(s);
+            
+            // this does something
+            s_code=s.t();
+            if (s_code) {
+                document.write(s_code);
+            }
+        };
+
+        var checkLoad = function(lib) {
+            _loaded[lib] = true;
+
+            if(_loaded.omniture && _loaded.meter) {
+                setupTracking();
+            }
+        };
+
+        // load libraries
         chartbeat();
         omniture();
         meter();
