@@ -98,7 +98,7 @@
 	};
 
 	window.payTheWall = function() {
-		let el = document.getElementsByClassName('paywall')[0];
+		var el = document.getElementsByClassName('paywall')[0];
 		el.classList.remove('hide');
 		disableScroll();
 		if (isMobile.any()) {
