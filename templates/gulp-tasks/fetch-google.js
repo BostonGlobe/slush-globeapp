@@ -18,7 +18,7 @@ function fetchCopy(cb) {
 		request(_url, function(error, response, body) {
 			var parsed = archieml.load(body);
 			var str = JSON.stringify(parsed);
-			var file = 'src/data/copy.json';
+			var file = 'src/data/' + (config.filename || 'copy')  + '.js';
 
 			fs.writeFile(file, str, function(err) {
 				if (err) {
