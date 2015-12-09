@@ -13,6 +13,7 @@ gulp.task('default', ['dev'], function() {
 
 gulp.task('dev', function() {
 	runSequence(
+		'clean-dev',
 		'css-dev',
 		'js-dev',
 		'assets-dev',
