@@ -172,7 +172,7 @@ gulp.task('default', function(done) {
 	runSequence(
 		'check-for-updates',
 		'copy-templates-directory',
-		'add-to-git-repo',
+		// 'add-to-git-repo',
 		'setup-ssh',
 		done
 	);
