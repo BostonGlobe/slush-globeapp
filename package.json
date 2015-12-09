@@ -1,6 +1,6 @@
 {
   "name": "slush-globeapp",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Generator for scaffloding Globe app",
   "main": "slushfile.js",
   "scripts": {
