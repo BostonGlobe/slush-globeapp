@@ -34,7 +34,8 @@ all:
 		run-sequence \
 		shelljs \
 		'underscore.string' \
-		webpack-stream;
+		webpack-stream \
+		yargs;
 
 	# make node_modules.zip
 	cd templates; zip -q -r node_modules.zip node_modules;

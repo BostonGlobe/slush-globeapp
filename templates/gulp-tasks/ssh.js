@@ -1,10 +1,12 @@
 var gulp = require('gulp');
 var shell = require('shelljs');
+var argv = require('yargs').argv;
 
 var configPath = process.cwd() + '/config.js';
 var config = require(configPath).deploy.ssh;
 
-var command = '(cd dist/prod; scp -r . ' + config.username + '@' + config.host + ':' + config.filepath + ')';
+var files = argv.html ? 'index.html' : '.';
+var command = '(cd dist/prod; scp -r ' + files + ' ' + config.username + '@' + config.host + ':' + config.filepath + ')';
 
 gulp.task('ssh-prod', function(cb) {
 	if (configured()) {
