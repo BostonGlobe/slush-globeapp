@@ -85,7 +85,7 @@ function deMethodeify(content) {
 	content = content.replace(/<p><\/p>/g, '');
 
 	// replace *** with hr
-	content = content.replace(/\<p\> *\*\*\* *\<\/p\>/g, '<hr>');
+	content = content.replace(/\<p\> *\*+ *\<\/p\>/g, '<hr>');
 
 	// remove bold tag
 	content = content.replace(/<b>/g, '');
