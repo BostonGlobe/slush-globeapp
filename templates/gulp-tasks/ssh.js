@@ -20,5 +20,5 @@ gulp.task('ssh-prod', function(cb) {
 });
 
 function configured() {
-	return config.username && config.filepath && config.filepath !== '/web/bgapps/html/graphics/';
+	return config.username && config.filepath && config.filepath !== '/web/bgapps/html/graphics/' && config.filepath.indexOf('/web/bgapps/html/') > -1;
 }
