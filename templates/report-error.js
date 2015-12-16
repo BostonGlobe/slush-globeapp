@@ -1,3 +1,5 @@
+'use strict';
+
 const notify = require('gulp-notify');
 const gutil  = require('gulp-util');
 

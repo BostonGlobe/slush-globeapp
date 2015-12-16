@@ -1,3 +1,5 @@
+'use strict';
+
 const gulp        = require('gulp');
 const shell       = require('shelljs');
 const argv        = require('yargs').argv;
