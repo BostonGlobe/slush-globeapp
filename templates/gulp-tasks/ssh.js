@@ -1,20 +1,21 @@
-var gulp = require('gulp');
-var shell = require('shelljs');
-var argv = require('yargs').argv;
-
-var configPath = process.cwd() + '/config.js';
-var graphicPath = require(configPath).path;
-var base = '/web/bgapps/html/graphics/';
-var host = 'shell.boston.com';
+const gulp        = require('gulp');
+const shell       = require('shelljs');
+const argv        = require('yargs').argv;
+const configPath  = process.cwd() + '/config.js';
+const graphicPath = require(configPath).path;
+const base        = '/web/bgapps/html/graphics/';
+const host        = 'shell.boston.com';
 
 gulp.task('ssh-prod', function(cb) {
-	var username = argv.u;
-	var files = argv.html ? 'index.html' : '.';
-	var filepath = base + graphicPath;
-	var configured = checkConfiguration(username);
+	const username = argv.u;
+	const files = argv.html ? 'index.html' : '.';
+	const filepath = base + graphicPath;
+	const configured = checkConfiguration(username);
 
-	if (configured) { 
-		var command = '(cd dist/prod; scp -r ' + files + ' ' + username + '@' + host + ':' + filepath + ')';
+	let command = '';
+
+	if (configured) {
+		command = '(cd dist/prod; scp -r ' + files + ' ' + username + '@' + host + ':' + filepath + ')';
 		console.log(command);
 		shell.exec(command, cb);
 	} else {
@@ -22,12 +23,12 @@ gulp.task('ssh-prod', function(cb) {
 	}
 });
 
-var checkConfiguration = function(username) { 
+const checkConfiguration = function(username) {
 	if (!graphicPath) {
 		console.log('*** setup ssh-config.js "path" to upload to apps ***');
 	}
 	if (!username) {
-		console.log('*** enter your username with "gulp prod -u username" ***');	
+		console.log('*** enter your username with "gulp prod -u username" ***');
 	}
 	return username && typeof username === 'string' && graphicPath;
 };

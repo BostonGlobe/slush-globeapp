@@ -1,9 +1,9 @@
-var gulp = require('gulp');
-var babel = require('gulp-babel');
-var uglify = require('gulp-uglify');
-var plumber = require('gulp-plumber');
-var browserSync = require('browser-sync');
-var reportError = require('../report-error.js');
+const gulp        = require('gulp');
+const babel       = require('gulp-babel');
+const uglify      = require('gulp-uglify');
+const plumber     = require('gulp-plumber');
+const browserSync = require('browser-sync');
+const reportError = require('../report-error.js');
 
 gulp.task('js-dev', function() {
 	return gulp.src('src/js/**/*.js')

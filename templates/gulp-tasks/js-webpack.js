@@ -1,10 +1,10 @@
-var gulp = require('gulp');
-var uglify = require('gulp-uglify');
-var rename = require('gulp-rename');
-var browserSync = require('browser-sync');
-var webpack = require('webpack-stream');
+const gulp        = require('gulp');
+const uglify      = require('gulp-uglify');
+const rename      = require('gulp-rename');
+const browserSync = require('browser-sync');
+const webpack     = require('webpack-stream');
 
-var config = {
+const config = {
 	module: {
 		loaders: [
 			{ test: /\.csv?$/, loader: 'dsv-loader' },

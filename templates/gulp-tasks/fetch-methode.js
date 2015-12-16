@@ -25,7 +25,7 @@ gulp.task('fetch-methode', function(cb) {
 
 					if (content.length) {
 						content = content[2];
-						
+
 						// replace all the weird bits and bobs
 						content = deMethodeify(content);
 

@@ -1,18 +1,18 @@
-var gulp = require('gulp');
-var stylus = require('gulp-stylus');
-var autoprefixer = require('gulp-autoprefixer');
-var rename = require('gulp-rename');
-var minifycss = require('gulp-minify-css');
-var browserSync = require('browser-sync');
-var plumber = require('gulp-plumber');
-var replace = require('gulp-replace');
-var reportError = require('../report-error.js');
+const gulp         = require('gulp');
+const stylus       = require('gulp-stylus');
+const autoprefixer = require('gulp-autoprefixer');
+const rename       = require('gulp-rename');
+const minifycss    = require('gulp-minify-css');
+const browserSync  = require('browser-sync');
+const plumber      = require('gulp-plumber');
+const replace      = require('gulp-replace');
+const reportError  = require('../report-error.js');
 
 //compile styl to css and autoprefix
 gulp.task('css-dev', function() {
 	gulp.src('src/css/config.styl')
 		.pipe(plumber({ errorHandler: reportError }))
-        .pipe(stylus())
+		.pipe(stylus())
 		.pipe(autoprefixer())
 		.pipe(rename('main.css'))
 		.pipe(gulp.dest('dist/dev/css'))
@@ -22,7 +22,7 @@ gulp.task('css-dev', function() {
 //compile all styl and autoprefix, and minify
 gulp.task('css-prod', function() {
 	gulp.src('src/css/config.styl')
-        .pipe(stylus())
+		.pipe(stylus())
 		.pipe(autoprefixer())
 		.pipe(replace(/\.\.\/assets/g, 'assets'))
 		.pipe(minifycss())

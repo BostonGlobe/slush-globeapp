@@ -1,7 +1,6 @@
-var gulp = require('gulp');
-var changed = require('gulp-changed');
-
-var src = 'src/assets/**/*';
+const gulp    = require('gulp');
+const changed = require('gulp-changed');
+const src     = 'src/assets/**/*';
 
 gulp.task('assets-dev', function() {
 	return gulp.src(src)

@@ -1,5 +1,5 @@
-var gulp = require('gulp');
-var runSequence = require('run-sequence');
+const gulp        = require('gulp');
+const runSequence = require('run-sequence');
 
 // Default task to be run with `gulp`
 gulp.task('default', ['dev'], function() {
