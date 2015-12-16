@@ -10,11 +10,12 @@ all:
 	cd templates; sudo npm install --save \
 		archieml \
 		browser-sync \
+		babel-core \
 		babel-loader \
+		babel-preset-es2015 \
 		del \
 		gulp \
 		gulp-autoprefixer \
-		gulp-babel \
 		gulp-callback \
 		gulp-changed \
 		gulp-file-include \

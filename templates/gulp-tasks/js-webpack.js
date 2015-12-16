@@ -9,7 +9,7 @@ var config = {
 		loaders: [
 			{ test: /\.csv?$/, loader: 'dsv-loader' },
 			{ test: /\.json$/, loader: 'json-loader' },
-			{ test: /\.js$/, exclude: /node_modules/, loader: 'babel'}
+			{ test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}
 		]
 	}
 };
