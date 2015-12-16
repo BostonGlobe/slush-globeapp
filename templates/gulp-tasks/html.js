@@ -7,7 +7,7 @@ var fs = require('fs');
 var plumber = require('gulp-plumber');
 var reportError = require('../report-error.js');
 
-var srcCopy = 'src/data/copy.json';
+var srcMeta = 'src/data/meta.json';
 var srcIndex = 'src/html/index.hbs';
 
 var svgPath = process.cwd() + '/svg/';

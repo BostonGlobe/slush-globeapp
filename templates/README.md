@@ -85,7 +85,7 @@ If the data is too sensitive or a google doc is overkill, you can update `src/da
 Running `gulp fetch-google` at any point will pull down the latest.
 
 #### SEO and Analytics
-The following snippet is a bare minimum needed to fill out the basic information for seo and analytics. If you are using a [Google Doc](#google-doc), you can add this in there. Otherwise, put the following code in `src/data/copy.json`.
+The following snippet is a bare minimum needed to fill out the basic information for seo and analytics. If you are using a [Google Doc](#google-doc), you can add this in there. Otherwise, put the following code in `src/data/meta.json`.
 
 ```
 {
