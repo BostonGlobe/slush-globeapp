@@ -106,15 +106,15 @@ The following snippet is a bare minimum needed to fill out the basic information
 
 ## Deploy
 #### Step 1: gulp 
-- Run `gulp prod` to deploy. Outputs files into `dist/prod` folder in root. 
-- If you setup your ssh credentials, it will also upload the files to the apps server. Otherwise, you must manually put them on the server.
-- Your project is now internally visible at http://dev.apps.bostonglobe.com/graphics/[year]/[month]/[project-name].
+- Run `gulp prod -u username` to deploy. Outputs files into `dist/prod` folder in root. 
+- Optional: Use the flag `--html` to only upload the index.html file (use this if you have no updates to assets and want faster upload)
+- Your graphic is now internally visible at http://dev.apps.bostonglobe.com/graphics/[year]/[month]/[graphic-name].
 
 #### Step 2: publish assets
 - In Terminal, connect to shell (your username is usually first initial last name): `ssh rgoldenberg@shell.boston.com`.
-- Navigate to your project directory: `cd /web/bgapps/html/graphics/[year]/[month]/[project-name]`.
+- Navigate to your graphic directory: `cd /web/bgapps/html/graphics/[year]/[month]/[graphic-name]`.
 - Run the command `upload *` in the root **and** each subdirectroy. (ex. `cd css`, then `upload *` to upload all files in that folder).
 
 ### Public url
-- **https**://apps.bostonglobe.com/graphics/[year]/[month]/[project-name]
+- **https**://apps.bostonglobe.com/graphics/[year]/[month]/[graphic-name]
 - A zipped archive is also pushed to apps. It has the full unminified code for the future when gulp and stuff are fossils.

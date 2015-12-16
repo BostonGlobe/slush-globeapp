@@ -1,5 +1,3 @@
-var username = require('./username.js');
-
 module.exports = {
 	copy: {
 		google: {
@@ -10,11 +8,5 @@ module.exports = {
 			story: []
 		}
 	},
-	deploy: {
-		ssh: {
-			host: 'shell.boston.com',
-			username: username,
-			filepath: '/web/bgapps/html/graphics/||PATH-TO-APP||'
-		}
-	}
+	path: '||PATH-TO-APP||'
 };

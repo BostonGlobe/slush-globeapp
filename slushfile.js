@@ -130,21 +130,21 @@ gulp.task('add-to-git-repo', function(done) {
 
 gulp.task('setup-ssh', function(done) {
 	inquirer.prompt([
+		// {
+		// 	type: 'input',
+		// 	name: 'username',
+		// 	message: 'Enter your shell username'
+		// },
 		{
 			type: 'input',
-			name: 'username',
-			message: 'Enter your shell username'
-		},
-		{
-			type: 'input',
-			name: 'filepath',
-			message: 'Enter the path to your app [year]/[month]/[name]'
+			name: 'path',
+			message: 'Enter the path to your app [year]/[month]/[graphic-name]'
 		}],
 		function(answers) {
-			var username = "'" + answers.username + "'";
-			shell.exec('echo "module.exports = ||USERNAME||;" >> username.js');
-			shell.sed('-i', '||USERNAME||', username, 'username.js');
-			shell.sed('-i', '||PATH-TO-APP||', answers.filepath, 'config.js');
+			// var username = "'" + answers.username + "'";
+			// shell.exec('echo "module.exports = ||USERNAME||;" >> username.js');
+			// shell.sed('-i', '||USERNAME||', username, 'username.js');
+			shell.sed('-i', '||PATH-TO-APP||', answers.path, 'config.js');
 			done();
 		});
 });

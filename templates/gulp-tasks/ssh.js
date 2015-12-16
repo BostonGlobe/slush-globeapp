@@ -3,22 +3,31 @@ var shell = require('shelljs');
 var argv = require('yargs').argv;
 
 var configPath = process.cwd() + '/config.js';
-var config = require(configPath).deploy.ssh;
-
-var files = argv.html ? 'index.html' : '.';
-var command = '(cd dist/prod; scp -r ' + files + ' ' + config.username + '@' + config.host + ':' + config.filepath + ')';
+var graphicPath = require(configPath).path;
+var base = '/web/bgapps/html/graphics/';
+var host = 'shell.boston.com';
 
 gulp.task('ssh-prod', function(cb) {
-	if (configured()) {
-		shell.exec(command, function(code, output) {
-			cb();
-		});
+	var username = argv.u;
+	var files = argv.html ? 'index.html' : '.';
+	var filepath = base + graphicPath;
+	var configured = checkConfiguration(username);
+
+	if (configured) { 
+		var command = '(cd dist/prod; scp -r ' + files + ' ' + username + '@' + host + ':' + filepath + ')';
+		console.log(command);
+		shell.exec(command, cb);
 	} else {
-		console.log('*** setup ssh-config.js to automatically upload to apps ***');
 		cb();
 	}
 });
 
-function configured() {
-	return config.username && config.filepath && config.filepath !== '/web/bgapps/html/graphics/' && config.filepath.indexOf('/web/bgapps/html/') > -1;
-}
+var checkConfiguration = function(username) { 
+	if (!graphicPath) {
+		console.log('*** setup ssh-config.js "path" to upload to apps ***');
+	}
+	if (!username) {
+		console.log('*** enter your username with "gulp prod -u username" ***');	
+	}
+	return username && typeof username === 'string' && graphicPath;
+};
