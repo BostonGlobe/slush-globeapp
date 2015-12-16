@@ -1,7 +1,7 @@
 {
   "name": "slush-globeapp",
   "version": "0.2.8",
-  "description": "Generator for scaffloding Globe app",
+  "description": "Generator for scaffolding Globe app",
   "main": "slushfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
