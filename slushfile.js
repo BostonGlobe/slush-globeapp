@@ -1,27 +1,15 @@
-'use strict';
-
-var gulp        = require('gulp');
-var inquirer    = require('inquirer');
-var runSequence = require('run-sequence');
-var shell       = require('shelljs');
-var request     = require('request');
-var fs          = require('fs');
-var moment      = require('moment');
-var s           = require('underscore.string');
-var pkg         = require('./package.json');
+const gulp        = require('gulp');
+const inquirer    = require('inquirer');
+const runSequence = require('run-sequence');
+const shell       = require('shelljs');
+const request     = require('request');
+const fs          = require('fs');
+const moment      = require('moment');
+const s           = require('underscore.string');
+const pkg         = require('./package.json');
 
 function getGraphicName() {
 	return [moment().format('YYYY-MM-DD'), s.slugify(shell.pwd().split('/').slice(-1)[0])].join('_');
-}
-
-function initGitRepo() {
-	shell.exec('git init');
-	shell.exec('git add .');
-	shell.exec('git commit -m "first commit"');
-}
-
-function pushGitRepo() {
-	shell.exec('git push -u origin master');
 }
 
 gulp.task('copy-templates-directory', function(done) {
@@ -53,7 +41,7 @@ gulp.task('copy-templates-directory', function(done) {
 				}
 			], function(answers) {
 
-				var files = [
+				const files = [
 					'gulp-tasks/js-webpack.js',
 					'src/js/main-webpack.js',
 					'src/html/partials/base/base-js-webpack.hbs'
@@ -77,73 +65,14 @@ gulp.task('copy-templates-directory', function(done) {
 		});
 });
 
-gulp.task('add-to-git-repo', function(done) {
-
-	var hasHub = shell.which('hub');
-	var choices = ['None', 'Bitbucket'];
-	if (hasHub) {
-		choices.push('GitHub');
-	}
-
-	inquirer.prompt([
-		{
-			type: 'list',
-			name: 'git',
-			message: 'Add ' + getGraphicName() + ' to git repository?',
-			choices: choices
-		}
-	], function(answers) {
-
-		switch (answers.git) {
-
-			case 'None':
-				done();
-			break;
-			case 'Bitbucket':
-				inquirer.prompt([
-					{
-						type: 'input',
-						name: 'username',
-						message: 'Enter your Bitbucket username'
-					}
-				], function(innerAnswers) {
-
-					initGitRepo();
-					shell.exec('curl -X POST -v -u ' + innerAnswers.username + ' -H "Content-Type: application/json" https://api.bitbucket.org/2.0/repositories/bostonglobe/' + getGraphicName() + ' -d \'{"scm": "git", "is_private": "true" }\'');
-
-					shell.exec('git remote add origin https://' + innerAnswers.username + '@bitbucket.org/bostonglobe/' + getGraphicName() + '.git');
-					pushGitRepo();
-					done();
-				});
-
-			break;
-			case 'GitHub':
-				initGitRepo();
-				shell.exec('hub create BostonGlobe/' + getGraphicName() + ' -p');
-				pushGitRepo();
-				done();
-			break;
-		}
-
-	});
-});
-
 gulp.task('setup-ssh', function(done) {
 	inquirer.prompt([
-		// {
-		// 	type: 'input',
-		// 	name: 'username',
-		// 	message: 'Enter your shell username'
-		// },
 		{
 			type: 'input',
 			name: 'path',
 			message: 'Enter the path to your app [year]/[month]/[graphic-name]'
 		}],
 		function(answers) {
-			// var username = "'" + answers.username + "'";
-			// shell.exec('echo "module.exports = ||USERNAME||;" >> username.js');
-			// shell.sed('-i', '||USERNAME||', username, 'username.js');
 			shell.sed('-i', '||PATH-TO-APP||', answers.path, 'config.js');
 			done();
 		});
@@ -151,9 +80,8 @@ gulp.task('setup-ssh', function(done) {
 
 gulp.task('check-for-updates', function(done) {
 
-	var latestVersion = shell.exec('npm view slush-globeapp version', {silent:true}).output.split('\n')[0];
-
-	var installedVersion = pkg.version;
+	const latestVersion = shell.exec('npm view slush-globeapp version', {silent:true}).output.split('\n')[0];
+	const installedVersion = pkg.version;
 
 	if (latestVersion !== installedVersion) {
 
@@ -172,7 +100,6 @@ gulp.task('default', function(done) {
 	runSequence(
 		'check-for-updates',
 		'copy-templates-directory',
-		// 'add-to-git-repo',
 		'setup-ssh',
 		done
 	);
