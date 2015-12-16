@@ -1,8 +1,8 @@
-var notify = require('gulp-notify');
-var gutil = require('gulp-util');
+const notify = require('gulp-notify');
+const gutil  = require('gulp-util');
 
 module.exports = function(error) {
-	var lineNumber = (error.lineNumber) ? 'LINE ' + error.lineNumber + ' -- ' : '';
+	const lineNumber = (error.lineNumber) ? 'LINE ' + error.lineNumber + ' -- ' : '';
 
 	notify({
 		title: 'Task failed [' + error.plugin + ']',
@@ -12,8 +12,8 @@ module.exports = function(error) {
 
 	gutil.beep();
 
-	var report = '';
-	var chalk = gutil.colors.white.bgRed;
+	let report = '';
+	let chalk = gutil.colors.white.bgRed;
 
 	report += chalk('TASK:') + ' [' + error.plugin + ']\n';
 	report += chalk('PROB:') + ' ' + error.message + '\n';
