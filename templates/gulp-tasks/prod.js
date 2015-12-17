@@ -20,6 +20,7 @@ function runTasks(cb) {
 		'css-prod',
 		'js-prod',
 		'smoosh-prod',
+		'minify-html',
 		'assets-prod',
 		'zip-prod',
 		'chmod-prod',

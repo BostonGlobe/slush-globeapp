@@ -21,6 +21,7 @@ all:
 		gulp-changed \
 		gulp-file-include \
 		gulp-hb \
+		gulp-htmlmin \
 		gulp-minify-css \
 		gulp-notify \
 		gulp-plumber \
