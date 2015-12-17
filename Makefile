@@ -16,6 +16,7 @@ all:
 		del \
 		gulp \
 		gulp-autoprefixer \
+		gulp-babel \
 		gulp-callback \
 		gulp-changed \
 		gulp-file-include \
