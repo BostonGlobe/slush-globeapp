@@ -19,8 +19,10 @@ all:
 		gulp-babel \
 		gulp-callback \
 		gulp-changed \
+		gulp-eol \
 		gulp-file-include \
 		gulp-hb \
+		gulp-if \
 		gulp-minify-css \
 		gulp-notify \
 		gulp-plumber \
@@ -29,6 +31,7 @@ all:
 		gulp-smoosher \
 		gulp-stylus \
 		gulp-uglify \
+		gulp-useref \
 		gulp-util \
 		gulp-zip \
 		request \

@@ -19,6 +19,7 @@ function runTasks(cb) {
 		'html-prod',
 		'css-prod',
 		'js-prod',
+		'uglify-external-js-prod',
 		'smoosh-prod',
 		'assets-prod',
 		'zip-prod',
