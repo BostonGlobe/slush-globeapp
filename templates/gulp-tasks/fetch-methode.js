@@ -25,7 +25,7 @@ gulp.task('fetch-methode', function(cb) {
 
 					if (content.length) {
 						content = content[2];
-
+						
 						// replace all the weird bits and bobs
 						content = deMethodeify(content);
 
@@ -35,9 +35,7 @@ gulp.task('fetch-methode', function(cb) {
 						});
 
 						// replace photo tags with desired markup
-						content = content.replace(/<photogrp-inline (.*?)>([\S\s]*?)<\/photogrp-inline>/g, function(a, b, c) {
-							return createImageMarkup(c);
-						});
+						content = content.replace(/<photogrp-inline (.*?)>([\S\s]*?)<\/photogrp-inline>/g, createImageMarkup);
 
 						appendOutput(content, config.story[index]);
 
@@ -97,28 +95,39 @@ function deMethodeify(content) {
 	return content;
 }
 
-function createImageMarkup(c) {
+function createImageMarkup(str) {
 	// match src
-	var src = c.match(/<photo-inline (.*?) fileref="(.*?)" (.*?)>([\S\s]*?)<\/photo-inline>/)[2];
+	var fileref = str.match(/fileref="(.*?)"/);
+	var float = str.match(/float="(.*?)"/);
+	if (fileref && fileref.length) {
+		var src = fileref[1];
+		
+		var floatClass = float && float.length ? float[1] : '';
+		var customClass = config.imageClass ? floatClass : '';
 
-	var insert = c.match(/<photo-inline (.*?) dtxInsert="(.*?)" (.*?)>([\S\s]*?)<\/photo-inline>/)[2];
+		// match caption and remove
+		var caption = str.match(/<caption (?:.*?)>([\S\s]*?)<\/caption>/);
+		caption = caption && caption.length ? caption[1].replace(/\<p\>|\<\/p\>/g,'').trim() : '';
 
-	// match caption and remove
-	var caption = c.match(/<caption (.*?)>([\S\s]*?)<\/caption>/)[2];
-	caption = caption.replace(/\<p\>|\<\/p\>/g,'').trim();
+		// match credit and remove
+		var credit = str.match(/<credit (?:.*?)>([\S\s]*?)<\/credit>/);
+		credit = credit && credit.length ? credit[1].replace(/\<p\>|\<\/p\>/g,'').trim() : '';
 
-	// match credit and remove
-	var credit = c.match(/<credit (.*?)>([\S\s]*?)<\/credit>/)[2];
-	credit = credit.replace(/\<p\>|\<\/p\>/g,'').trim();
+		var imgPath = src.split('?')[0];
 
-	var imgPath = src.split('?')[0];
-	var figure = createFigure({
-		lib: config.imageLibrary,
-		imgPath: imgPath,
-		caption: caption,
-		credit: credit
-	});
-	return figure;
+		var figure = createFigure({
+			lib: config.imageLibrary,
+			imgPath: imgPath,
+			caption: caption,
+			credit: credit,
+			customClass: customClass
+		});
+
+		return figure;
+		
+	} else {
+		return '';
+	}
 }
 
 function createFigure(params) {
@@ -137,7 +146,7 @@ function createFigure(params) {
 
 	// start generating markup
 	var src;
-	var figure = '<figure>';
+	var figure = '<figure class="' + params.customClass + '">';
 
 	if (params.lib === 'imager') {
 
@@ -163,7 +172,7 @@ function createFigure(params) {
 		figure += '<!--[if IE 9]></video><![endif]-->';
 
 		src = _imageDirectory + '/' + name + '_' + imageSizes[0] + '.' + extension;
-		figure += '<img srcset="' + src + '" alt="' + params.caption + '">';
+		figure += '<img class="lazyload" src="' + src + '" data-srcset="' + src + '" alt="' + params.caption + '">';
 		figure += '</picture>';
 
 	} else if (params.lib === 'lazy-picturefill') {

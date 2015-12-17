@@ -66,6 +66,17 @@ Example:
 
 Available sizes include: 371, 460, 585, 835, 960, 1200, 1920.
 
+*imageClass*
+
+Boolean value `true` or `false` to pipe in the image size from Methode as a class.
+
+Example:
+
+``` imageClass: true
+```
+
+Available sizes include: 371, 460, 585, 835, 960, 1200, 1920.
+
 
 You must include a version of [picturefill](https://apps.bostonglobe.com/common/js/picturefill/picturefill-3.0.0.min.js) in base-js.hbs (or install via npm if using webpack). If doing lazy load, then also include [lazysizes](https://apps.bostonglobe.com/common/js/lazysizes/lazysizes-1.1.3.min.js).
 

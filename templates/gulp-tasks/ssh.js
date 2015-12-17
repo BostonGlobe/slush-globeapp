@@ -18,7 +18,6 @@ gulp.task('ssh-prod', function(cb) {
 
 	if (configured) {
 		command = '(cd dist/prod; scp -r ' + files + ' ' + username + '@' + host + ':' + filepath + ')';
-		console.log(command);
 		shell.exec(command, cb);
 	} else {
 		cb();
