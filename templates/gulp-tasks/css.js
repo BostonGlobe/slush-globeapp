@@ -2,7 +2,6 @@ const gulp         = require('gulp');
 const stylus       = require('gulp-stylus');
 const autoprefixer = require('gulp-autoprefixer');
 const rename       = require('gulp-rename');
-const minifycss    = require('gulp-minify-css');
 const browserSync  = require('browser-sync');
 const plumber      = require('gulp-plumber');
 const replace      = require('gulp-replace');
@@ -25,7 +24,6 @@ gulp.task('css-prod', function() {
 		.pipe(stylus())
 		.pipe(autoprefixer())
 		.pipe(replace(/\.\.\/assets/g, 'assets'))
-		.pipe(minifycss())
 		.pipe(rename('main.css'))
 		.pipe(gulp.dest('.tmp/css'));
 });

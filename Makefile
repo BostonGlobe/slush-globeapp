@@ -22,14 +22,12 @@ all:
 		gulp-file-include \
 		gulp-hb \
 		gulp-htmlmin \
-		gulp-minify-css \
 		gulp-notify \
 		gulp-plumber \
 		gulp-rename \
 		gulp-replace \
 		gulp-smoosher \
 		gulp-stylus \
-		gulp-uglify \
 		gulp-util \
 		gulp-zip \
 		request \

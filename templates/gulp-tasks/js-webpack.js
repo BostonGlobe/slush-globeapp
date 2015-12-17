@@ -1,5 +1,4 @@
 const gulp        = require('gulp');
-const uglify      = require('gulp-uglify');
 const rename      = require('gulp-rename');
 const browserSync = require('browser-sync');
 const webpack     = require('webpack-stream');
@@ -25,7 +24,6 @@ gulp.task('js-dev', function() {
 gulp.task('js-prod', function() {
 	return gulp.src('src/js/main.js')
 		.pipe(webpack(config))
-		.pipe(uglify())
 		.pipe(rename('bundle.js'))
 		.pipe(gulp.dest('.tmp/js'))
 });
