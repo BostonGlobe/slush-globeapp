@@ -1,7 +1,7 @@
 all:
 
-	# clean files
-	cd templates; rm node_modules.zip package.json;
+	# # clean files
+	# cd templates; rm node_modules.zip package.json;
 
 	# make a blank package.json
 	cd templates; echo '{"dependencies":{}}' >> package.json
@@ -19,10 +19,9 @@ all:
 		gulp-babel \
 		gulp-callback \
 		gulp-changed \
-		gulp-eol \
 		gulp-file-include \
 		gulp-hb \
-		gulp-if \
+		gulp-htmlmin \
 		gulp-minify-css \
 		gulp-notify \
 		gulp-plumber \
@@ -31,7 +30,6 @@ all:
 		gulp-smoosher \
 		gulp-stylus \
 		gulp-uglify \
-		gulp-useref \
 		gulp-util \
 		gulp-zip \
 		request \
