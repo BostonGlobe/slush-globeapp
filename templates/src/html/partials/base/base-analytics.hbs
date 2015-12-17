@@ -16,7 +16,7 @@
             _sf_async_config.path = location.pathname;
 
              // Section and Author tagging
-            _sf_async_config.sections = "{{copy.chartbeat_section}}";
+            _sf_async_config.sections = "{{meta.chartbeat_section}}";
             _sf_async_config.authors = "infographic";   //used for page type
             
 
@@ -45,9 +45,9 @@
         var meter = function() {
             window.methode = {};
             loadJS('https://www.bostonglobe.com/js/metercheck.js', function() {
-                var hasPaywall = {{copy.paywall}};
+                var hasPaywall = {{meta.paywall}};
                 var registrationWallVal = hasPaywall ? 'non-exempt' : 'exempt';
-                window.bglobe.freeviewMeter.init({pageId : '{{copy.page_id}}' , registrationWall : registrationWallVal, webType : 'app', sectionPath : 'apps', debug:  false });
+                window.bglobe.freeviewMeter.init({pageId : '{{meta.page_id}}' , registrationWall : registrationWallVal, webType : 'app', sectionPath : 'apps', debug:  false });
                 
                 if(methode.freeviewCount > 5 && hasPaywall && window.payTheWall) {
                     _showPaywall = true;
@@ -59,16 +59,16 @@
         };
 
         var setupTracking = function() {
-            s.pageName='{{copy.section}} | {{copy.title}}';
-            s.channel='{{copy.section}}';
-            s.prop1='{{copy.section}} | Specials';
+            s.pageName='{{meta.section}} | {{meta.title}}';
+            s.channel='{{meta.section}}';
+            s.prop1='{{meta.section}} | Specials';
             s.prop6='Infographic';
             s.prop41=s.eVar41='BostonGlobe.com';
             s.eVar20 = methode.subscribed ? 'logged in' : 'logged out';
             s.prop35 = methode.subscribed ? 'logged in' : 'logged out';
-            s.prop3 = '{{copy.author}}';
-            s.prop67 = '{{copy.page_id}}';
-            s.eVar67 = '{{copy.page_id}}';
+            s.prop3 = '{{meta.author}}';
+            s.prop67 = '{{meta.page_id}}';
+            s.eVar67 = '{{meta.page_id}}';
 
             // PAYWALL
             if (_showPaywall) {
