@@ -1,8 +1,7 @@
 <footer class='g-footer'>
-	<ul class='g-footer--credits'>
-		{{#each meta.credits}}
-			<li class='g-footer--credits-item'>{{role}} by <span class='g-footer--author'>{{name}}</span></li>
-		{{/each}}
-	</ul>
+	<p class='g-footer--credits'>{{meta.credits}}</p>
+	
+	{{> base/base-teasers}}
+	
 	<small class='g-footer--copyright iota'>&copy; <span class='g-footer--copyright-year'>2015</span> Boston Globe Media Partners, LLC</small>
 </footer>

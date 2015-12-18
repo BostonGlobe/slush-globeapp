@@ -110,7 +110,8 @@ The following snippet is a bare minimum needed to fill out the basic information
 	"section": "Metro",
 	"chartbeat_section": "metro",
 	"header_color": "",
-	"credits": [],
+	"credits": "",
+	"teasers": [], 
 	"paywall": false
 }
 ```

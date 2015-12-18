@@ -1,0 +1,68 @@
+.teasers
+	padding-top 1em
+	margin-top 2em
+	
+	&--title
+		text-align center
+		font($benton, $bold)
+		margin 0.5em auto
+		max-width 50%
+		overflow hidden
+		
+		&:before, &:after
+			content ''
+			display inline-block
+			vertical-align middle
+			position relative
+			width 50%
+			border-top 1px solid #ccc
+			
+		&:before
+			right 1em
+			margin-left -50%
+		
+		&:after
+			left 1em
+			margin-right -50%
+			
+	&--list
+		list-style-type none
+		display flex
+		flex-direction column
+		
+		+mq('bp-1')
+			flex-direction row
+	
+	&--item
+		flex 1
+
+	&--link
+		background-position 25% 50%
+		display flex
+		min-height 15em
+		background-size cover
+		align-items center
+		text-align center
+		color rgba(255,255,255,0.75)
+		text-shadow 0 0 5px #444
+		
+		&:hover
+			color rgba(255,255,255,1)
+	
+	&--overline
+		font($benton, $bold)
+		font-size 0.8em
+		margin-bottom 0.5em
+		
+		&:after
+			content ''
+			display block
+			width 2em
+			margin 0 auto
+			border-bottom 1px solid currentColor
+	
+	&--hed
+		font($miller)
+		font-size 1.5em
+		width 100%
+		padding 1em
