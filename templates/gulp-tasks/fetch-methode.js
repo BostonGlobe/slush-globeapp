@@ -172,7 +172,7 @@ function createFigure(params) {
 		figure += '<!--[if IE 9]></video><![endif]-->';
 
 		src = _imageDirectory + '/' + name + '_' + imageSizes[0] + '.' + extension;
-		figure += '<img class="lazyload" src="' + src + '" data-srcset="' + src + '" alt="' + params.caption + '">';
+		figure += '<img src="' + src + '" data-srcset="' + src + '" alt="' + params.caption + '">';
 		figure += '</picture>';
 
 	} else if (params.lib === 'lazy-picturefill') {
