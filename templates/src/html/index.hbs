@@ -10,14 +10,16 @@
 	</head>
 	<body>
 		{{> base/base-header }}
-		
-		{{> graphic/graphic }}
-		
+
+		<main role='main'>
+			{{> graphic/graphic }}
+		</main>
+
 		{{> base/base-footer }}
 
 		{{> base/base-paywall }}
 		{{> base/base-js }}
-		
+
 		{{#if isProduction}}
 		{{> base/base-analytics }}
 		{{/if}}
