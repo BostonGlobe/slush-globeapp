@@ -7,9 +7,11 @@
 				@@include('g-logo--sm.svg')
 			</a>
 		</div>
-		<div class='g-header--title'>
-			{{meta.section}}
-		</div>
+		<nav role='navigation' class='g-header--title'>
+			<ul>
+				<li><a href="https://bostonglobe.com/{{meta.section}}">{{meta.section}}</a></li>
+			</ul>
+		</nav>
 		<ul class='g-header--social-list'>
 			<li class='g-header--social-item'>
 				<a href='#' class='share-fb' target='_blank'>
