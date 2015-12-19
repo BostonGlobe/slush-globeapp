@@ -1,6 +1,6 @@
-<svg version="1.1" class="logo--lg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="140px" height="18.674px" viewBox="0 0 140 18.674" enable-background="new 0 0 140 18.674" xml:space="preserve" aria-labelledby="title desc">
-	<title id="title">Boston Globe</title>
-	<desc id="desc">Logo</desc>
+<svg version="1.1" class="logo--lg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="140px" height="18.674px" viewBox="0 0 140 18.674" enable-background="new 0 0 140 18.674" xml:space="preserve" aria-labelledby="g-logo-title g-logo-desc">
+	<title id="g-logo-title">Boston Globe</title>
+	<desc id="g-logo-desc">Logo</desc>
 	<a xlink:href="http://www.bostonglobe.com"></a>
 	<g>
 		<path d="M129.334,11.479c0,1.375-0.062,4.065-0.062,4.16l-0.095,0.094l-2.597-1.625V7.727c0.406-0.625,0.97-0.938,1.471-0.938
