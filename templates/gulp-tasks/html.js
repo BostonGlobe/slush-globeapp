@@ -1,16 +1,16 @@
-var gulp = require('gulp');
-var hb = require('gulp-hb');
-var rename = require('gulp-rename');
-var gcallback = require('gulp-callback');
-var include = require('gulp-file-include');
-var fs = require('fs');
-var plumber = require('gulp-plumber');
-var reportError = require('../report-error.js');
+const gulp 		= require('gulp');
+const hb 		= require('gulp-hb');
+const rename 	= require('gulp-rename');
+const gcallback = require('gulp-callback');
+const include 	= require('gulp-file-include');
+const fs 		= require('fs');
+const plumber 	= require('gulp-plumber');
+const report  	= require('../report-error.js');
 
-var srcMeta = 'src/data/meta.json';
-var srcIndex = 'src/html/index.hbs';
+const srcMeta = 'src/data/meta.json';
+const srcIndex = 'src/html/index.hbs';
 
-var svgPath = process.cwd() + '/svg/';
+const svgPath = process.cwd() + '/svg/';
 
 gulp.task('html-dev', function(cb) {
 
@@ -22,7 +22,7 @@ gulp.task('html-dev', function(cb) {
 			// var data = fs.readFileSync(srcCopy, {encoding: 'utf8'});
 			// data = JSON.parse(data);
 			gulp.src(srcIndex)
-				.pipe(plumber({ errorHandler: reportError }))
+				.pipe(plumber({ errorHandler: report}))
 				.pipe(hb({
 					data: 'src/data/*.json',
 					helpers: 'src/html/helpers/*.js',

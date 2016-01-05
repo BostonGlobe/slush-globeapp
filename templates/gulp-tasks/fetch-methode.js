@@ -1,12 +1,14 @@
-var gulp = require('gulp');
-var fs = require('fs');
-var request = require('request');
-var configPath = process.cwd() + '/config.js';
-var config = require(configPath).copy.methode;
+'use strict';
 
-var _queue = [];
-var _output = '';
-var _imageDirectory = 'assets/';
+const gulp 			= require('gulp');
+const fs 			= require('fs');
+const request 		= require('request');
+const configPath	= process.cwd() + '/config.js';
+const config 		= require(configPath).copy.methode;
+
+let _queue			= [];
+let _output 		= '';
+let _imageDirectory = 'assets/';
 
 gulp.task('fetch-methode', function(cb) {
 	if (config.story.length) {
