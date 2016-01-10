@@ -68,8 +68,7 @@ Boolean value `true` or `false` to pipe in the image size from Methode as a clas
 
 Example:
 
-``` imageClass: true
-```
+``` imageClass: true ```
 
 Available sizes include: 371, 460, 585, 835, 960, 1200, 1920.
 
