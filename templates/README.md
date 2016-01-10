@@ -108,11 +108,12 @@ The following snippet is a bare minimum needed to fill out the basic information
 	"image_url": "https://apps.bostonglobe.com/graphics/path/to/image",
 	"page_id": "apps.mmddyy.title-no-spaces",
 	"section": "Metro",
-	"chartbeat_section": "metro",
+	"section_url": "https://bostonglobe.com/metro",
+	"section_chartbeat": "metro",
 	"header_color": "",
 	"credits": "",
-	"teasers": [], 
-	"paywall": false
+	"teasers": [],
+	"paywall": true
 }
 ```
 
