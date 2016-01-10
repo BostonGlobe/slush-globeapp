@@ -1,11 +1,11 @@
-{{#if meta.teasers}}
+{{#if teasers}}
 <div class='teasers'>
 	<h4 class='teasers--title'>Up next</h4>
 	<ul class='teasers--list'>
-		{{#each meta.teasers}}
+		{{#each teasers}}
 		<li class='teasers--item'>
-			<a class='teasers--link' href='{{link}}' style="background-image: linear-gradient(rgba(0,0,0, 0.3), rgba(0,0,0,0.4)), url(assets/img/{{image}}.jpg);">
-				<h3 class='teasers--hed'>{{hed}}</h3>
+			<a class='teasers--link' href='{{url}}' style="background-image: linear-gradient(rgba(0,0,0, 0.3), rgba(0,0,0,0.4)), url({{image}});">
+				<h3 class='teasers--hed'>{{title}}</h3>
 			</a>
 		</li>
 		{{/each}}
