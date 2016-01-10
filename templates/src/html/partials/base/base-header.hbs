@@ -1,5 +1,9 @@
 <a href='#content' class='skip-to-main'>Skip to main content</a>
-<header role='banner' class='g-header {{meta.header_color}}'>
+{{#if meta.header_color}}
+<header role='banner' class='g-header g-header--{{meta.header_color}}'>
+{{else}}
+<header role='banner' class='g-header'>
+{{/if}}
 	<div class='g-header--inner'>
 		<div class="g-header--logo">
 			<a href='http://www.bostonglobe.com'>

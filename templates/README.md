@@ -115,6 +115,10 @@ The following snippet is a bare minimum needed to fill out the basic information
 	"teasers": [],
 	"paywall": true
 }
+
+
+* **header_color** (defaults to white): "dark" or "transparent"
+* **teasers**: array of urls 
 ```
 
 ## Deploy
