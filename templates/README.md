@@ -7,10 +7,6 @@ Please note: do not reproduce Boston Globe logos or fonts without written permis
 ## Setup
 Run `npm install`.
 
-Then create a file `username.js` in root:
-
-```module.exports = 'yourusername';```
-
 If pulling from google or methode, run the command(s) below to stay up-to-date:
 
 `gulp fetch-google` and `gulp fetch-methode`.
