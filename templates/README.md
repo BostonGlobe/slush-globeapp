@@ -17,6 +17,10 @@ To start the local server, run `gulp`.
 
 You can pull copy from either [Methode](#methode) or a [Google Doc](#google-doc).
 
+
+#### Teasers
+Run `gulp fetch-teaser` to pull down the teaser information (based on urls in meta.json).
+
 #### Methode
 So you want to tussle with Methode huh? You are brave. Fill out `config.js` like such: 
 
