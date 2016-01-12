@@ -1,0 +1,88 @@
+.g-header--logo
+    position absolute
+
+.g-header--social-list
+    position absolute
+
+.g-header--social-item
+    display inline-block
+
+.logo--sm
+    display inline-block
+    +mq('bp-3')
+        display none
+
+.g-header
+    width 100%
+    padding 1rem
+    background-color #fff
+    color #222
+    border-bottom 1px solid #ccc
+    min-height 4rem
+
+    svg
+        fill #000
+
+    .g-header--social-item a
+        &:hover
+            background-color #d4d4d4
+
+    
+
+    &--dark
+        background-color #222
+        color #d8d8d8
+        border-bottom none
+
+        svg
+            fill #f2f2f2
+
+        .g-header--social-item a
+            &:hover
+                background-color #3c3c3c
+
+
+
+    &--transparent
+        background-color transparent
+        border-bottom none
+
+    &--inner
+        position relative
+        
+        a
+            opacity .75
+            transition .2s ease all
+
+            &:hover
+                opacity 1
+
+    &--title
+        text-align left
+        padding-left 2.5em
+        font($benton, $bold)
+        letter-spacing .01em
+        font-size .9rem
+        +mq('bp-3')
+            text-align center
+            padding-left 0
+
+    &--logo
+        top .15rem
+
+    &--social-list
+        right 0
+        top -.05rem
+
+    &--social-item a
+        display block
+        line-height 1
+        padding .25em 0
+        width 2em
+        text-align center
+        border-radius 3px
+
+.logo--lg
+    display none
+    +mq('bp-3')
+        display inline-block

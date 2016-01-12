@@ -7,10 +7,6 @@ Please note: do not reproduce Boston Globe logos or fonts without written permis
 ## Setup
 Run `npm install`.
 
-Then create a file `username.js` in root:
-
-```module.exports = 'yourusername';```
-
 If pulling from google or methode, run the command(s) below to stay up-to-date:
 
 `gulp fetch-google` and `gulp fetch-methode`.
@@ -20,6 +16,10 @@ To start the local server, run `gulp`.
 ## Copy
 
 You can pull copy from either [Methode](#methode) or a [Google Doc](#google-doc).
+
+
+#### Teasers
+Run `gulp fetch-teaser` to pull down the teaser information (based on urls in meta.json).
 
 #### Methode
 So you want to tussle with Methode huh? You are brave. Fill out `config.js` like such: 
@@ -68,15 +68,11 @@ Available sizes include: 371, 460, 585, 835, 960, 1200, 1920.
 
 *imageClass*
 
-Boolean value `true` or `false` to pipe in the image size from Methode as a class.
+Boolean value `true` or `false` to give different images from Methode a distinguising class name.
 
 Example:
 
-``` imageClass: true
-```
-
-Available sizes include: 371, 460, 585, 835, 960, 1200, 1920.
-
+``` imageClass: true ```
 
 You must include a version of [picturefill](https://apps.bostonglobe.com/common/js/picturefill/picturefill-3.0.0.min.js) in base-js.hbs (or install via npm if using webpack). If doing lazy load, then also include [lazysizes](https://apps.bostonglobe.com/common/js/lazysizes/lazysizes-1.1.3.min.js).
 
@@ -108,13 +104,18 @@ The following snippet is a bare minimum needed to fill out the basic information
 	"image_url": "https://apps.bostonglobe.com/graphics/path/to/image",
 	"page_id": "apps.mmddyy.title-no-spaces",
 	"section": "Metro",
-	"chartbeat_section": "metro",
+	"section_url": "https://bostonglobe.com/metro",
+	"section_chartbeat": "metro",
 	"header_color": "",
 	"credits": "",
-	"teasers": [], 
-	"paywall": false
+	"teasers": [],
+	"paywall": true
 }
 ```
+
+* **header_color** (defaults to white): "dark" or "transparent"
+* **teasers**: array of urls 
+
 
 ## Deploy
 #### Step 1: gulp 

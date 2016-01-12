@@ -13,6 +13,7 @@ all:
 		babel-core \
 		babel-loader \
 		babel-preset-es2015 \
+		cheerio \
 		del \
 		gulp \
 		gulp-autoprefixer \
