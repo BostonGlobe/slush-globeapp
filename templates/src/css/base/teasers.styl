@@ -12,6 +12,7 @@
 		margin 0.5em auto
 		max-width 50%
 		overflow hidden
+		color #efefef
 		
 		&:before, &:after
 			content ''
@@ -34,7 +35,7 @@
 		display flex
 		flex-direction column
 		
-		+mq('bp-1')
+		@media only screen and (min-width: 35em)
 			flex-direction row
 	
 	&--item
