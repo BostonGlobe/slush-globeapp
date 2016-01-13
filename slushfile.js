@@ -73,7 +73,7 @@ gulp.task('setup-ssh', function(done) {
 			message: 'Enter the path to your app [year]/[month]/[graphic-name]'
 		}],
 		function(answers) {
-			shell.sed('-i', '||PATH-TO-APP||', answers.path, 'config.js');
+			shell.sed('-i', '||PATH-TO-APP||', answers.path, 'data/config.json');
 			done();
 		});
 });

@@ -13,6 +13,9 @@
 		
 		<main role='main'>
 			{{> graphic/graphic }}
+			{{#if config.copy.methode.section}}
+			{{> graphic/methode}}
+			{{/if}}
 		</main>
 		
 		{{> base/base-footer }}

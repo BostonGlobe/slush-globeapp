@@ -1,17 +1,18 @@
 'use strict';
 
-const gulp        = require('gulp');
-const shell       = require('shelljs');
-const argv        = require('yargs').argv;
-const configPath  = process.cwd() + '/config.js';
-const graphicPath = require(configPath).path;
-const base        = '/web/bgapps/html/graphics/';
-const host        = 'shell.boston.com';
+const gulp        	= require('gulp');
+const fs 			= require('fs');
+const shell       	= require('shelljs');
+const argv        	= require('yargs').argv;
+const configPath = process.cwd() + '/data/config.json';
+const config     	= JSON.parse(fs.readFileSync(configPath, 'utf8'));
+const base        	= '/web/bgapps/html/graphics/';
+const host        	= 'shell.boston.com';
 
 gulp.task('ssh-prod', function(cb) {
 	const username = argv.u;
 	const files = argv.html ? 'index.html' : '.';
-	const filepath = base + graphicPath;
+	const filepath = base + config.path;
 	const configured = checkConfiguration(username);
 
 	let command = '';
@@ -25,11 +26,11 @@ gulp.task('ssh-prod', function(cb) {
 });
 
 const checkConfiguration = function(username) {
-	if (!graphicPath) {
+	if (!config.path) {
 		console.log('*** setup ssh-config.js "path" to upload to apps ***');
 	}
 	if (!username) {
 		console.log('*** enter your username with "gulp prod -u username" ***');
 	}
-	return username && typeof username === 'string' && graphicPath;
+	return username && typeof username === 'string' && config.path;
 };

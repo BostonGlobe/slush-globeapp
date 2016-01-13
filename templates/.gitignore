@@ -3,3 +3,4 @@ dist
 .tmp
 *.sw*
 .DS_Store
+src/html/partials/graphic/methode.hbs

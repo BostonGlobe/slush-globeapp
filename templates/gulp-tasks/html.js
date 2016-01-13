@@ -7,7 +7,7 @@ const fs 		= require('fs');
 const plumber 	= require('gulp-plumber');
 const report  	= require('../report-error.js');
 
-const srcMeta = 'src/data/meta.json';
+const srcMeta = 'data/meta.json';
 const srcIndex = 'src/html/index.hbs';
 
 const svgPath = process.cwd() + '/svg/';
@@ -24,7 +24,7 @@ gulp.task('html-dev', function(cb) {
 			gulp.src(srcIndex)
 				.pipe(plumber({ errorHandler: report}))
 				.pipe(hb({
-					data: 'src/data/*.json',
+					data: 'data/*.json',
 					helpers: 'src/html/helpers/*.js',
 					partials: 'src/html/partials/**/*.hbs',
 					bustCache: true,
@@ -52,7 +52,7 @@ gulp.task('html-prod', function(cb) {
 		} else {
 			gulp.src(srcIndex)
 				.pipe(hb({
-					data: 'src/data/*.json',
+					data: 'data/*.json',
 					helpers: 'src/html/helpers/*.js',
 					partials: 'src/html/partials/**/*.hbs',
 					bustCache: true,

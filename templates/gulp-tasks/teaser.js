@@ -2,10 +2,10 @@ const gulp       = require('gulp');
 const request    = require('request');
 const fs         = require('fs');
 const cheerio    = require('cheerio');
-const teaserFile = process.cwd() + '/src/data/teaser.json';
-const metaFile   = process.cwd() + '/src/data/meta.json';
 
 gulp.task('fetch-teaser', function(cb) {
+	const metaFile = 'data/meta.json';
+
 	fs.readFile(metaFile, 'utf8', function(err, data) {
 		var urls = JSON.parse(data).teasers;
 		if (urls.length) {
@@ -13,7 +13,6 @@ gulp.task('fetch-teaser', function(cb) {
 		} else {
 			cb();
 		}
-		
 	});	
 });
 
@@ -63,10 +62,10 @@ const fetchTeaser = function(url, cb) {
 };
 
 const writeData = function(data, cb) {
+	const teaserFile = 'data/teaser.json';
 	const str = JSON.stringify(data);
-	const file = 'src/data/teasers.json';
 
-	fs.writeFile(file, str, function(err) {
+	fs.writeFile(teaserFile, str, function(err) {
 		if (err) {
 			console.log(err);
 		}

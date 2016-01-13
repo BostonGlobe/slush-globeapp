@@ -87,12 +87,12 @@ Using a shared google doc for all copy for an interactive is recommended. The ap
 	- ...com/document/d/ **1IiA5a5iCjbjOYvZVgPcjGzMy5PyfCzpPF-LnQdCdFI0** /edit
 - In `config.js` paste in the ID
 
-If the data is too sensitive or a google doc is overkill, you can update `src/data/copy.json` directly. 
+If the data is too sensitive or a google doc is overkill, you can update `data/copy.json` directly. 
 
 Running `gulp fetch-google` at any point will pull down the latest.
 
 #### SEO and Analytics
-The following snippet is a bare minimum needed to fill out the basic information for seo and analytics. If you are using a [Google Doc](#google-doc), you can add this in there. Otherwise, put the following code in `src/data/meta.json`.
+The following snippet is a bare minimum needed to fill out the basic information for seo and analytics. If you are using a [Google Doc](#google-doc), you can add this in there. Otherwise, put the following code in `data/meta.json`.
 
 ```
 {

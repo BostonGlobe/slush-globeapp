@@ -3,21 +3,22 @@
 const gulp 			= require('gulp');
 const fs 			= require('fs');
 const request 		= require('request');
-const configPath	= process.cwd() + '/config.js';
-const config 		= require(configPath).copy.methode;
+const configPath = process.cwd() + '/data/config.json';
+const config     	= JSON.parse(fs.readFileSync(configPath, 'utf8'));
+const methode 		= config.copy.methode;
 
 let _queue			= [];
 let _output 		= '';
 let _imageDirectory = 'assets/';
 
 gulp.task('fetch-methode', function(cb) {
-	if (config.story.length) {
-		_imageDirectory += config.imageDirectory || '';
+	if (methode.story.length) {
+		_imageDirectory += methode.imageDirectory || '';
 
 		var next = function(index) {
 			// fetch xml
 			var base = 'http://prdedit.bostonglobe.com/eom/Boston/Content/';
-			var url = base + config.section + '/Stories/' + config.story[index].slug + '.xml';
+			var url = base + methode.section + '/Stories/' + methode.story[index].slug + '.xml';
 			console.log('fetching', url);
 			request(url, function(error, response, body) {
 				// did we get a valid response?
@@ -39,7 +40,7 @@ gulp.task('fetch-methode', function(cb) {
 						// replace photo tags with desired markup
 						content = content.replace(/<photogrp-inline (.*?)>([\S\s]*?)<\/photogrp-inline>/g, createImageMarkup);
 
-						appendOutput(content, config.story[index]);
+						appendOutput(content, methode.story[index]);
 
 					} else {
 						console.error('empty methode file, check config settings');
@@ -58,10 +59,10 @@ gulp.task('fetch-methode', function(cb) {
 
 		var advance = function(index) {
 			index++;
-			if (index < config.story.length) {
+			if (index < methode.story.length) {
 				next(index);
 			} else {
-				fs.writeFileSync('src/html/partials/graphic/graphic.hbs', _output);
+				fs.writeFileSync('src/html/partials/graphic/methode.hbs', _output);
 				downloadImages(cb);
 			}
 		};
@@ -105,7 +106,7 @@ function createImageMarkup(str) {
 		var src = fileref[1];
 		
 		var floatClass = float && float.length ? float[1] : '';
-		var customClass = config.imageClass ? floatClass : '';
+		var customClass = methode.imageClass ? floatClass : '';
 
 		// match caption and remove
 		var caption = str.match(/<caption (?:.*?)>([\S\s]*?)<\/caption>/);
@@ -118,7 +119,7 @@ function createImageMarkup(str) {
 		var imgPath = src.split('?')[0];
 
 		var figure = createFigure({
-			lib: config.imageLibrary,
+			lib: methode.imageLibrary,
 			imgPath: imgPath,
 			caption: caption,
 			credit: credit,
@@ -137,7 +138,7 @@ function createFigure(params) {
 	var imgSplit = imgFull.split('.');
 	var name = imgSplit[0];
 	var extension = imgSplit[1];
-	var imageSizes = config.imageSizes && config.imageSizes.length ? config.imageSizes : [1200];
+	var imageSizes = methode.imageSizes && methode.imageSizes.length ? methode.imageSizes : [1200];
 
 	for (var i in imageSizes) {
 		_queue.push({
