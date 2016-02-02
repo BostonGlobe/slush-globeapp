@@ -4,3 +4,4 @@ dist
 *.sw*
 .DS_Store
 src/html/partials/graphic/methode.hbs
+data/copy.json
