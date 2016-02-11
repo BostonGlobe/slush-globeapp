@@ -1,3 +1,3 @@
-require('./util');
+import setupDefaultApps from './utils/setupDefaultApps';
 
-// ADD YOUR CODE HERE
+setupDefaultApps();
