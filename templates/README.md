@@ -22,7 +22,7 @@ You can pull copy from either [Methode](#methode) or a [Google Doc](#google-doc)
 Run `gulp fetch-teaser` to pull down the teaser information (based on urls in meta.json).
 
 #### Methode
-So you want to tussle with Methode huh? You are brave. Fill out `config.js` like such: 
+So you want to tussle with Methode huh? You are brave. Fill out `config.js` like such:
 
 ```
 	...
@@ -87,7 +87,7 @@ Using a shared google doc for all copy for an interactive is recommended. The ap
 	- ...com/document/d/ **1IiA5a5iCjbjOYvZVgPcjGzMy5PyfCzpPF-LnQdCdFI0** /edit
 - In `config.js` paste in the ID
 
-If the data is too sensitive or a google doc is overkill, you can update `data/copy.json` directly. 
+If the data is too sensitive or a google doc is overkill, you can update `data/copy.json` directly.
 
 Running `gulp fetch-google` at any point will pull down the latest.
 
@@ -114,12 +114,12 @@ The following snippet is a bare minimum needed to fill out the basic information
 ```
 
 * **header_color** (defaults to white): "dark" or "transparent"
-* **teasers**: array of urls 
+* **teasers**: array of urls
 
 
 ## Deploy
-#### Step 1: gulp 
-- Run `gulp prod -u username` to deploy. Outputs files into `dist/prod` folder in root. 
+#### Step 1: gulp
+- Run `gulp prod -u username` to deploy. Outputs files into `dist/prod` folder in root.
 - Optional: Use the flag `--html` to only upload the index.html file (use this if you have no updates to assets and want faster upload)
 - Your graphic is now internally visible at http://dev.apps.bostonglobe.com/graphics/[year]/[month]/[graphic-name].
 
