@@ -12,5 +12,9 @@ export default function meter(cb) {
 		window.bglobe.freeviewMeter.init(
 			{pageId : 'meta.page_id' , registrationWall : registrationWallVal, webType : 'app', sectionPath : 'apps', debug:  false }
 		);
+
+		cb();
+
 	});
 }
+
