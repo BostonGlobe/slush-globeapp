@@ -10,21 +10,18 @@
 	</head>
 	<body>
 		{{> base/base-header }}
-		
+
 		<main id='content'>
 			{{> graphic/graphic }}
 			{{#if config.copy.methode.section}}
 			{{> graphic/methode}}
 			{{/if}}
 		</main>
-		
+
 		{{> base/base-footer }}
 
 		{{> base/base-paywall }}
 		{{> base/base-js }}
-		
-		{{#if isProduction}}
-		{{> base/base-analytics }}
-		{{/if}}
+
 	</body>
 </html>
