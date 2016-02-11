@@ -10,7 +10,7 @@ const loaded = {'omniture': false, 'meter': false};
 const init = function() {
 	if (!window.location.hostname.startsWith('localhost')) {
 		chartbeat();
-		
+
 		omniture.load( () => {
 			// check meter loaded
 			checkOmnitureAndMeterLoad('omniture');
@@ -18,6 +18,7 @@ const init = function() {
 
 		meter( () => {
 			// window.methode now available
+			checkOmnitureAndMeterLoad('meter');
 			triggerPaywall();
 		});
 	}
