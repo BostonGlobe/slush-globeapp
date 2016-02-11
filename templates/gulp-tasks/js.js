@@ -14,8 +14,16 @@ const config = {
 	}
 };
 
+const prod_config = Object.assign({}, config, {
+	plugins: [
+		new webpack.optimize.UglifyJsPlugin(),
+		new webpack.optimize.OccurenceOrderPlugin(),
+		new webpack.optimize.DedupePlugin()
+	]
+});
+
 gulp.task('js-dev', ['app-js-dev', 'business-js-dev']);
-	
+
 gulp.task('app-js-dev', function() {
 	return gulp.src('src/js/app.js')
 		.pipe(webpackStream(config))
@@ -35,16 +43,6 @@ gulp.task('business-js-dev', function() {
 gulp.task('js-prod', ['app-js-prod', 'business-js-prod']);
 
 gulp.task('app-js-prod', function() {
-	const prod_config = Object.assign({}, config, {
-
-		plugins: [
-			new webpack.optimize.UglifyJsPlugin(),
-			new webpack.optimize.OccurenceOrderPlugin(),
-			new webpack.optimize.DedupePlugin()
-		]
-
-	});
-
 	return gulp.src('src/js/app.js')
 		.pipe(webpackStream(prod_config))
 		.pipe(rename('bundle.js'))
@@ -52,16 +50,6 @@ gulp.task('app-js-prod', function() {
 });
 
 gulp.task('business-js-prod', function() {
-	const prod_config = Object.assign({}, config, {
-
-		plugins: [
-			new webpack.optimize.UglifyJsPlugin(),
-			new webpack.optimize.OccurenceOrderPlugin(),
-			new webpack.optimize.DedupePlugin()
-		]
-
-	});
-
 	return gulp.src('src/js/business.js')
 		.pipe(webpackStream(prod_config))
 		.pipe(rename('business.js'))
