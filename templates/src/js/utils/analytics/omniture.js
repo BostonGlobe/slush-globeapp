@@ -6,7 +6,7 @@ const omniture = {
 	load: function(cb) {
 		loadJS('https://apps.bostonglobe.com/common/js/omniture/s_code_bgcom.27.5.js', cb);
 	},
-	
+
 	setupTracking: function(showPaywall) {
 		s.pageName='meta.section | meta.title';
 		s.channel='meta.section';
@@ -24,7 +24,7 @@ const omniture = {
 			s.channel = 'Member Center';
 			s.prop1 = 'Member Center | BGC Registration';
 			if (window.innerWidth <= 768) {
-				// assume mobile 
+				// assume mobile
 				s.pageName = 'Member Center | BGC Registration | Fullpage Paywall Challenge';
 				s.prop6 = 'BGC Registration Page - Fullpage';
 			} else {
@@ -33,7 +33,7 @@ const omniture = {
 				s.prop6 = 'BGC Registration Page - Modal';
 			}
 		}
-		
+
 		// this does something
 		s_code=s.t();
 		if (s_code) {
