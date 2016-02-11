@@ -17,7 +17,6 @@ all:
 		del \
 		gulp \
 		gulp-autoprefixer \
-		gulp-babel \
 		gulp-callback \
 		gulp-changed \
 		gulp-file-include \
@@ -31,6 +30,7 @@ all:
 		gulp-stylus \
 		gulp-util \
 		gulp-zip \
+		json-loader \
 		request \
 		require-dir \
 		run-sequence \

@@ -31,37 +31,7 @@ gulp.task('copy-templates-directory', function(done) {
 			// add correct graphic name to README
 			shell.sed('-i', /APPNAME/g, getGraphicName(), 'README.md');
 
-			// add webpack
-			inquirer.prompt([
-				{
-					type: 'confirm',
-					name: 'webpack',
-					message: 'Add webpack?',
-					default: false
-				}
-			], function(answers) {
-
-				const files = [
-					'gulp-tasks/js-webpack.js',
-					'src/js/main-webpack.js',
-					'src/html/partials/base/base-js-webpack.hbs'
-				];
-
-				if (answers.webpack) {
-
-					files.forEach(function(f) {
-						shell.mv('-f', f, f.replace('-webpack', ''));
-					});
-
-				} else {
-
-					shell.rm('-f', files);
-
-				}
-
-				done();
-			});
-
+			done();
 		});
 });
 
