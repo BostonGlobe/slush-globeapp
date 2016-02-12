@@ -37,6 +37,7 @@ gulp.task('app-js-dev', function() {
 
 gulp.task('business-js-dev', function() {
 	return gulp.src('src/js/business.js')
+		.pipe(plumber({ errorHandler: report }))
 		.pipe(webpackStream(config))
 		.pipe(rename('business.js'))
 		.pipe(gulp.dest('dist/dev/js'))
