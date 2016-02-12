@@ -3,6 +3,8 @@ const rename        = require('gulp-rename');
 const browserSync   = require('browser-sync');
 const webpackStream = require('webpack-stream');
 const webpack       = require('webpack');
+const plumber		= require('gulp-plumber');
+const report 		= require('../report-error.js');
 
 const config = {
 	module: {
@@ -26,6 +28,7 @@ gulp.task('js-dev', ['app-js-dev', 'business-js-dev']);
 
 gulp.task('app-js-dev', function() {
 	return gulp.src('src/js/app.js')
+		.pipe(plumber({ errorHandler: report }))
 		.pipe(webpackStream(config))
 		.pipe(rename('bundle.js'))
 		.pipe(gulp.dest('dist/dev/js'))
