@@ -1,4 +1,5 @@
 import disableScroll from './disableScroll';
+import isMobile from '../misc/isMobile';
 
 export default function showPaywall() {
 	const el = document.getElementsByClassName('paywall')[0];
