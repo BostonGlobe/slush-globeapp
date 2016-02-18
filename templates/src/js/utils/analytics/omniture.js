@@ -8,16 +8,16 @@ const omniture = {
 	},
 
 	setupTracking: function(showPaywall) {
-		s.pageName='meta.section | meta.title';
-		s.channel='meta.section';
-		s.prop1='meta.section | Specials';
-		s.prop6='Infographic';
+		s.pageName= meta.section | meta.title;
+		s.channel= meta.section;
+		s.prop1= meta.section | 'Specials';
+		s.prop6= 'Infographic';
 		s.prop41=s.eVar41='BostonGlobe.com';
 		s.eVar20 = methode.subscribed ? 'logged in' : 'logged out';
 		s.prop35 = methode.subscribed ? 'logged in' : 'logged out';
-		s.prop3 = 'meta.author';
-		s.prop67 = 'meta.page_id';
-		s.eVar67 = 'meta.page_id';
+		s.prop3 = meta.author;
+		s.prop67 = meta.page_id;
+		s.eVar67 = meta.page_id;
 
 		// PAYWALL
 		if (showPaywall) {

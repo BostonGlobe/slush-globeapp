@@ -10,7 +10,7 @@ export default function meter(cb) {
 		const registrationWallVal = hasPaywall ? 'non-exempt' : 'exempt';
 
 		window.bglobe.freeviewMeter.init(
-			{pageId : 'meta.page_id' , registrationWall : registrationWallVal, webType : 'app', sectionPath : 'apps', debug:  false }
+			{pageId : meta.page_id , registrationWall : registrationWallVal, webType : 'app', sectionPath : 'apps', debug:  false }
 		);
 
 		cb();

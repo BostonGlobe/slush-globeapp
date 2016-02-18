@@ -9,18 +9,12 @@ const loaded = {'omniture': false, 'meter': false};
 
 const init = function() {
 	if (!window.location.hostname.startsWith('localhost')) {
+		
 		chartbeat();
 
-		omniture.load( () => {
-			// check meter loaded
-			checkOmnitureAndMeterLoad('omniture');
-		});
+		omniture.load( () => checkOmnitureAndMeterLoad('omniture') );
 
-		meter( () => {
-			// window.methode now available
-			checkOmnitureAndMeterLoad('meter');
-			triggerPaywall();
-		});
+		meter( () => checkOmnitureAndMeterLoad('meter') );
 	}
 };
 
@@ -35,6 +29,7 @@ const checkOmnitureAndMeterLoad = function(name) {
 	loaded[name] = true;
 	if(loaded['omniture'] && loaded['meter']) {
 		omniture.setupTracking(meta.paywall && methode.freeviewCount > 5);
+		triggerPaywall();
 	}
 };
 
