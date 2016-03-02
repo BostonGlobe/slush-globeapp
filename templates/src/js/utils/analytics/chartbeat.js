@@ -1,4 +1,4 @@
-import meta from '../../../../data/meta'
+import getMetaContent from '../misc/getMetaContent'
 
 export default function chartbeat() {
 	window._sf_startpt = (new Date()).getTime()
@@ -6,7 +6,7 @@ export default function chartbeat() {
 	window._sf_async_config.path = location.pathname
 
 	// Section and Author tagging
-	window._sf_async_config.sections = meta.sectionChartbeat
+	window._sf_async_config.sections = getMetaContent('sectionChartbeat')
 	window._sf_async_config.authors = 'infographic'
 
 	function loadChartbeat() {

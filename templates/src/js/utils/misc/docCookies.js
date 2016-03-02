@@ -45,6 +45,6 @@ const docCookies = {
 		return aKeys;
 	}
 
-};
+}
 
-export default docCookies;
+export default docCookies
