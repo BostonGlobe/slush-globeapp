@@ -1,27 +1,27 @@
-import disableScroll from './disableScroll';
-import isMobile from '../misc/isMobile';
+import disableScroll from './disableScroll'
+import isMobile from '../misc/isMobile'
 
 export default function showPaywall() {
-	const el = document.getElementsByClassName('paywall')[0];
-	el.classList.remove('hide');
+	const el = document.querySelector('paywall')
+	el.classList.remove('hide')
 
-	disableScroll();
+	disableScroll()
 
 	if (isMobile.any()) {
-		el.style.backgroundSize = 'cover';
-		el.style.background = 'url("https://apps.bostonglobe.com/common/paywall/press.jpg")';
+		el.style.backgroundSize = 'cover'
+		el.style.background = 'url("https://apps.bostonglobe.com/common/paywall/press.jpg")'
 	} else {
-		const filepath = 'https://apps.bostonglobe.com/common/paywall/press';
+		const filepath = 'https://apps.bostonglobe.com/common/paywall/press'
 
 		const html = `
 			<video loop muted autoplay poster='${filepath}.jpg' class='fullscreen-bg__video'>
 				<source src='${filepath}.mp4' type='video/mp4'>
 			</video>
-		`.trim();
+		`.trim()
 
-		const div = document.createElement('div');
-		div.classList.add('fullscreen-bg');
-		div.innerHTML = html;
-		el.insertBefore(div, el.firstChild);
+		const div = document.createElement('div')
+		div.classList.add('fullscreen-bg')
+		div.innerHTML = html
+		el.insertBefore(div, el.firstChild)
 	}
-};
+}
