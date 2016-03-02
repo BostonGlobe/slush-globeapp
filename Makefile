@@ -15,6 +15,7 @@ all:
 		babel-preset-es2015 \
 		cheerio \
 		del \
+		get-json-lite \
 		gulp \
 		gulp-autoprefixer \
 		gulp-callback \

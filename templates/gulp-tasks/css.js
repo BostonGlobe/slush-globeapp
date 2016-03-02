@@ -27,3 +27,10 @@ gulp.task('css-prod', function() {
 		.pipe(rename('main.css'))
 		.pipe(gulp.dest('.tmp/css'));
 });
+
+gulp.task('css-business', function() {
+	gulp.src('src/css/business/*.styl')
+		.pipe(stylus())
+		.pipe(autoprefixer())
+		.pipe(gulp.dest('business'))
+})

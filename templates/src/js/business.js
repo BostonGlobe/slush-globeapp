@@ -1,8 +1,9 @@
 import omniture from './utils/analytics/omniture'
 import chartbeat from './utils/analytics/chartbeat'
-import meter from './utils/paywall/meter'
-import showPaywall from './utils/paywall/showPaywall'
-import { removeClass } from './utils/misc/toggleClass'
+import meter from './utils/business/meter'
+import socialConnect from './utils/business/socialConnect'
+import showPaywall from './utils/business/showPaywall'
+import toggleClass from './utils/misc/toggleClass'
 
 import meta from '../../data/meta'
 
@@ -30,9 +31,10 @@ function checkLoaded(name) {
 		socialConnect.setup()
 
 		// toggle subscribe button and share tools based on sub or not
-		const selector = methode.subscribed ? '.g-header--social-list' : '.subscribe-header'
-		const el = document.querySelector(selector)
-		removeClass(el, 'hide')
+		// const selector = methode.subscribed ? '.g-header--social-list' : '.subscribe-header'
+		// const el = document.querySelector(selector)
+		// console.log(selector, el)
+		// toggleClass.remove(el, 'hide')
 
 	}
 
@@ -52,7 +54,7 @@ function init() {
 		meter(() => checkLoaded('meter'))
 
 		// load fb lib
-		socialConnect.load(() => checkLoad('socialConnect'));
+		socialConnect.load(() => checkLoaded('socialConnect'));
 
 	}
 
