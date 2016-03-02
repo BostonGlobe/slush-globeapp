@@ -1,3 +1,3 @@
-import setupDefaultApps from './utils/setupDefaultApps';
+import setupDefaultApps from './utils/setupDefaultApps'
 
-setupDefaultApps();
+setupDefaultApps()
