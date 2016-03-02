@@ -1,4 +1,4 @@
-import loadJS from '../misc/loadJwindow.S.js'
+import loadJS from '../misc/loadJS.js'
 import meta from '../../../../data/meta'
 
 const omniture = {
