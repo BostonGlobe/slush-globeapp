@@ -1,9 +1,10 @@
 import disableScroll from './disableScroll'
 import isMobile from '../misc/isMobile'
+import { addClass, removeClass } from '../misc/toggleClass'
 
 export default function showPaywall() {
 	const el = document.querySelector('paywall')
-	el.classList.remove('hide')
+	removeClass(el, 'hide')
 
 	disableScroll()
 
@@ -20,7 +21,7 @@ export default function showPaywall() {
 		`.trim()
 
 		const div = document.createElement('div')
-		div.classList.add('fullscreen-bg')
+		addClass(div, 'fullscreen-bg')
 		div.innerHTML = html
 		el.insertBefore(div, el.firstChild)
 	}
