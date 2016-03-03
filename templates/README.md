@@ -101,19 +101,17 @@ The following snippet is a bare minimum needed to fill out the basic information
 	"description": "Description of graphic",
 	"keywords": "Comma, delimited, for, seo",
 	"url": "https://apps.bostonglobe.com/graphics/path/to/graphic",
-	"image_url": "https://apps.bostonglobe.com/graphics/path/to/image",
-	"page_id": "apps.mmddyy.title-no-spaces",
+	"imageUrl": "https://apps.bostonglobe.com/graphics/path/to/image",
 	"section": "Metro",
-	"section_url": "https://bostonglobe.com/metro",
-	"section_chartbeat": "metro",
-	"header_color": "",
+	"sectionUrl": "https://bostonglobe.com/metro",
+	"headerColor": "",
 	"credits": "",
 	"teasers": [],
 	"paywall": true
 }
 ```
 
-* **header_color** (defaults to white): "dark" or "transparent"
+* **headerColor** (defaults to white): "dark" or "transparent"
 * **teasers**: array of urls
 
 

@@ -24,9 +24,7 @@ const prod_config = Object.assign({}, config, {
 	]
 });
 
-gulp.task('js-dev', ['app-js-dev']);
-
-gulp.task('app-js-dev', function() {
+gulp.task('js-dev', function() {
 	return gulp.src('src/js/app.js')
 		.pipe(plumber({ errorHandler: report }))
 		.pipe(webpackStream(config))
@@ -35,28 +33,9 @@ gulp.task('app-js-dev', function() {
 		.pipe(browserSync.reload({stream:true}));
 });
 
-// gulp.task('business-js-dev', function() {
-// 	return gulp.src('src/js/business.js')
-// 		.pipe(plumber({ errorHandler: report }))
-// 		.pipe(webpackStream(config))
-// 		.pipe(rename('business.js'))
-// 		.pipe(gulp.dest('dist/dev/js'))
-// 		.pipe(browserSync.reload({stream:true}));
-// });
-
-gulp.task('js-prod', ['app-js-prod']);
-
-gulp.task('app-js-prod', function() {
+gulp.task('js-prod', function() {
 	return gulp.src('src/js/app.js')
 		.pipe(webpackStream(prod_config))
 		.pipe(rename('bundle.js'))
 		.pipe(gulp.dest('.tmp/js'))
 });
-
-gulp.task('js-business', function() {
-	return gulp.src('src/js/business.js')
-		.pipe(webpackStream(prod_config))
-		.pipe(rename('business.js'))
-		.pipe(gulp.dest('business'))
-});
-
