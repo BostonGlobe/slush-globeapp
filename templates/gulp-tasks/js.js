@@ -29,7 +29,7 @@ gulp.task('js-dev', function() {
 		.pipe(plumber({ errorHandler: report }))
 		.pipe(webpackStream(config))
 		.pipe(rename('bundle.js'))
-		.pipe(gulp.dest('dist/dev/js'))
+		.pipe(gulp.dest('dist/dev'))
 		.pipe(browserSync.reload({stream:true}));
 });
 
@@ -37,5 +37,5 @@ gulp.task('js-prod', function() {
 	return gulp.src('src/js/app.js')
 		.pipe(webpackStream(prod_config))
 		.pipe(rename('bundle.js'))
-		.pipe(gulp.dest('dist/prod/js'))
+		.pipe(gulp.dest('dist/prod'))
 });
