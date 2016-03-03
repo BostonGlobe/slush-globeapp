@@ -21,6 +21,7 @@ all:
 		gulp-callback \
 		gulp-file-include \
 		gulp-hb \
+		gulp-htmlmin \
 		gulp-imagemin \
 		gulp-notify \
 		gulp-plumber \
