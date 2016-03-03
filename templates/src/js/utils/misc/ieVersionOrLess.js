@@ -1,6 +1,6 @@
 export default function ieVersionOrLess(x) {
-	x = x || 0
+	const v = x || 0
 	const htmlClasses = document.getElementsByTagName('html')[0].className
 	const matches = htmlClasses.match(/ie(\d+)/)
-	return matches && +matches[1] <= x
+	return matches && +matches[1] <= v
 }
