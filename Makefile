@@ -19,8 +19,6 @@ all:
 		gulp \
 		gulp-autoprefixer \
 		gulp-callback \
-		gulp-changed \
-		gulp-clean-css \
 		gulp-file-include \
 		gulp-hb \
 		gulp-imagemin \
