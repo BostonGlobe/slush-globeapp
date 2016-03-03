@@ -5,7 +5,7 @@ This project was generated with [slush-globeapp](https://github.com/BostonGlobe/
 Please note: do not reproduce Boston Globe logos or fonts without written permission.
 
 ## Setup
-Run `npm install`.
+Clone repo and run `npm i`.
 
 If pulling from google or methode, run the command(s) below to stay up-to-date:
 
@@ -16,10 +16,6 @@ To start the local server, run `gulp`.
 ## Copy
 
 You can pull copy from either [Methode](#methode) or a [Google Doc](#google-doc).
-
-
-#### Teasers
-Run `gulp fetch-teaser` to pull down the teaser information (based on urls in meta.json).
 
 #### Methode
 So you want to tussle with Methode huh? You are brave. Fill out `config.js` like such:
@@ -91,13 +87,16 @@ If the data is too sensitive or a google doc is overkill, you can update `data/c
 
 Running `gulp fetch-google` at any point will pull down the latest.
 
-#### SEO and Analytics
-The following snippet is a bare minimum needed to fill out the basic information for seo and analytics. If you are using a [Google Doc](#google-doc), you can add this in there. Otherwise, put the following code in `data/meta.json`.
+## Teasers
+Run `gulp fetch-teaser` to pull down the teaser information (based on urls in meta.json).
+
+## SEO and Analytics
+Fill out *data/meta.json*, the bare minimum needed for seo, analytics, and business.
 
 ```
 {
 	"title": "Graphic title",
-	"author": "",
+	"author": "Author name",
 	"description": "Description of graphic",
 	"keywords": "Comma, delimited, for, seo",
 	"url": "https://apps.bostonglobe.com/graphics/path/to/graphic",
@@ -112,6 +111,7 @@ The following snippet is a bare minimum needed to fill out the basic information
 ```
 
 * **headerColor** (defaults to white): "dark" or "transparent"
+* **credits** text of who made this
 * **teasers**: array of urls
 
 
