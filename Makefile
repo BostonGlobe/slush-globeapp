@@ -20,9 +20,10 @@ all:
 		gulp-autoprefixer \
 		gulp-callback \
 		gulp-changed \
+		gulp-clean-css \
 		gulp-file-include \
 		gulp-hb \
-		gulp-htmlmin \
+		gulp-imagemin \
 		gulp-notify \
 		gulp-plumber \
 		gulp-rename \
@@ -36,7 +37,6 @@ all:
 		require-dir \
 		run-sequence \
 		shelljs \
-		'underscore.string' \
 		webpack-stream \
 		yargs;
 
