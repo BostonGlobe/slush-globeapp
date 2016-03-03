@@ -10,5 +10,7 @@
 	"headerColor": "",
 	"credits": "",
 	"teasers": [],
-	"paywall": true
+	"paywall": true,
+	"ads": false
+
 }

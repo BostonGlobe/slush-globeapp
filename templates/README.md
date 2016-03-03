@@ -106,7 +106,8 @@ Fill out *data/meta.json*, the bare minimum needed for seo, analytics, and busin
 	"headerColor": "",
 	"credits": "",
 	"teasers": [],
-	"paywall": true
+	"paywall": true,
+	"ads": false
 }
 ```
 
