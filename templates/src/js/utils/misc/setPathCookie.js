@@ -1,4 +1,4 @@
-import docCookies from './docCookies';
+import docCookies from './docCookies'
 
 export default function setPathCookie() {
 	// remove previous pathUrl cookie
