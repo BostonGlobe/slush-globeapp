@@ -7,6 +7,8 @@
     "browser-sync": "^2.11.1",
     "cheerio": "^0.20.0",
     "del": "^2.2.0",
+    "eslint": "^2.3.0",
+    "eslint-config-airbnb": "^6.1.0",
     "get-json-lite": "^1.1.1",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
