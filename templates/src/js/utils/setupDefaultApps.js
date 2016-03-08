@@ -6,6 +6,5 @@ import removeMobileHover from './misc/removeMobileHover'
 export default function setupDefaultApps() {
 	wireSocialButtons({ element: { facebook: 'share-fb', twitter: 'share-tw' } })
 	removeMobileHover()
-	copyrightYear()
 	setPathCookie()
 }
