@@ -4,10 +4,10 @@ all:
 	cd templates; rm node_modules.zip package.json;
 
 	# make a blank package.json
-	cd templates; echo '{"dependencies":{}}' >> package.json
+	cd templates; echo '{"devDependencies":{}}' >> package.json
 
 	# npm install modules
-	cd templates; sudo npm install --save \
+	cd templates; sudo npm install --save-dev \
 		archieml \
 		browser-sync \
 		babel-core \
@@ -36,6 +36,7 @@ all:
 		require-dir \
 		run-sequence \
 		shelljs \
+		webpack \
 		webpack-stream \
 		yargs;
 
