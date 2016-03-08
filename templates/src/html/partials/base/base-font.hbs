@@ -14,17 +14,19 @@
 </script>
 
 <script>
-	var miller400 = new FontFaceObserver("Miller", { weight: 400 });
-	var miller600 = new FontFaceObserver("Miller", { weight: 600 });
+	(function() {
+		var handleError = function() { console.log('error loading font'); }
+		var el = document.documentElement;
+
+		var miller400 = new FontFaceObserver("Miller", { weight: 400 });
+		miller400.check().then(function() { el.className += ' miller-regular'; }).catch(handleError);
+		// var miller600 = new FontFaceObserver("Miller", { weight: 600 });
+		// miller600.check().then(function() { el.className += ' miller-bold'; }).catch(handleError);
+		// var benton400 = new FontFaceObserver("Benton", { weight: 400 });
+		// benton400.check().then(function() { el.className += ' benton-regular'; }).catch(handleError);
+		// var benton600 = new FontFaceObserver("Benton", { weight: 600 });
+		// benton600.check().then(function() { el.className += ' benton-bold'; }).catch(handleError);
+	})();
 	
-	Promise.all([
-		miller400.check(),
-		miller600.check()
-	]).then(function() {
-		document.documentElement.className += ' fonts-loaded';
-		console.log('fonts loaded');
-	}).catch(function() {
-		console.error('error loading fonts');
-	});
 </script>
 <!-- htmlmin:ignore -->
