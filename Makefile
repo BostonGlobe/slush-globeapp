@@ -17,6 +17,7 @@ all:
 		del \
 		eslint \
 		eslint-config-airbnb \
+		fontfaceobserver \
 		get-json-lite \
 		gulp \
 		gulp-autoprefixer \

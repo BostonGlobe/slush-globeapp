@@ -87,6 +87,20 @@ If the data is too sensitive or a google doc is overkill, you can update `data/c
 
 Running `gulp fetch-google` at any point will pull down the latest.
 
+## Fonts
+The only two fonts loaded by default are **Miller regular** and **Benton bold**. To load additional fonts you must add info to two places. Follow the current examples in the existing files.
+* **src/css/base/font.styl**
+* **src/js/utils/misc/setupDefaultApps.js**
+
+To set a font, simply add the class name to the element following the pattern `'.family--style'` (ex. `.benton--bold`)
+
+Available fonts:
+* Benton (regular, bold)
+* Benton-Cond (regular)
+* Benton-Comp (regular)
+* Miller (regular, bold)
+* Miller-Banner (regular, italic)
+
 ## Teasers
 Run `gulp fetch-teaser` to pull down the teaser information (based on urls in meta.json).
 
