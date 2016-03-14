@@ -17,7 +17,6 @@ all:
 		del \
 		eslint \
 		eslint-config-airbnb \
-		fontfaceobserver \
 		get-json-lite \
 		gulp \
 		gulp-autoprefixer \
@@ -42,6 +41,9 @@ all:
 		webpack \
 		webpack-stream \
 		yargs;
+
+	cd templates; sudo npm install --save \
+		fontfaceobserver;
 
 	# make node_modules.zip
 	cd templates; zip -q -r node_modules.zip node_modules;
