@@ -21,10 +21,9 @@ function createStylesheet() {
 
 function addFontRule(sheet, font) {
 	const rule = `
-		.${font.family.toLowerCase()}--${font.style} {
+		.${font.family.toLowerCase()}-${font.suffix} {
 			font-family: '${font.family}';
 			font-weight: ${font.weight};
-			font-style: ${font.style};
 		}
 	`.trim()
 	sheet.insertRule(rule, 0)
