@@ -9,7 +9,7 @@
     "del": "^2.2.0",
     "eslint": "^2.4.0",
     "eslint-config-airbnb": "^6.1.0",
-    "get-json-lite": "^1.1.1",
+    "get-json-lite": "^2.0.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-callback": "0.0.3",
@@ -32,9 +32,10 @@
     "shelljs": "^0.6.0",
     "webpack": "^1.12.14",
     "webpack-stream": "^3.1.0",
-    "yargs": "^4.2.0"
+    "yargs": "^4.3.2"
   },
   "dependencies": {
-    "fontfaceobserver": "^1.6.4"
+    "fontfaceobserver": "^1.6.4",
+    "promis": "^1.1.4"
   }
 }
