@@ -9,7 +9,7 @@ export default function setupDefaultApps() {
 		{ family: 'Miller', suffix: 'regular', weight: 400 },
 		{ family: 'Benton', suffix: 'bold', weight: 600 },
 	])
-	wireSocialButtons({ element: { facebook: 'share-fb', twitter: 'share-tw' } })
+	wireSocialButtons({ facebook: '.share-fb', twitter: '.share-tw' })
 	removeMobileHover()
 	setPathCookie()
 }
