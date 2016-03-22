@@ -25,12 +25,5 @@ gulp.task('css-prod', function() {
 		.pipe(autoprefixer())
 		.pipe(replace(/\.\.\/assets/g, 'assets'))
 		.pipe(rename('main.css'))
-		.pipe(gulp.dest('.tmp/css'));
+		.pipe(gulp.dest('.tmp'));
 });
-
-gulp.task('css-business', function() {
-	gulp.src('src/css/business/*.styl')
-		.pipe(stylus())
-		.pipe(autoprefixer())
-		.pipe(gulp.dest('business'))
-})
