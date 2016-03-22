@@ -1,3 +1,4 @@
+import 'promis'
 import FontFaceObserver from 'fontfaceobserver'
 
 export default function(args) {
