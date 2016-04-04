@@ -4,7 +4,7 @@ import FontFaceObserver from 'fontfaceobserver'
 export default function(args) {
 	const sheet = createStylesheet()
 
-	var handleError = function(err) { console.err(err); }
+	var handleError = function(err) { console.error(err); }
 	var el = document.documentElement;
 
 	args.forEach(font => {
