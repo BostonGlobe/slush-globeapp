@@ -8,6 +8,7 @@ export default function setupDefaultApps() {
 	loadFont([
 		{ family: 'Miller', suffix: 'regular', weight: 400 },
 		{ family: 'Benton', suffix: 'bold', weight: 600 },
+		{ family: 'Miller-Banner', suffix: 'regular', weight: 600 },
 	])
 	wireSocialButtons({ facebook: '.share-fb', twitter: '.share-tw' })
 	removeMobileHover()
