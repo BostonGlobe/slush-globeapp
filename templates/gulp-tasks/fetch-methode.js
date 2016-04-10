@@ -95,6 +95,9 @@ function deMethodeify(content) {
 	// -- to mdash
 	content = content.replace(/--/g, '&mdash;');
 
+	// add class for methode p tags
+	content = content.replace(/<p>/g, "<p class='methode-graf'>")
+
 	return content;
 }
 
