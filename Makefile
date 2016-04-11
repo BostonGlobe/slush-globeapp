@@ -13,6 +13,7 @@ all:
 		babel-core \
 		babel-loader \
 		babel-preset-es2015 \
+		babel-preset-staget-1 \
 		cheerio \
 		del \
 		eslint \
