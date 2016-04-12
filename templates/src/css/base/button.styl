@@ -1,0 +1,171 @@
+// // ---------------------------------------
+// // Buttons and stuff
+// // ---------------------------------------
+
+
+
+// // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+// // Base
+// // Based on CSS Wizardry's 'Beutons'
+// // http://csswizardry.com/beautons/
+// // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 
+
+// //Button color mixin
+// @mixin btn-color($color) {
+// 	background-color: $color;
+// 	border: 1px solid shade($color, 20);
+
+// 	&:hover:not(.btn--disabled):not(.btn--inverse) {
+// 		background-color: shade($color, 10);
+// 	}
+// }
+
+// //Button base
+// .btn {
+// 	display:inline-block;
+// 	text-align: center;
+// 	overflow: visible;
+// 	vertical-align: middle;
+// 	border: none;
+// 	padding: 0.5em 1.5em;
+// 	min-height: 3rem;
+// 	font-size: 100%;
+//     cursor:pointer;
+// 	text-decoration: none;
+// 	@include border-radius(3px);
+// 	font-family: unquote(map-get($sanstype, font-family));
+// 	font-style: normal;
+//     font-weight: map-get($sanstype, bold);
+// 	transition: all 0.1s ease;
+// 	color: black;
+// }
+
+
+
+// // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+// // States
+// // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+// .btn--disabled {
+// 	opacity: 0.5;
+// 	cursor: not-allowed;
+// }
+
+
+
+// // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+// // Colors
+// // with desktop class adjustment so hovers don't stay on on mobile
+// // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+// //Primary
+// .btn--primary {
+// 	@include btn-color($beige);
+// }
+
+// .btn--secondary {
+// 	@include btn-color($white);
+// }
+
+
+// //Accent
+// .btn--accent {
+// 	@include btn-color($globe-red);
+
+// 	//Accounts for bright color
+// 	color: $white;
+// 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+// }
+
+
+
+// // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+// // Sizes
+// // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+// //Big
+// .btn--large {
+// 	font-size: 120%;
+// 	min-height: 4rem;
+// }
+
+// //Small
+// .btn--small {
+// 	font-size: 70%;
+// 	min-height: 2rem;
+// }
+
+
+
+// // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+// // Widths
+// // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+// //Full Width
+// .btn--full {
+// 	width: 100%;
+// }
+
+// //Half Width
+// .btn--half {
+// 	width: 50%;
+// }
+
+
+
+// // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+// // Styles
+// // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+// //Inverse Button
+// .btn--inverse {
+// 	border-color: $white;
+// 	color: $white;
+// 	background-color: transparent;
+// 	opacity: 0.8;
+
+// 	&:hover {
+// 		background-color: transparent;
+// 		opacity: 1;
+		
+// 	}
+// }
+
+// //Icon Button
+// .icon--leftarrow:before {
+// 	display: inline-block;
+// 	content:$left-arrow;
+// 	padding: 0;
+// }
+
+// .icon--rightarrow:before {
+// 	display: inline-block;
+// 	content:$right-arrow;
+// 	padding: 0;
+// }
+
+// .icon--close:before {
+// 	display: inline-block;
+// 	content:$close;
+// 	padding: 0;
+// }
+
+// .icon--ellip:before {
+// 	display: inline-block;
+// 	content:$ellip;
+// 	padding: 0;
+// }
+
+// //Labled Icon
+
+// // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+// // Button Groups
+// // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+// ul.btn-group {
+// 	list-style-type: none;
+// 	display: inline-block;
+
+// 	li {
+// 		float: left;
+// 		margin-left: 0;
+// 	}
+// }
