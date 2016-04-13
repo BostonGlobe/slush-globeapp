@@ -1,87 +1,68 @@
-.g-header--logo
-    position absolute
-
-.g-header--social-list
-    position absolute
-
-.g-header--social-item
-    display inline-block
-
-.logo--sm
-    display inline-block
-    +mq('bp-3')
-        display none
-
+// Header Colorizer Mixin
+// gives accessible foreground color based on bg color
+header-color(bgcolor)
+    background-color bgcolor
+    if lightness(bgcolor) < 51%
+        color white
+        svg
+            fill white
+         &--social-item a:hover
+                background-color rgba(white, 0.35)
+    if lightness(bgcolor) < 61%
+        &--title a
+            color white
+    else
+        color #222
+        svg
+            fill #222
+        &--social-item a:hover
+                background-color rgba(#222, 0.35)
+                
 .g-header
     width 100%
     padding 1rem
-    background-color #fff
     color #222
     border-bottom 1px solid #ccc
     min-height 4rem
-
-    svg
-        fill #000
-
-    .g-header--social-item a
-        &:hover
-            background-color #d4d4d4
-
-    
-
-    &--dark
-        background-color #222
-        color #d8d8d8
-        border-bottom none
-
-        svg
-            fill #f2f2f2
-
-        .g-header--social-item a
-            &:hover
-                background-color #3c3c3c
-
-
-
-    &--transparent
-        background-color transparent
-        border-bottom none
-
+    header-color(#fff)
     &--inner
-        position relative
-        
+        position relative     
         a
             opacity .75
             transition .2s ease all
-
             &:hover
                 opacity 1
-
     &--title
         text-align left
         padding-left 2.5em
         letter-spacing .01em
         font-size .9rem
-        +mq('bp-3')
+        @media only screen and (min-width: 50em)
             text-align center
             padding-left 0
-
     &--logo
         top .15rem
-
+        position absolute
     &--social-list
+        position absolute
         right 0
         top -.05rem
+    &--social-item 
+        display inline-block
+        a
+            display block
+            line-height 1
+            padding .25em 0
+            width 2em
+            text-align center
+            border-radius 3px
 
-    &--social-item a
-        display block
-        line-height 1
-        padding .25em 0
-        width 2em
-        text-align center
-        border-radius 3px
-
+// Logos
 .logo--lg
     display none
-    +mq('bp-3')
+    @media only screen and (min-width: 50em)
         display inline-block
+.logo--sm
+    display inline-block
+    @media only screen and (min-width: 50em)
+        display none
