@@ -137,7 +137,6 @@ Fill out *data/meta.json*, the bare minimum needed for seo, analytics, and busin
 }
 ```
 
-* **headerColor** (defaults to white): "dark" or "transparent"
 * **credits** text of who made this
 * **teasers**: array of urls
 
