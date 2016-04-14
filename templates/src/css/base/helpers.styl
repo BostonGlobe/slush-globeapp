@@ -63,3 +63,85 @@ font(family = $serif, weight = 400, style = normal)
 	font-family family
 	font-weight weight
 	font-style style
+
+//=======================
+// List Style type
+//=======================
+// Default is none
+list-style(type = none)
+	list-style-type type
+	margin 0
+	padding 0
+	
+//=======================
+// Grids
+//=======================
+flex-grid(num, child, gutter = false, direction = row)
+	display flex
+	flex-direction direction
+	flex-wrap wrap
+	> .{child}
+		width (100% / num)
+		if num == equal
+			flex 1
+	if gutter
+		justify-content space-between
+		> .{child}
+			flex-basis (100% / num) - gutter
+
+//=======================
+// Image Dimensions
+//=======================
+dimensions(img)
+	width image-size($assets-path + img)[0]
+	height image-size($assets-path + img)[1]
+
+//=======================
+// Pseudo Content
+//=======================
+// Using image
+img-content(img)
+	content ''
+	display inline-block
+	width image-size($assets-path + img)[0]
+	height image-size($assets-path + img)[1]
+	background url($assets-path + img) no-repeat 50%
+
+//=======================
+// Hide
+//=======================
+hidden(type = false)
+	if type == accessible
+		width 1px 
+		height 1px 
+		overflow hidden
+		position absolute
+	else if type == invisible
+		visibility hidden
+	else
+		display none
+
+//===============================
+// Center Vertical + Horizontal
+//===============================
+// Put this on the parent element
+center(type, child = false)
+	if type == flex
+		// No child, set to false in function
+		display flex
+		justify-content center
+		align-items center
+	else if type == translate
+		transform-style preserve-3d
+		> .{child}
+			position relative
+			top 50%
+			transform translateY(-50%)
+			text-align center
+	else if type == absolute
+		position relative
+		> .{child}
+			position absolute
+			top 50%
+			width 100%
+			text-align center
