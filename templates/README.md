@@ -107,14 +107,14 @@ loadFont([
 To set a font, simply add the class name to the element following the pattern `'.family-style'` (ex. `.benton-regular`)
 
 Available fonts:
-* `{ family: 'Miller', suffix: 'normal', weight: 400 }`
-* `{ family: 'Miller', suffix: 'normal', weight: 600 }`
-* `{ family: 'Miller-Banner', suffix: 'normal', weight: 400 }`
+* `{ family: 'Miller', suffix: 'regular', weight: 400 }`
+* `{ family: 'Miller', suffix: 'regular', weight: 600 }`
+* `{ family: 'Miller-Banner', suffix: 'regular', weight: 400 }`
 * `{ family: 'Miller-Banner', suffix: 'italic', weight: 400 }`
-* `{ family: 'Benton', suffix: 'normal', weight: 400 }`
-* `{ family: 'Benton', suffix: 'normal', weight: 600 }`
-* `{ family: 'Benton-Cond', suffix: 'normal', weight: 400 }`
-* `{ family: 'Benton-Comp', suffix: 'normal', weight: 400 }`
+* `{ family: 'Benton', suffix: 'regular', weight: 400 }`
+* `{ family: 'Benton', suffix: 'regular', weight: 600 }`
+* `{ family: 'Benton-Cond', suffix: 'regular', weight: 400 }`
+* `{ family: 'Benton-Comp', suffix: 'regular', weight: 400 }`
 
 ## Teasers
 Run `gulp fetch-teaser` to pull down the teaser information (based on urls in meta.json).
