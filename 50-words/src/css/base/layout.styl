@@ -1,0 +1,62 @@
+// ---------------------------------------
+// Layouts
+// ---------------------------------------
+
+// Setting root sizes and base styles.
+html
+	text-size-adjust 100%
+
+body
+	font-feature-settings 'kern' 1, 'onum' 1, 'liga' 1
+a
+	transition color 0.1s, background-color 0.1s
+	color $globe-blue
+	text-decoration none
+	&:hover, &:active, &:focus
+		color darken($globe-blue, 20)
+		text-decoration none
+		
+nav ul
+	list-style none
+	
+figure
+	margin 2em auto
+	padding 0.5em
+	display block
+	
+img, video
+	display block
+	width 100%
+	
+small
+	display block
+	font($sans, $bold)
+	font-size 0.65em
+	color $gray-medium
+	padding 0
+	text-align right 
+	text-transform uppercase 
+	
+figcaption 
+	display block
+	font($serif, $regular)
+	font-size 0.8em
+	color $gray
+	line-height 1.8
+
+// Skip to main for accessibility
+.skip-to-main
+	hidden(accessible)
+	&:focus 
+		width auto
+		height auto
+		background-color #efefef
+		padding 0.5em
+		z-index 1
+
+ // fade image in after load with lazysizes
+.lazyload
+	filter blur(2px)
+
+.lazyloaded
+	filter blur(none)

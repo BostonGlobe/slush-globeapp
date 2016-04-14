@@ -1,0 +1,67 @@
+$typefaces = {
+	miller-regular: {
+		family: Miller,
+		weight: 400,
+		style: normal
+		classification: $serif
+	}
+	miller-bold: {
+		family: Miller,
+		weight: 600,
+		style: normal
+		classification: $serif
+	}
+	miller-banner-regular: {
+		family: Miller-Banner,
+		weight: 400,
+		style: normal
+		classification: $serif
+	}
+	miller-banner-italic: {
+		family: Miller-Banner,
+		weight: 400,
+		style: italic
+		classification: $serif
+	}
+	benton-regular: {
+		family: Benton,
+		weight: 400,
+		style: normal,
+		classification: $sans
+	}
+	benton-bold: {
+		family: Benton,
+		weight: 600,
+		style: normal,
+		classification: $sans
+	}
+	benton-cond-regular: {
+		family: Benton-Cond,
+		weight: 400,
+		style: normal,
+		classification: $sans
+	}
+	benton-comp-regular: {
+		family: Benton-Comp,
+		weight: 400,
+		style: normal,
+		classification: $sans
+	}
+}
+
+set-font(font)
+	if font in $typefaces
+		$family = $typefaces[font].family
+		$weight = $typefaces[font].weight
+		$style = $typefaces[font].style
+		$class = $typefaces[font].classification
+		$font-path = 'https://apps.bostonglobe.com/common/font/'
+		@font-face
+			font-family: '' + $family
+			src: url($font-path + font + '.woff2') format('woff2'), url($font-path + font + '.woff') format('woff')
+			font-weight: $weight
+			font-style: $style
+		.{font}
+			font-family $class
+			font-weight $weight
+			font-style $style

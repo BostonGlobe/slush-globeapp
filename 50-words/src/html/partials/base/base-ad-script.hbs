@@ -1,0 +1,20 @@
+<script>
+	var googletag = googletag || {};
+	googletag.cmd = googletag.cmd || [];
+	(function() {
+		var gads = document.createElement("script");
+		gads.async = true;
+		gads.type = "text/javascript";
+		var useSSL = "https:" == document.location.protocol;
+		gads.src = (useSSL ? "https:" : "http:") + "//www.googletagservices.com/tag/js/gpt.js";
+		var node = document.getElementsByTagName("script")[0];
+		node.parentNode.insertBefore(gads, node);
+	})();
+	var slots = {};
+	googletag.cmd.push(function() {
+		googletag.defineSlot('/61381659/bostonglobe.com/news/politics', [300,250], 'ad_bigbox1').addService(googletag.pubads()).setTargeting('pos', ['atf', 'bigbox1']);
+		googletag.pubads().enableAsyncRendering();
+		googletag.pubads().enableSingleRequest();
+		googletag.enableServices();
+	});
+</script>

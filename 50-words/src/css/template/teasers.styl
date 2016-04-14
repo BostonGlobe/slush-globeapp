@@ -1,0 +1,59 @@
+.g-footer
+    text-align center
+    padding-top 1.5em
+
+.teasers
+	padding-top 1em
+	margin-top 2em
+	
+	&--title
+		text-align center
+		margin 0.5em auto
+		max-width 50%
+		overflow hidden
+		color #333
+		
+		&:before, &:after
+			content ''
+			display inline-block
+			vertical-align middle
+			position relative
+			width 50%
+			border-top 1px solid #ccc
+			
+		&:before
+			right 1em
+			margin-left -50%
+		
+		&:after
+			left 1em
+			margin-right -50%
+			
+	&--list
+		list-style-type none
+		display flex
+		flex-direction column
+		
+		@media only screen and (min-width: 35em)
+			flex-direction row
+	
+	&--item
+		flex 1
+
+	&--link
+		background-position 25% 50%
+		display flex
+		min-height 15em
+		background-size cover
+		align-items center
+		text-align center
+		color rgba(255,255,255,0.75)
+		text-shadow 0 0 5px #444
+		
+		&:hover
+			color rgba(255,255,255,1)
+	
+	&--hed
+		font-size 1.5em
+		width 100%
+		padding 1em
