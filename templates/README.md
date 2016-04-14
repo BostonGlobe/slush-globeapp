@@ -129,7 +129,6 @@ Fill out *data/meta.json*, the bare minimum needed for seo, analytics, and busin
 	"imageUrl": "https://apps.bostonglobe.com/graphics/path/to/image",
 	"section": "Metro",
 	"sectionUrl": "https://bostonglobe.com/metro",
-	"headerColor": "",
 	"credits": "",
 	"teasers": [],
 	"meter": true,
