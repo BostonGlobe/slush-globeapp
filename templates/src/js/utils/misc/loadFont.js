@@ -1,26 +1,18 @@
 import 'promis'
 import FontFaceObserver from 'fontfaceobserver'
 
-export default function(args) {
-	const sheet = createStylesheet()
-
-	var handleError = function(err) { console.error(err); }
-	var el = document.documentElement;
-
-	args.forEach(font => {
-		const fontObserver = new FontFaceObserver(`${font.family}`, { weight: font.weight });
-		fontObserver.check().then(function() { addFontRule(sheet, font) }).catch(handleError);
-	})
-	
-}
-
-function createStylesheet() {
+const createStylesheet = () => {
 	const style = document.createElement('style')
 	document.head.appendChild(style)
 	return style.sheet
 }
 
-function addFontRule(sheet, font) {
+const storeFont = font => {
+	const name = `${font.family.toLowerCase()}-${font.suffix}`
+	localStorage[name] = 'fontLoaded'
+}
+
+const addFontRule = ({ font, sheet }) => {
 	const rule = `
 		.${font.family.toLowerCase()}-${font.suffix} {
 			font-family: '${font.family}';
@@ -29,3 +21,23 @@ function addFontRule(sheet, font) {
 	`.trim()
 	sheet.insertRule(rule, 0)
 }
+
+const handleError = err =>console.error(err)
+
+const loadFont = fonts => {
+	const sheet = createStylesheet()
+	const el = document.documentElement;
+
+	fonts.forEach(font => {
+		// TODO only load if not in cache
+		const fontObserver = new FontFaceObserver(`${font.family}`, { weight: font.weight })
+		fontObserver.load()
+			.then(() => {
+				storeFont(font)
+				addFontRule({ font, sheet })
+			})
+			.catch(handleError)
+	})
+}
+
+export default loadFont
