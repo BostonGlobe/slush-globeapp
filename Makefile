@@ -14,6 +14,7 @@ all:
 		babel-loader \
 		babel-preset-es2015 \
 		babel-preset-stage-1 \
+		babel-register \
 		cheerio \
 		del \
 		eslint \
