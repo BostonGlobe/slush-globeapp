@@ -80,9 +80,15 @@ const createFigure = ({ href, credit, caption, alt }) => {
 	`.trim()
 }
 
+const cleanP = (content) => {
+	const withoutOpenSpan = content.replace(/<span(.*?)>/g, '')
+	const withoutCloseSpan = withoutOpenSpan.replace(/<\/span>/g, '')
+	return withoutCloseSpan
+}
+
 const createContentMarkup = (item) => {
 	const types = {
-		p: ({ content }) => `<p class='methode-graf'>${content}</p>`,
+		p: ({ content }) => `<p class='methode-graf'>${cleanP(content)}</p>`,
 		image: ({ href, credit, caption, alt }) => createFigure({ href, credit, caption, alt }),
 		ad: () => `<div class='ad'></div>`,
 	}
