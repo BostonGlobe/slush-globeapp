@@ -1,9 +1,10 @@
 const gulp 			= require('gulp')
 const fs 			= require('fs')
 const request 		= require('request')
-const configPath	= process.cwd() + '/data/config.json'
-const config     	= JSON.parse(fs.readFileSync(configPath, 'utf8'))
-const methode 		= config.copy.methode
+
+const configPath = process.cwd() + '/data/config.json'
+const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
+const methode = config.copy.methode
 let imagesToDownload = []
 
 const getImageDirectory = () =>
