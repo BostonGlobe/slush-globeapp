@@ -23,8 +23,7 @@ So you want to tussle with Methode huh? You are brave. Fill out `config.js` like
 ```
 	...
 	methode: {
-		section: 'Metro',
-		story: [{slug: 'BGCOM-apps-test'}]
+		story: [{loid: '1.0.2997733233'}]
 	}
 
 ```
@@ -45,7 +44,7 @@ Example:
 
 *imageLibrary*
 
-Takes a string. The responsive image library you want to use instead of plain old ```img``` elements. Possible values include: ```picturefill, lazy-picturefill, imager```. You are responsible for setting up the JavaScript to make them work. (instructions tbd)
+Takes a string. The responsive image library you want to use instead of plain old ```img``` elements. Possible values include: ```picturefill, lazy-picturefill```. You are responsible for setting up the JavaScript to make them work. (instructions tbd)
 
 Example:
 
