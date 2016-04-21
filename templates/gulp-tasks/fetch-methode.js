@@ -1,30 +1,35 @@
 const gulp 			= require('gulp')
 const fs 			= require('fs')
 const request 		= require('request')
+const jimp			= require('jimp')
 
 const configPath = process.cwd() + '/data/config.json'
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
 const methode = config.copy.methode
+const imageSizes = [ 640, 960, 1280, 1920 ]
 let imagesToDownload = []
 
 const getImageDirectory = () =>
 	`assets/${methode.imageDirectory || ''}` 
 
-const createPicturefill = ({ name, extension, caption, imageSizes, imageDirectory }) => {
+const createPicturefill = ({ name, extension, caption, imageDirectory }) => {
 	const srcset = methode.imageLibrary === 'picturefill' ? 'srcset' : 'data-srcset'
 	const lazyload = methode.imageLibrary === 'picturefill' ? '' : 'lazyload'
-	const defaultSrc = `${imageDirectory}${name}_${imageSizes[0]}.${extension}`
+	const defaultSrc = `${imageDirectory}${name}placeholder.${extension}`
 	
-	const getPath = (sz) => `${imageDirectory}${name}_${sz}.${extension}`
+	const getPath = (sz) => `${imageDirectory}${name}${sz}.${extension}`
 	const getSource = (src, mq) => `<source ${srcset}='${src}' media='(min-width:${mq}px)'>`
+	const reversed = imageSizes.map(i => i).reverse()
 
 	return `
 		<picture>
 			<!--[if IE 9]><video style='display: none;'><![endif]-->
 			${
-				imageSizes.reverse().map((sz, index) => {
+				reversed.map((sz, index) => {
 					const src = getPath(sz)
-					const mq = index > 0 ? Math.floor(imageSizes[index - 1] / 1.5) : 1
+					const mq = index < reversed.length - 1
+						? Math.floor(reversed[index + 1] / 1.5)
+						: 1
 					return getSource(src, mq)
 				}).join('')
 			}
@@ -34,43 +39,44 @@ const createPicturefill = ({ name, extension, caption, imageSizes, imageDirector
 	`.trim()
 }
 
-const createFigureSource = ({ name, extension, caption, imageSizes }) => {
+const createFigureSource = ({ name, extension, caption }) => {
 	const imageDirectory = getImageDirectory()
 
 	if (methode.imageLibrary) {
-		return createPicturefill({ name, extension, caption, imageSizes, imageDirectory })
+		return createPicturefill({ name, extension, caption, imageDirectory })
 	}
 	// plain old image default
-	const src = `${imageDirectory}${name}_${imageSizes[0]}.${extension}`
+	const src = `${imageDirectory}${name}${imageSizes[imageSizes.length - 1]}.${extension}`
 	return `<img src='${src}' alt='${caption}' />`
 }
 
-const getImageInfo = (imgPath) => {
-	const imgFull = imgPath.substr(imgPath.lastIndexOf('/') + 1)
-	const imgSplit = imgFull.split('.')
-	const name = imgSplit[0]
-	const extension = imgSplit[1]
+const getImageInfo = (imagePath) => {
+	const imageFull = imagePath.substr(imagePath.lastIndexOf('/') + 1)
+	const imageSplit = imageFull.split('.')
+	const name = `${imageSplit[0]}_apps_w_`
+	const extension = imageSplit[1]
 	return { name, extension }
 }
 
-const replaceImageSize = ({ imgPath, imageSize }) =>
-	imgPath.replace(/image_(.+\d)w/g, `image_${imageSize}w`)
+const replaceMethodeImageSize = ({ imagePath, imageSize }) =>
+	imagePath.replace(/image_(.+\d)w/g, `image_${imageSize}w`)
+
+const replaceLocalImageSize = ({ imagePath, imageSize }) =>
+	imagePath.replace(/_apps_w_(.+\d)\./g, `_apps_w_${imageSize}.`)
 
 const createFigure = ({ href, credit, caption, alt }) => {
-	const imageSizes = methode.imageSizes || [1200]
-	const imgPath = href.split('?')[0]
-	const { name, extension } = getImageInfo(imgPath)
+	const imagePath = href.split('?')[0]
+	const { name, extension } = getImageInfo(imagePath)
 
 	// start generating markup
-	const src = createFigureSource({ name, extension, caption, imageSizes })
+	const src = createFigureSource({ name, extension, caption })
 	
 	// add to download queue
-	const images = imageSizes.map(imageSize => ({
-		url: `http:${replaceImageSize({ imgPath, imageSize })}`,
-		filename: `${name}_${imageSize}.${extension}`,
-	}))
-
-	imagesToDownload = imagesToDownload.concat(images)
+	const imageSize = 1920
+	const url = `http:${replaceMethodeImageSize({ imagePath, imageSize })}`
+	const filename = `${name}${imageSize}.${extension}`
+	
+	imagesToDownload.push({ url, filename })
 
 	return `
 		<figure>
@@ -117,11 +123,43 @@ const createHTML = (stories) => {
 const writeHTML = (html) =>
 	fs.writeFileSync('src/html/partials/graphic/methode.hbs', html)
 
+const resizeImage = ({ path, resolve, reject }) => {
+
+	// create smaller versions of each image
+	const promises = imageSizes.map(imageSize =>
+		new Promise((res, rej) => {
+			const out = replaceLocalImageSize({ imagePath: path, imageSize })
+			jimp.read(path).then(image =>
+		    	image
+		    	.resize(imageSize, jimp.AUTO)
+				.write(out, res)
+			).catch(err => rej(err))
+		})
+	)
+
+	promises.push(
+		new Promise((res, rej) => {
+			const imageSize = 20
+			const out = replaceLocalImageSize({ imagePath: path, imageSize: 'placeholder' })
+			jimp.read(path).then(image =>
+		    	image
+		    	.blur(40)
+		    	.resize(imageSize, jimp.AUTO)
+				.write(out, res)
+			).catch(err => rej(err))
+		})
+	)
+	
+	Promise.all(promises)
+		.then(result => resolve(result))
+		.catch(error => reject(error))
+}
+
 const downloadImages = (cb) => {
 	const promises = imagesToDownload.map(image => 
 		new Promise((resolve, reject) => {
 			const { url, filename } = image
-			const path = `src/${getImageDirectory()}/${filename}`
+			const path = `src/${getImageDirectory()}${filename}`
 			try {
 				const exists = fs.lstatSync(path)
 				resolve()
@@ -132,7 +170,7 @@ const downloadImages = (cb) => {
 					else {
 						fs.writeFile(path, body, 'binary', (err) => {
 							if (err) reject(err)
-							else resolve()
+							else resizeImage({ path, resolve, reject })
 						})
 					}
 				})
