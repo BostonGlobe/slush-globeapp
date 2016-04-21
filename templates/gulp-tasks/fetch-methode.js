@@ -82,14 +82,21 @@ const createFigure = ({ href, credit, caption, alt }) => {
 }
 
 const cleanP = (content) => {
+	// check for graphic partial first
+	if (content.match(/{{graphic:(.*)}}/)) {
+		return content.replace(/{{graphic:(.*)}}/, (match, name, index) =>
+			`{{> graphic/${name.trim()} }}`
+		)
+	}
+
 	const withoutOpenSpan = content.replace(/<span(.*?)>/g, '')
 	const withoutCloseSpan = withoutOpenSpan.replace(/<\/span>/g, '')
-	return withoutCloseSpan
+	return `<p class='methode-graf'>${withoutCloseSpan}</p>`
 }
 
 const createContentMarkup = (item) => {
 	const types = {
-		p: ({ content }) => `<p class='methode-graf'>${cleanP(content)}</p>`,
+		p: ({ content }) => cleanP(content),
 		image: ({ href, credit, caption, alt }) => createFigure({ href, credit, caption, alt }),
 		ad: () => `<div class='ad'></div>`,
 	}
