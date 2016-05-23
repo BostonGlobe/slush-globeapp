@@ -26,12 +26,13 @@ const handleError = err =>console.error(err)
 
 const loadFont = fonts => {
 	const sheet = createStylesheet()
-	const el = document.documentElement;
+	const el = document.documentElement
+	const timeout = 5000
 
 	fonts.forEach(font => {
 		// TODO only load if not in cache
 		const fontObserver = new FontFaceObserver(`${font.family}`, { weight: font.weight })
-		fontObserver.load()
+		fontObserver.load(null, timeout)
 			.then(() => {
 				storeFont(font)
 				addFontRule({ font, sheet })

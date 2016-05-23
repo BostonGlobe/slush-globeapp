@@ -49,7 +49,7 @@ const fetchTeaser = function(url, cb) {
 			meta.each(function(i, el) {
 				if(el.attribs.property && el.attribs.property === 'og:image') {
 					var imageRaw = el.attribs.content;
-					var imageHttps = imageRaw.replace('http://', 'https://');
+					var imageHttps = imageRaw.replace('http://', '//');
 					var imageFull = imageHttps.replace('image_585w', 'image_960w');
 					datum.image = imageFull;
 				}
