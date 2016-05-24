@@ -1,263 +1,221 @@
-'use strict';
+const gulp 			= require('gulp')
+const fs 			= require('fs')
+const request 		= require('request')
+const jimp			= require('jimp')
 
-const gulp 			= require('gulp');
-const fs 			= require('fs');
-const request 		= require('request');
-const configPath = process.cwd() + '/data/config.json';
-const config     	= JSON.parse(fs.readFileSync(configPath, 'utf8'));
-const methode 		= config.copy.methode;
+const configPath = process.cwd() + '/data/config.json'
+const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
+const methode = config.copy.methode
+const imageSizes = [ 640, 960, 1280, 1920 ]
+let imagesToDownload = []
 
-let _queue			= [];
-let _output 		= '';
-let _imageDirectory = 'assets/';
+const getImageDirectory = () =>
+	`assets/${methode.imageDirectory || ''}` 
 
-gulp.task('fetch-methode', function(cb) {
-	if (methode.story.length) {
-		_imageDirectory += methode.imageDirectory || '';
+const createPicturefill = ({ name, extension, caption, imageDirectory }) => {
+	const srcset = methode.imageLibrary === 'picturefill' ? 'srcset' : 'data-srcset'
+	const lazyload = methode.imageLibrary === 'picturefill' ? '' : 'lazyload'
+	const defaultSrc = `${imageDirectory}${name}placeholder.${extension}`
+	
+	const getPath = (sz) => `${imageDirectory}${name}${sz}.${extension}`
+	const getSource = (src, mq) => `<source ${srcset}='${src}' media='(min-width:${mq}px)'>`
+	const reversed = imageSizes.map(i => i).reverse()
 
-		var next = function(index) {
-			// fetch xml
-			var base = 'http://prdedit.bostonglobe.com/eom/Boston/Content/';
-			var url = base + methode.section + '/Stories/' + methode.story[index].slug + '.xml';
-			console.log('fetching', url);
-			request(url, function(error, response, body) {
-				// did we get a valid response?
-				if (!error && response.statusCode === 200) {
-					// extract the html between content tags
-					var content = body.match(/(<content>)([\s\S]*)(<\/content>)/);
-
-					if (content.length) {
-						content = content[2];
-						
-						// replace all the weird bits and bobs
-						content = deMethodeify(content);
-
-						// insert graphic templates
-						content = content.replace(/<annotation.*(graphic:)(.*)<\/annotation>(.*|[\r\n]+).*(<\/p>)/g, function(a, b, c) {
-							return '</p>\n{{> graphic/' + c.trim() + '}}';
-						});
-
-						// replace photo tags with desired markup
-						content = content.replace(/<photogrp-inline (.*?)>([\S\s]*?)<\/photogrp-inline>/g, createImageMarkup);
-
-						appendOutput(content, methode.story[index]);
-
-					} else {
-						console.error('empty methode file, check config settings');
-						advance(index);
-					}
-
-				} else {
-					// http error. log and quit.
-					console.error(JSON.stringify(error, null, 4));
-					advance(index);
-				}
-
-				advance(index);
-			});
-		};
-
-		var advance = function(index) {
-			index++;
-			if (index < methode.story.length) {
-				next(index);
-			} else {
-				fs.writeFileSync('src/html/partials/graphic/methode.hbs', _output);
-				downloadImages(cb);
+	return `
+		<picture>
+			<!--[if IE 9]><video style='display: none;'><![endif]-->
+			${
+				reversed.map((sz, index) => {
+					const src = getPath(sz)
+					const mq = index < reversed.length - 1
+						? Math.floor(reversed[index + 1] / 1.5)
+						: 1
+					return getSource(src, mq)
+				}).join('')
 			}
-		};
-
-		next(0);
-	} else {
-		console.error('No methode story');
-		cb();
-	}
-});
-
-function deMethodeify(content) {
-	// remove notes
-	content = content.replace(/<span class="@notes"(.|\n)*?\/span>/g, '');
-	content = content.replace(/<p class="@notes"(.|\n)*?\/p>/g, '');
-
-	// remove channel...
-	content = content.replace(/<span.*channel=\"\!\".*\/*.span>/g, '');
-
-	// remove empty p tags
-	content = content.replace(/<p><\/p>/g, '');
-
-	// replace *** with hr
-	content = content.replace(/\<p\> *\*+ *\<\/p\>/g, '<hr>');
-
-	// remove bold tag
-	content = content.replace(/<b>/g, '');
-	content = content.replace(/<\/b>/g, '');
-
-	// -- to mdash
-	content = content.replace(/--/g, '&mdash;');
-
-	// add class for methode p tags
-	content = content.replace(/<p>/g, "<p class='methode-graf'>")
-
-	return content;
+			<!--[if IE 9]></video><![endif]-->
+			<img class='${lazyload}' src='${defaultSrc}' ${srcset}='${defaultSrc}' alt='${caption}' />
+		</picture>
+	`.trim()
 }
 
-function createImageMarkup(str) {
-	// match src
-	var fileref = str.match(/fileref="(.*?)"/);
-	var float = str.match(/float="(.*?)"/);
-	if (fileref && fileref.length) {
-		var src = fileref[1];
-		
-		var floatClass = float && float.length ? float[1] : '';
-		var customClass = methode.imageClass ? floatClass : '';
+const createFigureSource = ({ name, extension, caption }) => {
+	const imageDirectory = getImageDirectory()
 
-		// match caption and remove
-		var caption = str.match(/<caption (?:.*?)>([\S\s]*?)<\/caption>/);
-		caption = caption && caption.length ? caption[1].replace(/\<p\>|\<\/p\>/g,'').trim() : '';
-
-		// match credit and remove
-		var credit = str.match(/<credit (?:.*?)>([\S\s]*?)<\/credit>/);
-		credit = credit && credit.length ? credit[1].replace(/\<p\>|\<\/p\>/g,'').trim() : '';
-
-		var imgPath = src.split('?')[0];
-
-		var figure = createFigure({
-			lib: methode.imageLibrary,
-			imgPath: imgPath,
-			caption: caption,
-			credit: credit,
-			customClass: customClass
-		});
-
-		return figure;
-		
-	} else {
-		return '';
+	if (methode.imageLibrary) {
+		return createPicturefill({ name, extension, caption, imageDirectory })
 	}
+	// plain old image default
+	const src = `${imageDirectory}${name}${imageSizes[imageSizes.length - 1]}.${extension}`
+	return `<img src='${src}' alt='${caption}' />`
 }
 
-function createFigure(params) {
-	var imgFull = params.imgPath.substr(params.imgPath.lastIndexOf('/') + 1);
-	var imgSplit = imgFull.split('.');
-	var name = imgSplit[0];
-	var extension = imgSplit[1];
-	var imageSizes = methode.imageSizes && methode.imageSizes.length ? methode.imageSizes : [1200];
+const getImageInfo = (imagePath) => {
+	const imageFull = imagePath.substr(imagePath.lastIndexOf('/') + 1)
+	const imageSplit = imageFull.split('.')
+	const name = `${imageSplit[0]}_apps_w_`
+	const extension = imageSplit[1]
+	return { name, extension }
+}
 
-	for (var i in imageSizes) {
-		_queue.push({
-			url: 'http://prdedit.bostonglobe.com/rf/image_' + imageSizes[i] + 'w' + params.imgPath,
-			src: name + '_' + imageSizes[i] + '.' + extension
-		});
-	}
+const replaceMethodeImageSize = ({ imagePath, imageSize }) =>
+	imagePath.replace(/image_(.+\d)w/g, `image_${imageSize}w`)
+
+const replaceLocalImageSize = ({ imagePath, imageSize }) =>
+	imagePath.replace(/_apps_w_(.+\d)\./g, `_apps_w_${imageSize}.`)
+
+const createFigure = ({ href, credit, caption, alt }) => {
+	const imagePath = href.split('?')[0]
+	const { name, extension } = getImageInfo(imagePath)
 
 	// start generating markup
-	var src;
-	var figure = '<figure class="' + params.customClass + '">';
+	const src = createFigureSource({ name, extension, caption })
+	
+	// add to download queue
+	const imageSize = 1920
+	const url = `http:${replaceMethodeImageSize({ imagePath, imageSize })}`
+	const filename = `${name}${imageSize}.${extension}`
+	
+	imagesToDownload.push({ url, filename })
 
-	if (params.lib === 'imager') {
+	return `
+		<figure>
+			${src}
+			<small class='figure-credit'>${credit}</small>
+			<figcaption class='figure-caption'>${caption}</figcaption>
+		</figure>
+	`.trim()
+}
 
-		src = _imageDirectory + '/' + name + '_{width}' + '.' + extension;
-		figure += '<img data-src="' + src + '" alt="' + params.caption + '" class="delayed-image-load" />';
-
-	} else if (params.lib === 'picturefill') {
-
-		figure += '<picture>';
-		figure += '<!--[if IE 9]><video style="display: none;"><![endif]-->';
-		for (var j = imageSizes.length - 1; j > -1; j--) {
-			src = _imageDirectory + '/' + name + '_' + imageSizes[j] + '.' + extension;
-			figure += '<source srcset="' + src  + '" ';
-			if (j > 0) {
-				figure += 'media="(min-width: ' + Math.floor(imageSizes[j-1] / 1.5) + 'px)"';
-			} else {
-				figure += 'media="(min-width: 1px)"';
-			}
-
-			figure += '>';
-		}
-
-		figure += '<!--[if IE 9]></video><![endif]-->';
-
-		src = _imageDirectory + '/' + name + '_' + imageSizes[0] + '.' + extension;
-		figure += '<img src="' + src + '" data-srcset="' + src + '" alt="' + params.caption + '">';
-		figure += '</picture>';
-
-	} else if (params.lib === 'lazy-picturefill') {
-
-		// picturefill + lazysizes.js (changes srcset to data-srcset)
-		figure += '<picture>';
-		figure += '<!--[if IE 9]><video style="display: none;"><![endif]-->';
-		for (var j = imageSizes.length - 1; j > -1; j--) {
-			src = _imageDirectory + '/' + name + '_' + imageSizes[j] + '.' + extension;
-			figure += '<source data-srcset="' + src  + '" ';
-			if (j > 0) {
-				figure += 'media="(min-width: ' + Math.floor(imageSizes[j-1] / 1.5) + 'px)"';
-			} else {
-				figure += 'media="(min-width: 1px)"';
-			}
-
-			figure += '>';
-		}
-
-		figure += '<!--[if IE 9]></video><![endif]-->';
-
-		src = _imageDirectory + '/' + name + '_' + imageSizes[0] + '.' + extension;
-		figure += '<img class="lazyload" src="' + src + '" data-srcset="' + src + '" alt="' + params.caption + '">';
-		figure += '</picture>';
-
-	} else {
-
-		// plain old image
-		src = _imageDirectory + '/' + name + '_' + imageSizes[0] + '.' + extension;
-		figure += '<img src="' + src + '" alt="' + params.caption + '" />';
-
+const cleanP = (content) => {
+	// check for graphic partial first
+	if (content.match(/{{graphic:(.*)}}/)) {
+		return content.replace(/{{graphic:(.*)}}/, (match, name, index) =>
+			`{{> graphic/${name.trim()} }}`
+		)
 	}
 
-	figure += '<small>' + params.credit + '</small>';
-	figure += '<figcaption>' + params.caption + '</figcaption>';
-	figure += '</figure>';
-
-	return figure;
+	const withoutOpenSpan = content.replace(/<span(.*?)>/g, '')
+	const withoutCloseSpan = withoutOpenSpan.replace(/<\/span>/g, '')
+	return `<p class='methode-graf'>${withoutCloseSpan}</p>`
 }
 
-function appendOutput(content, story) {
-	_output += content;
+const createContentMarkup = (item) => {
+	const types = {
+		p: ({ content }) => cleanP(content),
+		image: ({ href, credit, caption, alt }) => createFigure({ href, credit, caption, alt }),
+		ad: () => `<div class='ad'></div>`,
+	}
+	
+	return types[item.type](item)
 }
 
-function downloadImages(cb) {
-	var next = function(index) {
-		var path = 'src/' + _imageDirectory + '/' + _queue[index].src;
-		try {
-			var exists = fs.lstatSync(path);
-			advance(index);
-		} catch (e) {
-			console.log('downloading', _queue[index].url);
-			request(_queue[index].url, {encoding: 'binary'}, function(error, response, body) {
-				if (error) {
-					console.error(error);
-					advance(index);
+const createHTML = (stories) => {
+	const html = stories.map(story => {
+		const { content } = story.body
+		// go thru item in content and create the proper markup
+		return content.map(createContentMarkup).join('\n')
+	})
+
+	return html.join('\n')
+}
+
+const writeHTML = (html) =>
+	fs.writeFileSync('src/html/partials/graphic/methode.hbs', html)
+
+const resizeImage = ({ path, resolve, reject }) => {
+	console.log('resizing image...')
+	// create smaller versions of each image
+	const promises = imageSizes.map(imageSize =>
+		new Promise((res, rej) => {
+			const out = replaceLocalImageSize({ imagePath: path, imageSize })
+			jimp.read(path).then(image =>
+		    	image
+		    	.resize(imageSize, jimp.AUTO)
+				.write(out, res)
+			).catch(err => rej(err))
+		})
+	)
+
+	promises.push(
+		new Promise((res, rej) => {
+			const imageSize = 20
+			const out = replaceLocalImageSize({ imagePath: path, imageSize: 'placeholder' })
+			jimp.read(path).then(image =>
+		    	image
+		    	.blur(40)
+		    	.resize(imageSize, jimp.AUTO)
+				.write(out, res)
+			).catch(err => rej(err))
+		})
+	)
+	
+	Promise.all(promises)
+		.then(result => resolve(result))
+		.catch(error => reject(error))
+}
+
+const downloadImages = (cb) => {
+	const promises = imagesToDownload.map(image => 
+		new Promise((resolve, reject) => {
+			const { url, filename } = image
+			const path = `src/${getImageDirectory()}${filename}`
+			try {
+				const exists = fs.lstatSync(path)
+				resolve()
+			} catch (e) {
+				console.log(`downloading: ${url}`)
+				request(url, {encoding: 'binary'}, (error, response, body) => {
+					if (error) reject(error)
+					else {
+						fs.writeFile(path, body, 'binary', (err) => {
+							if (err) reject(err)
+							else resizeImage({ path, resolve, reject })
+						})
+					}
+				})
+			}
+		})
+	)
+
+	Promise.all(promises)
+		.then(result => cb())
+		.catch(error => {
+			console.log(error)
+			cb()
+		})
+}
+
+const fetchMethode = (cb) => {
+	const promises = methode.story.map(story =>
+		new Promise((resolve, reject) => {
+			console.log('fetching story data:', story.url)
+			request(story.url, (error, response, body) => {
+				if (!error && response.statusCode === 200) {
+					resolve({...story, body: JSON.parse(body)})
 				} else {
-					fs.writeFile(path, body, 'binary', function(err) {
-						if (err) {
-							console.error(err);
-						}
-
-						advance(index);
-					});
+					reject(error)
 				}
-			});
-		}
-	};
+			})
+		})
+	)
 
-	var advance = function(index) {
-		index++;
-		if (index < _queue.length) {
-			next(index);
-		} else {
-			cb();
-		}
-	};
-
-	if (_queue.length) {
-		next(0);
-	}
+	Promise.all(promises)
+		.then(results => {
+			const html = createHTML(results)
+			writeHTML(html)
+			downloadImages(cb)
+		})
+		.catch(error => {
+			console.error(error)
+			cb()
+		})
 }
+
+gulp.task('fetch-methode', (cb) => {
+	if (methode.story.length) fetchMethode(cb)
+	else {
+		console.error('No methode story in config')
+		cb()
+	}
+})

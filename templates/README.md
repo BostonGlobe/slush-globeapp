@@ -23,13 +23,14 @@ So you want to tussle with Methode huh? You are brave. Fill out `config.js` like
 ```
 	...
 	methode: {
-		section: 'Metro',
-		story: [{slug: 'BGCOM-apps-test'}]
+		story: [{url: 'path/to/xml'}]
 	}
 
 ```
 
-This pipes text and images from Methode into graphic.hbs and downloads the images locally (at multiple resolutions if desired). If you are using Methode for copy, be sure to add `src/html/partials/graphic/graphic.hbs` and your methode image directory to the `.gitignore` file.
+This pipes text and images from Methode into methode.hbs and downloads the images locally.
+
+To insert a graphic partial inside methode, simply create a new p tag and use the convention `{{graphic:test}}`. Make sure you have the partial `src/html/partials/graphic/test.hbs`.
 
 Running `gulp fetch-methode` at any point will pull down the latest.
 
@@ -45,7 +46,7 @@ Example:
 
 *imageLibrary*
 
-Takes a string. The responsive image library you want to use instead of plain old ```img``` elements. Possible values include: ```picturefill, lazy-picturefill, imager```. You are responsible for setting up the JavaScript to make them work. (instructions tbd)
+Takes a string. The responsive image library you want to use instead of plain old ```img``` elements. Possible values include: ```picturefill, lazy-picturefill```. You are responsible for setting up the JavaScript to make them work. (instructions tbd)
 
 Example:
 

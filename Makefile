@@ -35,6 +35,7 @@ all:
 		gulp-stylus \
 		gulp-util \
 		gulp-zip \
+		jimp \
 		json-loader \
 		request \
 		require-dir \
