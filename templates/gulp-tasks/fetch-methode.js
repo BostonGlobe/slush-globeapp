@@ -124,7 +124,7 @@ const writeHTML = (html) =>
 	fs.writeFileSync('src/html/partials/graphic/methode.hbs', html)
 
 const resizeImage = ({ path, resolve, reject }) => {
-
+	console.log('resizing image...')
 	// create smaller versions of each image
 	const promises = imageSizes.map(imageSize =>
 		new Promise((res, rej) => {
@@ -187,17 +187,17 @@ const downloadImages = (cb) => {
 }
 
 const fetchMethode = (cb) => {
-	const base = 'http://sports2.devedit.bostonglobe.com/precursor/story/'
 	const promises = methode.story.map(story =>
-		new Promise((resolve, reject) =>
-			request(`${base}${story.loid}`, (error, response, body) => {
+		new Promise((resolve, reject) => {
+			console.log('fetching story data:', story.url)
+			request(story.url, (error, response, body) => {
 				if (!error && response.statusCode === 200) {
 					resolve({...story, body: JSON.parse(body)})
 				} else {
 					reject(error)
 				}
 			})
-		)
+		})
 	)
 
 	Promise.all(promises)
