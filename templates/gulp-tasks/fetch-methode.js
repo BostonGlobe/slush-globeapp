@@ -187,10 +187,12 @@ const downloadImages = (cb) => {
 }
 
 const fetchMethode = (cb) => {
+	const base = 'http://prdedit.bostonglobe.com/eom/SysConfig/WebPortal/BostonGlobe/precursor/template/api_redirect.jsp?path=/'
 	const promises = methode.story.map(story =>
 		new Promise((resolve, reject) => {
-			console.log('fetching story data:', story.url)
-			request(story.url, (error, response, body) => {
+			const url = `${base}${story.path}`
+			console.log('fetching story data:', url)
+			request(url, (error, response, body) => {
 				if (!error && response.statusCode === 200) {
 					resolve({...story, body: JSON.parse(body)})
 				} else {

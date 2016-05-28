@@ -23,7 +23,7 @@ So you want to tussle with Methode huh? You are brave. Fill out `config.js` like
 ```
 	...
 	methode: {
-		story: [{url: 'path/to/xml'}]
+		story: [{path: 'path/to/xml'}]
 	}
 
 ```
