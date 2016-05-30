@@ -6,7 +6,7 @@ const jimp			= require('jimp')
 const configPath = process.cwd() + '/data/config.json'
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
 const methode = config.copy.methode
-const imageSizes = [ 640, 960, 1280, 1920 ]
+const imageSizes = [ 640, 1280, 1920 ]
 let imagesToDownload = []
 
 const getImageDirectory = () => {
