@@ -9,8 +9,11 @@ const methode = config.copy.methode
 const imageSizes = [ 640, 960, 1280, 1920 ]
 let imagesToDownload = []
 
-const getImageDirectory = () =>
-	`assets/${methode.imageDirectory || ''}` 
+const getImageDirectory = () => {
+	const dir = methode.imageDirectory || ''
+	const finalDir = dir ? `${dir}/` : dir
+	return `assets/${finalDir}` 
+}
 
 const createPicturefill = ({ name, extension, caption, imageDirectory }) => {
 	const srcset = methode.imageLibrary === 'picturefill' ? 'srcset' : 'data-srcset'
