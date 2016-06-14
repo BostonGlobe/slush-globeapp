@@ -42,26 +42,15 @@ Takes a string. The location of the folder you want to put these images. The def
 
 Example:
 
-``` imageDirectory: 'img'```
+``` imageDirectory: 'photos'```
 
 *imageLibrary*
 
-Takes a string. The responsive image library you want to use instead of plain old ```img``` elements. Possible values include: ```picturefill, lazy-picturefill```. You are responsible for setting up the JavaScript to make them work. (instructions tbd)
+Takes a string. The responsive image library you want to use instead of plain old ```img``` elements. Possible values include: ```picturefill, lazy-picturefill```. You are responsible for setting up the JavaScript to make them work (simply `npm i` `picturefill` and optionally `lazysizes`).
 
 Example:
 
-``` imageLibrary: 'picturefill'```
-
-
-*imageSizes*
-
-Takes an array of numbers (low to high). Defaults to ```[1200]```. If using a responsive image library, it takes 1 or more values. With ```lazy-picturefill```, make sure the first value is ```371```.
-
-Example:
-
-``` imageSizes: [371, 585, 1200, 1920]```
-
-Available sizes include: 371, 460, 585, 835, 960, 1200, 1920.
+``` imageLibrary: 'lazy-picturefill'```
 
 *imageClass*
 
@@ -70,8 +59,6 @@ Boolean value `true` or `false` to give different images from Methode a distingu
 Example:
 
 ``` imageClass: true ```
-
-You must include a version of [picturefill](https://apps.bostonglobe.com/common/js/picturefill/picturefill-3.0.0.min.js) in base-js.hbs (or install via npm if using webpack). If doing lazy load, then also include [lazysizes](https://apps.bostonglobe.com/common/js/lazysizes/lazysizes-1.1.3.min.js).
 
 #### Google Doc
 Using a shared google doc for all copy for an interactive is recommended. The app uses [ArchieML](http://archieml.org) as a micro CMS.
@@ -108,14 +95,14 @@ loadFont([
 To set a font, simply add the class name to the element following the pattern `'.family-style'` (ex. `.benton-regular`)
 
 Available fonts:
-* `{ family: 'Miller', suffix: 'regular', weight: 400 }`
-* `{ family: 'Miller', suffix: 'regular', weight: 600 }`
-* `{ family: 'Miller-Banner', suffix: 'regular', weight: 400 }`
-* `{ family: 'Miller-Banner', suffix: 'italic', weight: 400 }`
-* `{ family: 'Benton', suffix: 'regular', weight: 400 }`
-* `{ family: 'Benton', suffix: 'regular', weight: 600 }`
-* `{ family: 'Benton-Cond', suffix: 'regular', weight: 400 }`
-* `{ family: 'Benton-Comp', suffix: 'regular', weight: 400 }`
+* `{ family: 'Miller', suffix: 'regular', weight: 400 }` - `.miller-regular`
+* `{ family: 'Miller', suffix: 'regular', weight: 600 }` - `.miller-bold`
+* `{ family: 'Miller-Banner', suffix: 'regular', weight: 400 }` - `.miller-banner-regular`
+* `{ family: 'Miller-Banner', suffix: 'italic', weight: 400 }` - `.miller-banner-italic`
+* `{ family: 'Benton', suffix: 'regular', weight: 400 }` - `.benton-regular`
+* `{ family: 'Benton', suffix: 'regular', weight: 600 }` - `.benton-bold`
+* `{ family: 'Benton-Cond', suffix: 'regular', weight: 400 }` - `.benton-cond-regular`
+* `{ family: 'Benton-Comp', suffix: 'regular', weight: 400 }` - `.benton-comp-regular`
 
 ## Teasers
 Run `gulp fetch-teaser` to pull down the teaser information (based on urls in meta.json).
