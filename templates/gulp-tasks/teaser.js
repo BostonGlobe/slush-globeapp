@@ -45,7 +45,7 @@ const fetchTeaser = (url, cb) => {
 				}
 			})
 			cb(null, datum)
-		
+		}
 		else cb(true)
 	})
 }

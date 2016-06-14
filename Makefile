@@ -17,8 +17,6 @@ all:
 		babel-register \
 		cheerio \
 		del \
-		eslint \
-		eslint-config-airbnb \
 		get-json-lite \
 		gulp \
 		gulp-autoprefixer \
