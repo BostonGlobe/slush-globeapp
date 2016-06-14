@@ -17,6 +17,7 @@ all:
 		babel-register \
 		cheerio \
 		del \
+		dsv-loader \
 		get-json-lite \
 		gulp \
 		gulp-autoprefixer \
