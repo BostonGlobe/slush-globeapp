@@ -1,8 +1,8 @@
-const gulp        = require('gulp');
-const browserSync = require('browser-sync');
+const gulp = require('gulp')
+const browserSync = require('browser-sync')
 
 // browser-sync task for starting the server.
-gulp.task('browser-sync', function() {
+gulp.task('browser-sync', () => {
 	browserSync({
 		server: {
 			baseDir: 'dist/dev/',
@@ -10,9 +10,7 @@ gulp.task('browser-sync', function() {
 		},
 		notify: false,
 		ghostMode: false
-	});
-});
+	})
+})
 
-gulp.task('browser-sync-reload', function() {
-	browserSync.reload();
-});
+gulp.task('browser-sync-reload', () => browserSync.reload())

@@ -1,7 +1,7 @@
-const gulp 			= require('gulp')
-const fs 			= require('fs')
-const request 		= require('request')
-const jimp			= require('jimp')
+const gulp = require('gulp')
+const fs = require('fs')
+const request = require('request')
+const jimp = require('jimp')
 
 const configPath = process.cwd() + '/data/config.json'
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))

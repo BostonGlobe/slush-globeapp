@@ -1,34 +1,32 @@
-'use strict';
+const gulp = require('gulp')
+const fs = require('fs')
+const shell = require('shelljs')
+const argv = require('yargs').argv
+const configPath = `${process.cwd()}/data/config.json`
+const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
+const base = '/web/bgapps/html/graphics/'
+const host = 'shell.boston.com'
 
-const gulp        	= require('gulp');
-const fs 			= require('fs');
-const shell       	= require('shelljs');
-const argv        	= require('yargs').argv;
-const configPath = process.cwd() + '/data/config.json';
-const config     	= JSON.parse(fs.readFileSync(configPath, 'utf8'));
-const base        	= '/web/bgapps/html/graphics/';
-const host        	= 'shell.boston.com';
-
-gulp.task('ssh-prod', function(cb) {
-	const username = argv.u;
-	const files = argv.html ? 'index.html' : '.';
-	const filepath = base + config.path;
-	const configured = checkConfiguration(username);
+gulp.task('ssh-prod', (cb) => {
+	const username = argv.u
+	const files = argv.html ? 'index.html' : '.'
+	const filepath = base + config.path
+	const configured = checkConfiguration(username)
 
 	if (configured) {
-		const command = '(cd dist/prod; scp -r ' + files + ' ' + username + '@' + host + ':' + filepath + ')';
-		shell.exec(command, cb);
+		const command = `(cd dist/prod scp -r ${files} ${username}@${host}:${filepath})`
+		shell.exec(command, cb)
 	} else {
-		cb();
+		cb()
 	}
-});
+})
 
-const checkConfiguration = function(username) {
+const checkConfiguration = (username) => {
 	if (!config.path) {
-		console.log('*** setup ssh-config.js "path" to upload to apps ***');
+		console.log('*** setup ssh-config.js "path" to upload to apps ***')
 	}
 	if (!username) {
-		console.log('*** enter your username with "gulp prod -u username" ***');
+		console.log('*** enter your username with "gulp prod -u username" ***')
 	}
-	return username && typeof username === 'string' && config.path;
-};
+	return username && typeof username === 'string' && config.path
+}

@@ -1,15 +1,11 @@
-const gulp = require('gulp');
-const del  = require('del');
+const gulp = require('gulp')
+const del  = require('del')
 
-gulp.task('clean-dev', function(cb) {
-	del(['dist/dev/**']).then(function() {
-		cb();
-	});
-});
+gulp.task('clean-dev', (cb) => {
+	del(['dist/dev/**']).then(() => cb())
+})
 
 //clear all prod folders and tmp dir
-gulp.task('clean-prod', function(cb) {
-	del(['.tmp/**', 'dist/prod/**']).then(function() {
-		cb();
-	});
-});
+gulp.task('clean-prod', (cb) => {
+	del(['.tmp/**', 'dist/prod/**']).then(() => cb())
+})

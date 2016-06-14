@@ -1,8 +1,8 @@
-const gulp    = require('gulp');
-const htmlmin = require('gulp-htmlmin');
+const gulp = require('gulp')
+const htmlmin = require('gulp-htmlmin')
 
-gulp.task('minify-prod', function() {
+gulp.task('minify-prod', () => {
 	return gulp.src('dist/prod/*.html')
-		.pipe(htmlmin({minifyJS: true, minifyCSS: true}))
-		.pipe(gulp.dest('dist/prod'));
-});
+		.pipe(htmlmin({ minifyJS: true, minifyCSS: true }))
+		.pipe(gulp.dest('dist/prod'))
+})

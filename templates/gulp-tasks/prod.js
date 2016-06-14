@@ -1,19 +1,7 @@
-const gulp        = require('gulp');
-const runSequence = require('run-sequence');
+const gulp = require('gulp')
+const runSequence = require('run-sequence')
 
-// run all prod tasks to deploy
-gulp.task('prod', function(cb) {
-	runTasks(function() {
-		setTimeout(function() {
-			runSequence(
-				'ssh-prod',
-				cb
-			);
-		}, 100);
-	});
-});
-
-function runTasks(cb) {
+const runTasks = (cb) => {
 	runSequence(
 		'clean-prod',
 		'html-prod',
@@ -25,5 +13,17 @@ function runTasks(cb) {
 		'zip-prod',
 		'chmod-prod',
 		cb
-	);
+	)
 }
+
+// run all prod tasks to deploy
+gulp.task('prod', (cb) => {
+	runTasks(() => {
+		setTimeout(() => {
+			runSequence(
+				'ssh-prod',
+				cb
+			)
+		}, 100)
+	})
+})

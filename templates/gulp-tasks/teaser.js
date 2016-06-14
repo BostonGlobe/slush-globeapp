@@ -1,74 +1,61 @@
-const gulp       = require('gulp');
-const request    = require('request');
-const fs         = require('fs');
-const cheerio    = require('cheerio');
+const gulp = require('gulp')
+const request = require('request')
+const fs = require('fs')
+const cheerio = require('cheerio')
 
-gulp.task('fetch-teaser', function(cb) {
-	const metaFile = 'data/meta.json';
+gulp.task('fetch-teaser', (cb) => {
+	const metaFile = 'data/meta.json'
 
-	fs.readFile(metaFile, 'utf8', function(err, data) {
-		var urls = JSON.parse(data).teasers;
-		if (urls.length) {
-			fetchAllTeasers(urls, cb);
-		} else {
-			cb();
-		}
-	});	
-});
+	fs.readFile(metaFile, (err, data) => {
+		const urls = JSON.parse(data).teasers
+		if (urls.length) fetchAllTeasers(urls, cb)
+		else cb()
+	})	
+})
 
-const fetchAllTeasers = function(urls, cb) {
-	var data = [];
-	var fetchNext = function(index) {
-		fetchTeaser(urls[index], function(err, datum) {
-			if (!err && datum) {
-				data.push(datum);
-			}
-
-			index++;
-			if (index < urls.length) {
-				fetchNext(index);
-			} else {
-				writeData(data, cb);
-			}
-		});
-	};
-	fetchNext(0);
-};
-
-const fetchTeaser = function(url, cb) {
-	var datum = {};
-	request(url, function(err, response, body) {
-		if (!err && response.statusCode == 200) {
-			$ = cheerio.load(body);
-			var titleRaw = $('title').first().text();
-			var titleClean = titleRaw.split('- The Boston Globe')[0].trim();
-			datum.url = url;
-			datum.title = titleClean;
+const fetchAllTeasers = (urls, cb) => {
+	const data = []
+	const fetchNext = (index) => {
+		fetchTeaser(urls[index], (err, datum) => {
+			index++
+			if (!err && datum) data.push(datum)
 			
-			var meta = $('meta');
+			if (index < urls.length) fetchNext(index)
+			else writeData(data, cb)
+		})
+	}
+	fetchNext(0)
+}
+
+const fetchTeaser = (url, cb) => {
+	request(url, (err, response, body) => {
+		if (!err && response.statusCode == 200) {
+			$ = cheerio.load(body)
+			const titleRaw = $('title').first().text()
+			const title = titleRaw.split('- The Boston Globe')[0].trim()
+			const datum = { url, title }
+			
+			const meta = $('meta')
 			meta.each(function(i, el) {
 				if(el.attribs.property && el.attribs.property === 'og:image') {
-					var imageRaw = el.attribs.content;
-					var imageHttps = imageRaw.replace('http://', '//');
-					var imageFull = imageHttps.replace('image_585w', 'image_960w');
-					datum.image = imageFull;
+					const imageRaw = el.attribs.content
+					const imageHttps = imageRaw.replace('http://', '//')
+					const image = imageHttps.replace('image_585w', 'image_960w')
+					datum.image = image
 				}
-			});
-			cb(null, datum);
-		} else {
-			cb(true);
-		}
-	});
-};
+			})
+			cb(null, datum)
+		
+		else cb(true)
+	})
+}
 
-const writeData = function(data, cb) {
-	const teaserFile = 'data/teaser.json';
-	const str = JSON.stringify(data);
+const writeData = (data, cb) => {
+	const teaserFile = 'data/teaser.json'
+	const str = JSON.stringify(data)
 
-	fs.writeFile(teaserFile, str, function(err) {
-		if (err) {
-			console.log(err);
-		}
-		cb();
-	});
-};
+	fs.writeFile(teaserFile, str, (err) => {
+		if (err) console.log(err)
+		cb()
+	})
+}

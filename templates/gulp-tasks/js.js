@@ -1,10 +1,10 @@
-const gulp          = require('gulp');
-const rename        = require('gulp-rename');
-const browserSync   = require('browser-sync');
-const webpackStream = require('webpack-stream');
-const webpack       = require('webpack');
-const plumber		= require('gulp-plumber');
-const report 		= require('../report-error.js');
+const gulp = require('gulp')
+const rename = require('gulp-rename')
+const browserSync = require('browser-sync')
+const webpackStream = require('webpack-stream')
+const webpack = require('webpack')
+const plumber = require('gulp-plumber')
+const report = require('../report-error.js')
 
 const config = {
 	module: {
@@ -14,7 +14,7 @@ const config = {
 			{ test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}
 		]
 	}
-};
+}
 
 const prod_config = Object.assign({}, config, {
 	plugins: [
@@ -22,20 +22,20 @@ const prod_config = Object.assign({}, config, {
 		new webpack.optimize.OccurenceOrderPlugin(),
 		new webpack.optimize.DedupePlugin()
 	]
-});
+})
 
-gulp.task('js-dev', function() {
+gulp.task('js-dev', () => {
 	return gulp.src('src/js/app.js')
 		.pipe(plumber({ errorHandler: report }))
 		.pipe(webpackStream(config))
 		.pipe(rename('bundle.js'))
 		.pipe(gulp.dest('dist/dev'))
-		.pipe(browserSync.reload({stream:true}));
-});
+		.pipe(browserSync.reload({ stream: true }))
+})
 
-gulp.task('js-prod', function() {
+gulp.task('js-prod', () => {
 	return gulp.src('src/js/app.js')
 		.pipe(webpackStream(prod_config))
 		.pipe(rename('bundle.js'))
 		.pipe(gulp.dest('dist/prod'))
-});
+})
