@@ -30,7 +30,7 @@ const fetchAllTeasers = (urls, cb) => {
 const fetchTeaser = (url, cb) => {
 	request(url, (err, response, body) => {
 		if (!err && response.statusCode == 200) {
-			$ = cheerio.load(body)
+			const $ = cheerio.load(body)
 			const titleRaw = $('title').first().text()
 			const title = titleRaw.split('- The Boston Globe')[0].trim()
 			const datum = { url, title }
@@ -51,7 +51,7 @@ const fetchTeaser = (url, cb) => {
 }
 
 const writeData = (data, cb) => {
-	const teaserFile = 'data/teaser.json'
+	const teaserFile = 'data/teasers.json'
 	const str = JSON.stringify(data)
 
 	fs.writeFile(teaserFile, str, (err) => {
