@@ -14,7 +14,7 @@ gulp.task('ssh-prod', (cb) => {
 	const configured = checkConfiguration(username)
 
 	if (configured) {
-		const command = `(cd dist/prod scp -r ${files} ${username}@${host}:${filepath})`
+		const command = `(cd dist/prod; scp -r ${files} ${username}@${host}:${filepath})`
 		shell.exec(command, cb)
 	} else {
 		cb()
