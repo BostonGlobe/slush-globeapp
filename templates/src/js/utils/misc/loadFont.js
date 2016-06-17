@@ -7,22 +7,18 @@ const createStylesheet = () => {
 	return style.sheet
 }
 
-const storeFont = font => {
-	const name = `${font.family.toLowerCase()}-${font.suffix}`
-	localStorage[name] = 'fontLoaded'
-}
-
 const addFontRule = ({ font, sheet }) => {
+	const { weight, family, suffix } = font
 	const rule = `
-		.${font.family.toLowerCase()}-${font.suffix} {
-			font-family: '${font.family}';
-			font-weight: ${font.weight};
+		.${family.toLowerCase()}-${suffix} {
+			font-family: '${family}';
+			font-weight: ${weight};
 		}
 	`.trim()
 	sheet.insertRule(rule, 0)
 }
 
-const handleError = err =>console.error(err)
+const handleError = err => console.error(err)
 
 const loadFont = fonts => {
 	const sheet = createStylesheet()
@@ -30,13 +26,11 @@ const loadFont = fonts => {
 	const timeout = 5000
 
 	fonts.forEach(font => {
-		// TODO only load if not in cache
-		const fontObserver = new FontFaceObserver(`${font.family}`, { weight: font.weight })
-		fontObserver.load(null, timeout)
-			.then(() => {
-				storeFont(font)
-				addFontRule({ font, sheet })
-			})
+		const { family, weight } = font
+		const fontObserver = new FontFaceObserver(family, { weight })
+		fontObserver
+			.load(null, timeout)
+			.then(() => addFontRule({ font, sheet }))
 			.catch(handleError)
 	})
 }
