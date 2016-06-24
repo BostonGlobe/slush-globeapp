@@ -122,7 +122,7 @@ Fill out *data/meta.json*, the bare minimum needed for seo, analytics, and busin
 	"sectionUrl": "https://bostonglobe.com/metro",
 	"credits": "",
 	"teasers": [],
-	"meter": true,
+	"paywall": true,
 	"socialConnect": true,
 	"ads": false
 }
