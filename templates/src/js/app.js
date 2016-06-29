@@ -1,5 +1,5 @@
-import setPathCookie from './misc/setPathCookie'
-import removeMobileHover from './misc/removeMobileHover'
+import setPathCookie from './utils/setPathCookie'
+import removeMobileHover from './utils/removeMobileHover'
 
 removeMobileHover()
 setPathCookie()
