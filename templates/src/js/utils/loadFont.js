@@ -23,7 +23,7 @@ const handleError = err => console.error(err)
 const loadFont = fonts => {
 	const sheet = createStylesheet()
 	const el = document.documentElement
-	const timeout = 5000
+	const timeout = 8000
 
 	fonts.forEach(font => {
 		const { family, weight } = font

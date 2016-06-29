@@ -53,15 +53,16 @@ gulp.task('check-for-updates', function(done) {
 	const latestVersion = shell.exec('npm view slush-globeapp version', {silent:true}).output.split('\n')[0];
 	const installedVersion = pkg.version;
 
-	if (latestVersion !== installedVersion) {
+	// if (latestVersion !== installedVersion) {
 
-		console.log('Your version of slush-globeapp is outdated. Please update and try again.');
-		shell.exit(1);
+	// 	console.log('Your version of slush-globeapp is outdated. Please update and try again.');
+	// 	shell.exit(1);
 
-	} else{
+	// } else{
 
-		done();
-	}
+	// 	done();
+	// }
+	done();
 
 });
 

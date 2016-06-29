@@ -1,3 +1,5 @@
-import setupDefaultApps from './utils/setupDefaultApps'
+import setPathCookie from './misc/setPathCookie'
+import removeMobileHover from './misc/removeMobileHover'
 
-setupDefaultApps()
+removeMobileHover()
+setPathCookie()

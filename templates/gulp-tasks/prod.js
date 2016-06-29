@@ -7,6 +7,7 @@ const runTasks = (cb) => {
 		'html-prod',
 		'css-prod',
 		'js-prod',
+		'js-prod-critical',
 		'smoosh-prod',
 		'minify-prod',
 		'assets-prod',
