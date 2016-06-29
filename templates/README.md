@@ -78,14 +78,14 @@ Running `gulp fetch-google` at any point will pull down the latest.
 ## Fonts
 The only two fonts loaded by default are **Miller regular** and **Benton bold**. To load additional fonts you must add info to two places. Follow the current examples in the existing files.
 * **src/css/config.styl**
-* **src/js/utils/misc/setupDefaultApps.js**
+* **src/js/critical.js**
 
 In **main.styl**:
 ```
 set-font('benton-regular')
 ```
 
-In **setupDefaultApps.js*:
+In **critical.js*:
 ```
 loadFont([
 	...
