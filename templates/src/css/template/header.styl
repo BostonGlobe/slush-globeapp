@@ -6,16 +6,16 @@ header-color(bgcolor)
         color white
         svg
             fill white
-         &--social-item a:hover
+         &__social-item a:hover
                 background-color rgba(white, 0.35)
     if lightness(bgcolor) < 61%
-        &--title a
+        &__title a
             color white
     else
         color #222
         svg
             fill #222
-        &--social-item a:hover
+        &__social-item a:hover
                 background-color rgba(#222, 0.35)
                 
 .g-header
@@ -24,14 +24,14 @@ header-color(bgcolor)
     color #222
     border-bottom 1px solid #ccc
     header-color(#fff)
-    &--inner
+    &__inner
         position relative     
         a
             opacity .75
             transition .2s ease all
             &:hover
                 opacity 1
-    &--title
+    &__title
         text-align left
         padding-left 2.5em
         letter-spacing .01em
@@ -39,7 +39,7 @@ header-color(bgcolor)
         @media only screen and (min-width: 50em)
             text-align center
             padding-left 0
-    &--logo
+    &__logo
         top 0
         position absolute
 
