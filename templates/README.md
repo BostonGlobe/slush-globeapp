@@ -85,7 +85,7 @@ In **main.styl**:
 set-font('benton-regular')
 ```
 
-In **critical.js*:
+In **critical.js**:
 ```
 loadFont([
 	...
