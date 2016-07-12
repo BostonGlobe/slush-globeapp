@@ -8,6 +8,7 @@ const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
 const methode = config.copy.methode
 const imageSizes = [ 640, 1280, 1920 ]
 let imagesToDownload = []
+let firstAdSlotted = false
 
 const getImageDirectory = () => {
 	const dir = methode.imageDirectory || ''
@@ -98,29 +99,41 @@ const cleanP = (content) => {
 		)
 	}
 
-	const withoutOpenSpan = content.replace(/<span(.*?)>/g, '')
-	const withoutCloseSpan = withoutOpenSpan.replace(/<\/span>/g, '')
-	return `<p class='methode-graf'>${withoutCloseSpan}</p>`
+	const stripped = content
+		.replace(/<span(.*?)>/g, '') // remove spans
+		.replace(/<\/span>/g, '')
+		.replace(/<b(.*?)>/g, '') // remove bolds
+		.replace(/<\/b>/g, '')
+
+	// hr
+	if (stripped.match(/\*\*\*/)) return '<hr>'
+	//subhed
+	if (stripped.match(/subhead>/)) {
+		return stripped.replace(/<subhead(.*?)>/g, "<h3 class='section-hed miller-banner-regular'>")
+		.replace(/<\/subhead>/g, '</h3>')
+	}
+
+	return stripped.length ? `<p class='methode-graf'>${stripped}</p>` : ''
 }
 
 const createContentMarkup = (item) => {
 	const types = {
 		p: ({ content }) => cleanP(content),
 		image: ({ href, credit, caption, alt }) => createFigure({ href, credit, caption, alt }),
-		ad: () => `<div class='ad'></div>`,
+		ad: () => {
+			firstAdSlotted = true
+			return `{{> base/base-ad-slot}}`
+		},
 	}
 	
+	if (item.type === 'ad' && firstAdSlotted) return ''
 	return types[item.type](item)
 }
 
 const createHTML = (stories) => {
-	const html = stories.map(story => {
-		const { content } = story.body
-		// go thru item in content and create the proper markup
-		return content.map(createContentMarkup).join('\n')
-	})
-
-	return html.join('\n')
+	const { content } = story.body
+	// go thru item in content and create the proper markup
+	return content.map(createContentMarkup).join('\n')
 }
 
 const writeHTML = (html) =>
