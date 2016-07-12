@@ -130,10 +130,12 @@ const createContentMarkup = (item) => {
 	return types[item.type](item)
 }
 
-const createHTML = (stories) => {
-	const { content } = story.body
-	// go thru item in content and create the proper markup
-	return content.map(createContentMarkup).join('\n')
+const createHTML = (stories) =>
+	stories.map(story => {
+		const { content } = story.body
+		// go thru item in content and create the proper markup
+		return content.map(createContentMarkup).join('\n')
+	}).join('\n')
 }
 
 const writeHTML = (html) =>
