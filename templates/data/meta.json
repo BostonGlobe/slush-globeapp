@@ -9,7 +9,7 @@
 	"sectionUrl": "//bostonglobe.com/metro",
 	"credits": "",
 	"teasers": [],
-	"paywall": true,
+	"meter": true,
 	"socialConnect": true,
 	"ads": false
 }
