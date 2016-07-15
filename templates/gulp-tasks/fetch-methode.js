@@ -120,6 +120,9 @@ const createContentMarkup = (item) => {
 	const types = {
 		p: ({ content }) => cleanP(content),
 		image: ({ href, credit, caption, alt }) => createFigure({ href, credit, caption, alt }),
+		subhead: ({ content }) => {
+			return `<h3 class='section-hed miller-banner-regular'>${content}</h3>`
+		},
 		ad: () => {
 			firstAdSlotted = true
 			return `{{> base/base-ad-slot}}`
