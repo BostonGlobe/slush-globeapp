@@ -139,7 +139,6 @@ const createHTML = (stories) =>
 		// go thru item in content and create the proper markup
 		return content.map(createContentMarkup).join('\n')
 	}).join('\n')
-}
 
 const writeHTML = (html) =>
 	fs.writeFileSync('src/html/partials/graphic/methode.hbs', html)
