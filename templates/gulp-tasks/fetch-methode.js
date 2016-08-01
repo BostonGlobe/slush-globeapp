@@ -134,11 +134,15 @@ const createContentMarkup = (item) => {
 }
 
 const createHTML = (stories) =>
-	stories.map(story => {
+	stories.map((story, index) => {
 		const { content } = story.body
 		// go thru item in content and create the proper markup
-		return content.map(createContentMarkup).join('\n')
-	}).join('\n')
+		return `
+			<div class='methode__story methode__story--${index}'>
+				${content.map(createContentMarkup).join('\n')}
+			</div>
+		`
+	}).join('')
 
 const writeHTML = (html) =>
 	fs.writeFileSync('src/html/partials/graphic/methode.hbs', html)
