@@ -36,14 +36,6 @@ Running `gulp fetch-methode` at any point will pull down the latest.
 
 ##### Methode image options:
 
-*imageDirectory*
-
-Takes a string. The location of the folder you want to put these images. The default is `assets/`, so anything entered will be appended to that. The folder must exist before you run the gulp command.
-
-Example:
-
-``` imageDirectory: 'photos'```
-
 *imageLibrary*
 
 Takes a string. The responsive image library you want to use instead of plain old ```img``` elements. Possible values include: ```picturefill, lazy-picturefill```. You are responsible for setting up the JavaScript to make them work (simply `npm i` `picturefill` and optionally `lazysizes`).

@@ -7,16 +7,17 @@ const configPath = process.cwd() + '/data/config.json'
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
 const methode = config.copy.methode
 const imageSizes = [ 640, 1280, 1920 ]
+const imageDirectory = 'assets/methode/'
 let imagesToDownload = []
 let firstAdSlotted = false
 
 const getImageDirectory = () => {
 	const dir = methode.imageDirectory || ''
 	const finalDir = dir ? `${dir}/` : dir
-	return `assets/${finalDir}` 
+	
 }
 
-const createPicturefill = ({ name, extension, caption, imageDirectory }) => {
+const createPicturefill = ({ name, extension, caption }) => {
 	const srcset = methode.imageLibrary === 'picturefill' ? 'srcset' : 'data-srcset'
 	const lazyload = methode.imageLibrary === 'picturefill' ? '' : 'lazyload'
 	const defaultSrc = `${imageDirectory}${name}placeholder.${extension}`
@@ -44,10 +45,9 @@ const createPicturefill = ({ name, extension, caption, imageDirectory }) => {
 }
 
 const createFigureSource = ({ name, extension, caption }) => {
-	const imageDirectory = getImageDirectory()
 
 	if (methode.imageLibrary) {
-		return createPicturefill({ name, extension, caption, imageDirectory })
+		return createPicturefill({ name, extension, caption })
 	}
 	// plain old image default
 	const src = `${imageDirectory}${name}${imageSizes[imageSizes.length - 1]}.${extension}`
@@ -183,7 +183,7 @@ const downloadImages = (cb) => {
 	const promises = imagesToDownload.map(image => 
 		new Promise((resolve, reject) => {
 			const { url, filename } = image
-			const path = `src/${getImageDirectory()}${filename}`
+			const path = `src/${imageDirectory}${filename}`
 			try {
 				const exists = fs.lstatSync(path)
 				resolve()

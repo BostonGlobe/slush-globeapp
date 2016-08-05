@@ -4,3 +4,4 @@ dist
 *.sw*
 .DS_Store
 data/copy.json
+src/assets/methode/*.jpg
