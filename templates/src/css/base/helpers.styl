@@ -1,5 +1,5 @@
 //=======================
-// Breakpoint Helpers
+// BREAKPOINT CACHE
 //=======================
 $mq_cache = {}
 
@@ -23,14 +23,14 @@ apply_mq_cache()
 				{$block}
 
 //=======================
-// Clearfix
+// CLEARFIX
 //=======================
 clearfix()
 	overflow auto
 	zoom 1
 
 //=======================
-// Vertical Rhythm
+// VERTICAL RHYTHM
 //=======================
 rhythm(scale)
 	if scale in $type-scale
@@ -57,7 +57,7 @@ rhythm(scale)
 // 		background-position: 0 unit($px-offset, 'px')
     
 //=======================
-// Font Stacks & Weights
+// FONT STACKS
 //=======================
 font(family = $serif, weight = 400, style = normal)
 	font-family family
@@ -65,7 +65,7 @@ font(family = $serif, weight = 400, style = normal)
 	font-style style
 
 //=======================
-// List Style type
+// LIST STYLES
 //=======================
 // Default is none
 list-style(type = none)
@@ -74,7 +74,7 @@ list-style(type = none)
 	padding 0
 	
 //=======================
-// Grids
+// GRIDS
 //=======================
 flex-grid(num, child, gutter = false, direction = row)
 	display flex
@@ -90,14 +90,23 @@ flex-grid(num, child, gutter = false, direction = row)
 			flex-basis (100% / num) - gutter
 
 //=======================
-// Image Dimensions
+// IMAGE DIMENSIONS
 //=======================
+// Outputs width and height of image
 dimensions(img)
 	width image-size($assets-path + img)[0]
 	height image-size($assets-path + img)[1]
 
+// Returns width of image
+get-width(img)
+	return image-size(img)[0]
+
+// Returns height of image
+get-height(img)
+	return image-size(img)[1]
+
 //=======================
-// Pseudo Content
+// PSEUDO CONTENT
 //=======================
 // Using image
 img-content(img)
@@ -108,7 +117,7 @@ img-content(img)
 	background url($assets-path + img) no-repeat 50%
 
 //=======================
-// Hide
+// HIDE
 //=======================
 hidden(type = false)
 	if type == accessible
@@ -121,15 +130,18 @@ hidden(type = false)
 	else
 		display none
 
+
 //===============================
-// Center Vertical
+// VERTICAL CENTERING
+// Centers items vertically
+// If you want horizontal centering on flex
+// add `justify-content center`
 //===============================
 // Put this on the parent element
 center(type, child = false)
 	if type == flex
 		// No child, set to false in function
 		display flex
-		justify-content center
 		align-items center
 	else if type == translate
 		transform-style preserve-3d
@@ -143,3 +155,11 @@ center(type, child = false)
 			position absolute
 			top 50%
 			width 100%
+			
+//===============================
+// RANDOM
+// returns a random number between
+// min and max
+//===============================
+random(min,max)
+	return floor(math(0, 'random')*(max - min + 1) + min)
