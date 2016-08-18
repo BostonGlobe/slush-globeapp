@@ -106,7 +106,7 @@ const cleanP = (content) => {
 		.replace(/<\/b>/g, '')
 
 	// hr
-	if (stripped.match(/(\*.*){3})/) return '<hr>'
+	if (stripped.match(/(\*.*){3})/)) return '<hr>'
 	//subhed
 	if (stripped.match(/subhead>/)) {
 		return stripped.replace(/<subhead(.*?)>/g, "<h3 class='section-hed miller-banner-regular'>")
