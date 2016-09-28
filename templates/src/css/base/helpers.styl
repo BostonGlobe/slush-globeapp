@@ -37,12 +37,6 @@ rhythm(scale)
 			line-height: unit((($root-lh * 2) / $em-size), '')
 	else
 		error('Not a defined scale')
-
-// grid-overlay($px-offset = false)
-// 	background-image: linear-gradient(to bottom,#0ff 0,rgba(255,255,255,0)1px)
-// 	background-size: 100% ($root-lh)em
-// 	if $px-offset
-// 		background-position: 0 unit($px-offset, 'px')
     
 //=======================
 // FONT STACKS
@@ -151,3 +145,57 @@ center(type, child = false)
 //===============================
 random(min,max)
 	return floor(math(0, 'random')*(max - min + 1) + min)
+
+//===============================
+// QUICKSORT
+// returns a numeric list in
+// ascending order. I'm not really
+// sure this will ever get used and
+// I kind of hate myself for spending
+// 7 hours on it but let's just let it
+// hang out here anyways
+//===============================
+
+// Filter is a helper for quicksort
+filter(function, list)
+	filtered-list = ()
+	for element in list
+		if (function(element))
+			push(filtered-list, element)
+	return filtered-list
+
+quicksort(list)
+	if (length(list) == 0)
+		return ()
+	pivot = list[0]
+	sorted = ()
+	remaining = ()
+	i = 0
+	for element in list
+		if i != 0
+			push(remaining, element)
+		i = i + 1
+	smaller-sorted = quicksort(filter(@(num){return num <= pivot}, remaining))
+	bigger-sorted = quicksort(filter(@(num){return num > pivot}, remaining))
+	push(sorted, smaller-sorted, pivot, bigger-sorted)
+	return sorted
+
+//===============================
+// REPLACE NUMBER
+// A companion to the replace BIF
+// that replaces non-string values
+//===============================
+replace-num(pattern, replacement, value)
+	return unquote(replace('' + pattern, '' + replacement, '' + value))
+
+//===============================
+// LIST GETTERS
+//===============================
+// Get value of item in list based on index
+nth(list, index)
+	return list[index]
+	
+// Replace value of item in list based on index
+set-nth(list, index, value)
+	$input = list[index]
+	return replace-num($input, value, $input)
