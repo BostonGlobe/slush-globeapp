@@ -157,7 +157,7 @@ random(min,max)
 //===============================
 
 // Filter is a helper for quicksort
-filter(function, list)
+filter-list(function, list)
 	filtered-list = ()
 	for element in list
 		if (function(element))
@@ -175,8 +175,8 @@ quicksort(list)
 		if i != 0
 			push(remaining, element)
 		i = i + 1
-	smaller-sorted = quicksort(filter(@(num){return num <= pivot}, remaining))
-	bigger-sorted = quicksort(filter(@(num){return num > pivot}, remaining))
+	smaller-sorted = quicksort(filter-list(@(num){return num <= pivot}, remaining))
+	bigger-sorted = quicksort(filter-list(@(num){return num > pivot}, remaining))
 	push(sorted, smaller-sorted, pivot, bigger-sorted)
 	return sorted
 
