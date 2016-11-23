@@ -5,6 +5,10 @@
   "repository": "https://github.com/BostonGlobe/slush-globeapp.git",
   "author": "Russell Goldenberg",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BostonGlobe/slush-globeapp/issues"
+  },
+  "homepage": "https://github.com/BostonGlobe/slush-globeapp",
   "dependencies": {
     "archieml": "0.3.0",
     "browser-sync": "2.8.0",
@@ -31,5 +35,6 @@
     "run-sequence": "1.1.1",
     "shelljs": "0.5.1",
     "underscore.string": "3.1.1"
-  }
+  },
+  "engine": "node 5.1.1"
 }
