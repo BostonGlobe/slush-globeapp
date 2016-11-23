@@ -1618,7 +1618,7 @@ gulp-uglify@1.2.0:
     uglify-js "2.4.19"
     vinyl-sourcemaps-apply ">=0.1.1 <0.2.0-0"
 
-"gulp-util@>=3.0.0 <4.0.0-0", gulp-util@^3.0.0, gulp-util@^3.0.5, gulp-util@^3.0.6, gulp-util@~3:
+"gulp-util@>=3.0.0 <4.0.0-0", gulp-util@^3.0.0, gulp-util@^3.0.4, gulp-util@^3.0.5, gulp-util@^3.0.6, gulp-util@~3:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/gulp-util/-/gulp-util-3.0.7.tgz#78925c4b8f8b49005ac01a011c557e6218941cbb"
   dependencies:
@@ -1653,6 +1653,14 @@ gulp-util@~2.2.0, gulp-util@~2.2.14:
     multipipe "^0.1.0"
     through2 "^0.5.0"
     vinyl "^0.2.1"
+
+gulp-yarn@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/gulp-yarn/-/gulp-yarn-0.0.4.tgz#06ab522693b072a1e848ac7b85e9cfe017abd3b3"
+  dependencies:
+    gulp-util "^3.0.4"
+    through2 "^2.0.0"
+    which "^1.0.9"
 
 gulp@3.9.0:
   version "3.9.0"
@@ -3938,7 +3946,7 @@ when@3.x, when@^3.0.1:
   version "3.7.7"
   resolved "https://registry.yarnpkg.com/when/-/when-3.7.7.tgz#aba03fc3bb736d6c88b091d013d8a8e590d84718"
 
-which@^1.2.10:
+which@^1.0.9, which@^1.2.10:
   version "1.2.12"
   resolved "https://registry.yarnpkg.com/which/-/which-1.2.12.tgz#de67b5e450269f194909ef23ece4ebe416fa1192"
   dependencies:

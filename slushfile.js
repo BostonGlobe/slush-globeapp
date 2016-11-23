@@ -1,3 +1,4 @@
+const yarn        = require('gulp-yarn')
 const gulp        = require('gulp');
 const inquirer    = require('inquirer');
 const runSequence = require('run-sequence');
@@ -12,18 +13,17 @@ function getGraphicName() {
 	return [moment().format('YYYY-MM-DD'), s.slugify(shell.pwd().split('/').slice(-1)[0])].join('_');
 }
 
-gulp.task('copy-templates-directory', function(done) {
+gulp.task('install', function(done) {
 
 	// make user feel at ease
 	console.log('*** Scaffolding app. Take a deep breath. ***');
 
-	gulp.src(__dirname + '/templates/**', {dot: true})
-		.pipe(gulp.dest('./'))
-		.on('finish', function() {
+	console.log('about to yarn')
 
-			// unzip node modules
-			shell.exec('unzip -q node_modules.zip');
-			shell.exec('rm -rf node_modules.zip');
+	gulp.src(__dirname + '/templates/**')
+		.pipe(gulp.dest('./'))
+		.pipe(yarn())
+		.on('finish', function() {
 
 			// add correct year to LICENSE
 			shell.sed('-i', '||YEAR||', new Date().getFullYear(), 'LICENSE');
@@ -33,7 +33,31 @@ gulp.task('copy-templates-directory', function(done) {
 
 			done();
 		});
+
 });
+
+// gulp.task('copy-templates-directory', function(done) {
+
+// 	// make user feel at ease
+// 	console.log('*** Scaffolding app. Take a deep breath. ***');
+
+// 	gulp.src(__dirname + '/templates/**', {dot: true})
+// 		.pipe(gulp.dest('./'))
+// 		.on('finish', function() {
+
+// 			// unzip node modules
+// 			shell.exec('unzip -q node_modules.zip');
+// 			shell.exec('rm -rf node_modules.zip');
+
+// 			// add correct year to LICENSE
+// 			shell.sed('-i', '||YEAR||', new Date().getFullYear(), 'LICENSE');
+
+// 			// add correct graphic name to README
+// 			shell.sed('-i', /APPNAME/g, getGraphicName(), 'README.md');
+
+// 			done();
+// 		});
+// });
 
 gulp.task('setup-ssh', function(done) {
 	inquirer.prompt([
@@ -66,7 +90,7 @@ gulp.task('default', function(done) {
 
 	runSequence(
 		'check-for-updates',
-		'copy-templates-directory',
+		'install',
 		'setup-ssh',
 		done
 	);
