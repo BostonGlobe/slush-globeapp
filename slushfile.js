@@ -1,38 +1,27 @@
+const yarn        = require('gulp-yarn');
 const gulp        = require('gulp');
 const inquirer    = require('inquirer');
 const runSequence = require('run-sequence');
 const shell       = require('shelljs');
-const request     = require('request');
-const fs          = require('fs');
-const moment      = require('moment');
 const s           = require('underscore.string');
 const pkg         = require('./package.json');
 
 function getGraphicName() {
-	return [moment().format('YYYY-MM-DD'), s.slugify(shell.pwd().split('/').slice(-1)[0])].join('_');
+	return s.slugify(shell.pwd().split('/').slice(-1)[0]);
 }
 
-gulp.task('copy-templates-directory', function(done) {
+gulp.task('copy', function() {
 
-	// make user feel at ease
-	console.log('*** Scaffolding app. Take a deep breath. ***');
+	return gulp.src(__dirname + '/templates/**')
+		.pipe(gulp.dest('./'));
 
-	gulp.src(__dirname + '/templates/**', {dot: true})
-		.pipe(gulp.dest('./'))
-		.on('finish', function() {
+});
 
-			// unzip node modules
-			shell.exec('unzip -q node_modules.zip');
-			shell.exec('rm -rf node_modules.zip');
+gulp.task('install', function() {
 
-			// add correct year to LICENSE
-			shell.sed('-i', '||YEAR||', new Date().getFullYear(), 'LICENSE');
+	return gulp.src('./package.json')
+		.pipe(yarn());
 
-			// add correct graphic name to README
-			shell.sed('-i', /APPNAME/g, getGraphicName(), 'README.md');
-
-			done();
-		});
 });
 
 gulp.task('setup-ssh', function(done) {
@@ -43,7 +32,16 @@ gulp.task('setup-ssh', function(done) {
 			message: 'Enter the path to your app [year]/[month]/[graphic-name]'
 		}],
 		function(answers) {
+
+			// ad correct path to config.json
 			shell.sed('-i', '||PATH-TO-APP||', answers.path, 'data/config.json');
+
+			// add correct year to LICENSE
+			shell.sed('-i', '||YEAR||', new Date().getFullYear(), 'LICENSE');
+
+			// add correct graphic name to README
+			shell.sed('-i', /APPNAME/g, getGraphicName(), 'README.md');
+
 			done();
 		});
 });
@@ -66,7 +64,8 @@ gulp.task('default', function(done) {
 
 	runSequence(
 		'check-for-updates',
-		'copy-templates-directory',
+		'copy',
+		'install',
 		'setup-ssh',
 		done
 	);
