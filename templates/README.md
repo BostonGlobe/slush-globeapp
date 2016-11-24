@@ -5,7 +5,7 @@ This project was generated with [slush-globeapp](https://github.com/BostonGlobe/
 Please note: do not reproduce Boston Globe logos or fonts without written permission.
 
 ## Setup
-Clone repo and run `npm i`.
+Clone repo and run `yarn`.
 
 If pulling from google or methode, run the command(s) below to stay up-to-date:
 
@@ -38,7 +38,7 @@ Running `gulp fetch-methode` at any point will pull down the latest.
 
 *imageLibrary*
 
-Takes a string. The responsive image library you want to use instead of plain old ```img``` elements. Possible values include: ```picturefill, lazy-picturefill```. You are responsible for setting up the JavaScript to make them work (simply `npm i` `picturefill` and optionally `lazysizes`).
+Takes a string. The responsive image library you want to use instead of plain old ```img``` elements. Possible values include: ```picturefill, lazy-picturefill```. You are responsible for setting up the JavaScript to make them work (simply `yarn add picturefill` and optionally `lazysizes`).
 
 Example:
 
