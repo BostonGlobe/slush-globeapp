@@ -25,25 +25,45 @@ gulp.task('install', function() {
 });
 
 gulp.task('setup-ssh', function(done) {
+
 	inquirer.prompt([
 		{
-			type: 'input',
-			name: 'path',
-			message: 'Enter the path to your app [year]/[month]/[graphic-name]'
-		}],
-		function(answers) {
+			type: 'list',
+			name: 'section',
+			message: 'Select a section',
+			choices: [
+				'arts',
+				'business',
+				'lifestyle',
+				'magazine',
+				'metro',
+				'news/nation',
+				'news/politics',
+				'news/world',
+				'opinion/ideas',
+				'sports',
+			]
+		}
+	]).then(function(answers) {
 
-			// ad correct path to config.json
-			shell.sed('-i', '||PATH-TO-APP||', answers.path, 'data/config.json');
+		const year = new Date().getFullYear();
+		const url = answers.section + '/graphics/' + year + '/' + getGraphicName()
 
-			// add correct year to LICENSE
-			shell.sed('-i', '||YEAR||', new Date().getFullYear(), 'LICENSE');
+		console.log('Setting app url to /' + url)
 
-			// add correct graphic name to README
-			shell.sed('-i', /APPNAME/g, getGraphicName(), 'README.md');
+		// ad correct path to config.json
+		shell.sed('-i', '||PATH-TO-APP||', url, 'data/config.json');
 
-			done();
-		});
+		// add correct year to LICENSE
+		shell.sed('-i', '||YEAR||', year, 'LICENSE');
+
+		// add correct graphic name to README
+		shell.sed('-i', /APPNAME/g, getGraphicName(), 'README.md');
+
+		done();
+
+	});
+
 });
 
 gulp.task('check-for-updates', function(done) {
