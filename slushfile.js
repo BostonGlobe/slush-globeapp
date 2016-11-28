@@ -12,7 +12,7 @@ function getGraphicName() {
 
 gulp.task('copy', function() {
 
-	return gulp.src(__dirname + '/templates/**')
+	return gulp.src(__dirname + '/templates/**', {dot: true})
 		.pipe(gulp.dest('./'));
 
 });
