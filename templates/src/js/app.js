@@ -1,6 +1,6 @@
-import setPathCookie from './utils/setPathCookie'
-import removeMobileHover from './utils/removeMobileHover'
-import wireSocialButtons from './utils/wireSocialButtons'
+import setPathCookie from './utils/setPathCookie.js'
+import removeMobileHover from './utils/removeMobileHover.js'
+import wireSocialButtons from './utils/wireSocialButtons.js'
 
 removeMobileHover()
 setPathCookie()
