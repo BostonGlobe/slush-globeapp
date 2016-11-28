@@ -9,7 +9,7 @@ setPathCookie()
 document.querySelector('html').classList.add('has-loaded')
 
 // Wire header social if present
-if (document.querySelectorAll('.g-header__share').length > 0) {
+if (document.querySelectorAll('.g-header__share').length) {
 	wireSocialButtons({
 		facebook: '.g-header__share-button--fb',
 		twitter: '.g-header__share-button--tw',
