@@ -114,6 +114,7 @@ Fill out *data/meta.json*, the bare minimum needed for seo, analytics, and busin
 	"sectionUrl": "https://bostonglobe.com/metro",
 	"credits": "",
 	"teasers": [],
+	"social": true,
 	"meter": true,
 	"socialConnect": true,
 	"ads": false
@@ -125,16 +126,21 @@ Fill out *data/meta.json*, the bare minimum needed for seo, analytics, and busin
 
 
 ## Deploy
-#### Step 1: gulp
+#### Step 1: make a project folder on apps
+- Either connect to the apps server (`smb://legacydocroot.globe.com/web/bgapps/html/`) or connect to shell and navigate to your directory (`/web/bgapps/html/[section]/graphics/[year]/[month]/`).
+- If you're using the finder, simply make a new folder in the correct directory with your project name (reference `config.json` for your project name).
+- If you're using terminal, `mkdir [your-project-name]`
+
+#### Step 2: gulp
 - Run `gulp prod -u username` to deploy. Outputs files into `dist/prod` folder in root.
 - Optional: Use the flag `--html` to only upload the index.html file (use this if you have no updates to assets and want faster upload)
-- Your graphic is now internally visible at http://dev.apps.bostonglobe.com/graphics/[year]/[month]/[graphic-name].
+- Your graphic is now internally visible at http://dev.apps.bostonglobe.com/[section]/graphics/[year]/[month]/[graphic-name].
 
-#### Step 2: publish assets
+#### Step 3: publish assets
 - In Terminal, connect to shell (your username is usually first initial last name): `ssh rgoldenberg@shell.boston.com`.
-- Navigate to your graphic directory: `cd /web/bgapps/html/graphics/[year]/[month]/[graphic-name]`.
+- Navigate to your graphic directory: `cd /web/bgapps/html/[section]/graphics/[year]/[month]/[graphic-name]`.
 - Run the command `upload *` in the root **and** each subdirectroy. (ex. `cd css`, then `upload *` to upload all files in that folder).
 
 ### Public url
-- **https**://apps.bostonglobe.com/graphics/[year]/[month]/[graphic-name]
+- **https**://apps.bostonglobe.com/[section]/graphics/[year]/[month]/[graphic-name]
 - A zipped archive is also pushed to apps. It has the full unminified code for the future when gulp and stuff are fossils.
