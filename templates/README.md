@@ -127,7 +127,7 @@ Fill out *data/meta.json*, the bare minimum needed for seo, analytics, and busin
 
 ## Deploy
 #### Step 1: make a project folder on apps
-- Either connect to the apps server (`smb://legacydocroot.globe.com/web/bgapps/html/`) or connect to shell and navigate to your directory (`/web/bgapps/html/[section]/graphics/[year]/[month]/`).
+- Either connect to the apps server (`smb://legacydocroot.globe.com/web/bgapps/html/`) or connect to shell and navigate to your directory (`cd /web/bgapps/html/[section]/graphics/[year]/[month]/`).
 - If you're using the finder, simply make a new folder in the correct directory with your project name (reference `config.json` for your project name).
 - If you're using terminal, `mkdir [your-project-name]`
 
