@@ -1,36 +1,27 @@
 import 'promis'
 import FontFaceObserver from 'fontfaceobserver'
+import { addClass } from './dom'
 
-const createStylesheet = () => {
-	const style = document.createElement('style')
-	document.head.appendChild(style)
-	return style.sheet
+const htmlEl = document.documentElement
+const TIMEOUT = 5000
+
+function addFont({ family, suffix }) {
+	const name = family.toLowerCase().replace(/ /g, '-')
+	const className = `loaded-${name}-${suffix}`
+	addClass(htmlEl, className)
 }
 
-const addFontRule = ({ font, sheet }) => {
-	const { weight, family, suffix } = font
-	const rule = `
-		.${family.toLowerCase()}-${suffix} {
-			font-family: '${family}';
-			font-weight: ${weight};
-		}
-	`.trim()
-	sheet.insertRule(rule, 0)
+function handleError(err) {
+	console.error(err)
 }
 
-const handleError = err => console.error(err)
-
-const loadFont = fonts => {
-	const sheet = createStylesheet()
-	const el = document.documentElement
-	const timeout = 8000
-
+function loadFont(fonts) {
 	fonts.forEach(font => {
 		const { family, weight } = font
 		const fontObserver = new FontFaceObserver(family, { weight })
 		fontObserver
-			.load(null, timeout)
-			.then(() => addFontRule({ font, sheet }))
+			.load(null, TIMEOUT)
+			.then(() => addFont(font))
 			.catch(handleError)
 	})
 }

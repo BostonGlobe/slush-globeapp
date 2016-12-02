@@ -54,14 +54,18 @@ set-font(font)
 		$family = $typefaces[font].family
 		$weight = $typefaces[font].weight
 		$style = $typefaces[font].style
-		$class = $typefaces[font].classification
+		$fallback = $typefaces[font].classification
 		$font-path = '//apps.bostonglobe.com/common/font/'
 		@font-face
-			font-family: '' + $family
-			src: url($font-path + font + '.woff2') format('woff2'), url($font-path + font + '.woff') format('woff')
-			font-weight: $weight
-			font-style: $style
-		.{font}
-			font-family $class
+			font-family '' + $family
+			src url($font-path + font + '.woff2') format('woff2'), url($font-path + font + '.woff') format('woff')
 			font-weight $weight
 			font-style $style
+		.{font}
+			font-family $fallback
+			font-weight $weight
+			font-style $style
+			.loaded-{font} &
+				font-family '' + $family, $fallback
+				font-weight $weight
+				font-style $style
