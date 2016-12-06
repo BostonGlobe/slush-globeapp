@@ -1,28 +1,28 @@
-const yarn        = require('gulp-yarn');
-const gulp        = require('gulp');
-const inquirer    = require('inquirer');
-const runSequence = require('run-sequence');
-const shell       = require('shelljs');
-const s           = require('underscore.string');
-const pkg         = require('./package.json');
+const yarn        = require('gulp-yarn')
+const gulp        = require('gulp')
+const inquirer    = require('inquirer')
+const runSequence = require('run-sequence')
+const shell       = require('shelljs')
+const s           = require('underscore.string')
+const pkg         = require('./package.json')
 
 function getGraphicName() {
-	return s.slugify(shell.pwd().split('/').slice(-1)[0]);
+	return s.slugify(shell.pwd().split('/').slice(-1)[0])
 }
 
 gulp.task('copy', function() {
 
 	return gulp.src(__dirname + '/templates/**', {dot: true})
-		.pipe(gulp.dest('./'));
+		.pipe(gulp.dest('./'))
 
-});
+})
 
 gulp.task('install', function() {
 
 	return gulp.src('./package.json')
-		.pipe(yarn());
+		.pipe(yarn())
 
-});
+})
 
 gulp.task('setup-ssh', function(done) {
 
@@ -46,39 +46,39 @@ gulp.task('setup-ssh', function(done) {
 		}
 	]).then(function(answers) {
 
-		const year = new Date().getFullYear();
+		const year = new Date().getFullYear()
 		const url = answers.section + '/graphics/' + year + '/' + getGraphicName()
 
 		console.log('Setting app url to /' + url)
 
 		// ad correct path to config.json
-		shell.sed('-i', '||PATH-TO-APP||', url, 'data/config.json');
+		shell.sed('-i', '||PATH-TO-APP||', url, 'data/config.json')
 
 		// add correct year to LICENSE
-		shell.sed('-i', '||YEAR||', year, 'LICENSE');
+		shell.sed('-i', '||YEAR||', year, 'LICENSE')
 
 		// add correct graphic name to README
-		shell.sed('-i', /APPNAME/g, getGraphicName(), 'README.md');
+		shell.sed('-i', /APPNAME/g, getGraphicName(), 'README.md')
 
-		done();
+		done()
 
-	});
+	})
 
-});
+})
 
 gulp.task('check-for-updates', function(done) {
 
-	const latestVersion = shell.exec('npm view slush-globeapp version', {silent:true}).output.split('\n')[0];
-	const installedVersion = pkg.version;
+	const latestVersion = shell.exec('npm view slush-globeapp version', {silent:true}).output.split('\n')[0]
+	const installedVersion = pkg.version
 
 	if (latestVersion !== installedVersion) {
-		console.log('Your version of slush-globeapp is outdated. Please update and try again.');
-		shell.exit(1);
+		console.log('Your version of slush-globeapp is outdated. Please update and try again.')
+		shell.exit(1)
 	} else {
-		done();
+		done()
 	}
 
-});
+})
 
 gulp.task('default', function(done) {
 
@@ -88,5 +88,5 @@ gulp.task('default', function(done) {
 		'install',
 		'setup-ssh',
 		done
-	);
-});
+	)
+})
