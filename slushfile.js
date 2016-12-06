@@ -46,8 +46,10 @@ gulp.task('setup-ssh', function(done) {
 		}
 	]).then(function(answers) {
 
-		const year = new Date().getFullYear()
-		const url = answers.section + '/graphics/' + year + '/' + getGraphicName()
+		const now = new Date()
+		const year = now.getFullYear()
+		const month = now.getMonth() + 1
+		const url = `${answers.section}/graphics/${year}/${month}/${getGraphicName()}`
 
 		console.log('Setting app url to /' + url)
 
