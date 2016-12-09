@@ -130,7 +130,7 @@ const createContentMarkup = (item) => {
 	}
 	
 	if (item.type === 'ad' && firstAdSlotted) return ''
-	return types[item.type](item)
+	return types[item.type] ? types[item.type](item) : ''
 }
 
 const createHTML = (stories) =>
