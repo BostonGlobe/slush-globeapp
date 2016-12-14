@@ -55,7 +55,7 @@ set-font(font)
 		$weight = $typefaces[font].weight
 		$style = $typefaces[font].style
 		$fallback = $typefaces[font].classification
-		$font-path = '//apps.bostonglobe.com/common/font/'
+		$font-path = 'https://apps.bostonglobe.com/common/font/'
 		@font-face
 			font-family '' + $family
 			src url($font-path + font + '.woff2') format('woff2'), url($font-path + font + '.woff') format('woff')

@@ -39,7 +39,7 @@ const fetchTeaser = (url, cb) => {
 			meta.each(function(i, el) {
 				if(el.attribs.property && el.attribs.property === 'og:image') {
 					const imageRaw = el.attribs.content
-					const imageHttps = imageRaw.replace('http://', '//')
+					const imageHttps = imageRaw.replace('http://', 'https://')
 					const image = imageHttps.replace('image_585w', 'image_960w')
 					datum.image = image
 				}
