@@ -6,6 +6,13 @@ const shell       = require('shelljs')
 const s           = require('underscore.string')
 const pkg         = require('./package.json')
 
+// http://stackoverflow.com/a/196991/64372
+function toTitleCase(str) {
+	return str.replace(/\w\S*/g, function(txt) {
+		return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+	})
+}
+
 function getGraphicName() {
 	return s.slugify(shell.pwd().split('/').slice(-1)[0])
 }
@@ -49,12 +56,24 @@ gulp.task('setup-ssh', function(done) {
 		const now = new Date()
 		const year = now.getFullYear()
 		const month = now.getMonth() + 1
-		const url = `${answers.section}/graphics/${year}/${month}/${getGraphicName()}`
+		const section = answers.section
+		const sectionTitled = toTitleCase(section.split('/').slice(-1)[0])
+		const url = `${section}/graphics/${year}/${month}/${getGraphicName()}`
+		const sectionUrl = `//bostonglobe.com/${section}`
 
 		console.log('Setting app url to /' + url)
 
-		// ad correct path to config.json
+		// add correct url to config.json
 		shell.sed('-i', '||PATH-TO-APP||', url, 'data/config.json')
+
+		// add correct path to meta.json
+		shell.sed('-i', '||path||', `https://apps.bostonglobe.com/${url}`, 'data/meta.json')
+
+		// add correct section to meta.json
+		shell.sed('-i', '||section||', sectionTitled, 'data/meta.json')
+
+		// add correct sectionUrl to meta.json
+		shell.sed('-i', '||sectionUrl||', sectionUrl, 'data/meta.json')
 
 		// add correct year to LICENSE
 		shell.sed('-i', '||YEAR||', year, 'LICENSE')
