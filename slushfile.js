@@ -59,7 +59,7 @@ gulp.task('setup-ssh', function(done) {
 		const section = answers.section
 		const sectionTitled = toTitleCase(section.split('/').slice(-1)[0])
 		const url = `${section}/graphics/${year}/${month}/${getGraphicName()}`
-		const sectionUrl = `//bostonglobe.com/${section}`
+		const sectionUrl = `https://bostonglobe.com/${section}`
 
 		console.log('Setting app url to /' + url)
 
