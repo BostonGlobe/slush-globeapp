@@ -14,7 +14,7 @@
     "cheerio": "0.20.0",
     "del": "2.2.0",
     "dsv-loader": "1.0.3",
-    "fontfaceobserver": "2.0.5",
+    "fontfaceobserver": "^2.0.7",
     "get-json-lite": "2.0.0",
     "gulp": "3.9.1",
     "gulp-autoprefixer": "3.1.0",
