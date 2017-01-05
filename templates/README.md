@@ -81,20 +81,20 @@ In **critical.js**:
 ```
 loadFont([
 	...
-	{ family: 'Benton', suffix: 'regular', weight: 400 },
+	{ family: 'Benton', suffix: 'regular'},
 ])
 ```
 To set a font, simply add the class name to the element following the pattern `'.family-style'` (ex. `.benton-regular`)
 
 Available fonts:
-* `{ family: 'Miller', suffix: 'regular', weight: 400 }` - `.miller-regular`
-* `{ family: 'Miller', suffix: 'regular', weight: 600 }` - `.miller-bold`
-* `{ family: 'Miller-Banner', suffix: 'regular', weight: 400 }` - `.miller-banner-regular`
-* `{ family: 'Miller-Banner', suffix: 'italic', weight: 400 }` - `.miller-banner-italic`
-* `{ family: 'Benton', suffix: 'regular', weight: 400 }` - `.benton-regular`
-* `{ family: 'Benton', suffix: 'regular', weight: 600 }` - `.benton-bold`
-* `{ family: 'Benton-Cond', suffix: 'regular', weight: 400 }` - `.benton-cond-regular`
-* `{ family: 'Benton-Comp', suffix: 'regular', weight: 400 }` - `.benton-comp-regular`
+* `{ family: 'Miller', suffix: 'regular'}` - `.miller-regular`
+* `{ family: 'Miller', suffix: 'regular'}` - `.miller-bold`
+* `{ family: 'Miller-Banner', suffix: 'regular'}` - `.miller-banner-regular`
+* `{ family: 'Miller-Banner', suffix: 'italic'}` - `.miller-banner-italic`
+* `{ family: 'Benton', suffix: 'regular'}` - `.benton-regular`
+* `{ family: 'Benton', suffix: 'regular'}` - `.benton-bold`
+* `{ family: 'Benton-Cond', suffix: 'regular'}` - `.benton-cond-regular`
+* `{ family: 'Benton-Comp', suffix: 'regular'}` - `.benton-comp-regular`
 
 ## Teasers
 Run `gulp fetch-teaser` to pull down the teaser information (based on urls in meta.json).
