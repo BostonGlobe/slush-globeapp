@@ -59,3 +59,22 @@ $btn
 		background-color #efefef
 		padding 0.5em
 		z-index 1
+
+// SVG for MS High Contrast Mode
+svg
+	@media screen and (-ms-high-contrast: active)
+		// select a color that will contrast 
+		// well on black or white because other 
+		// color modes can be chosen and you 
+		// need a color that will work with either 
+		fill #0074d9
+	@media screen and (-ms-high-contrast: black-on-white)
+		// select a dark color that will 
+		// contrast on black
+		// (#fff is too much contrast) 
+		fill #333
+	@media screen and (-ms-high-contrast: white-on-black)
+		// select a light color that will 
+		// contrast on white 
+		// (#000 is too much contrast)
+		fill #efefef
