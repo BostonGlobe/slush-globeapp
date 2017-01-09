@@ -7,6 +7,7 @@ const fs = require('fs')
 const plumber = require('gulp-plumber')
 const report = require('../report-error.js')
 const browserSync = require('browser-sync')
+const es = require('event-stream')
 
 const srcIndex = 'src/html/index.hbs'
 const svgPath = `${process.cwd()}/svg/`
@@ -18,11 +19,23 @@ gulp.task('html-dev', () => {
 		.data('./data/**/*.{js,json}')
 		.data({timestamp: Date.now()})
 
-	return gulp.src(srcIndex)
-		.pipe(plumber({ errorHandler: report}))
-		.pipe(hbStream)
-		.pipe(include({ basepath: svgPath }))
-		.pipe(rename('index.html'))
+	return es.merge(
+			gulp.src(srcIndex)
+				.pipe(plumber({ errorHandler: report}))
+				.pipe(hbStream)
+				.pipe(include({ basepath: svgPath }))
+				.pipe(rename('index.html')),
+			gulp.src('./src/html/subdirectories/**/*.hbs')
+				.pipe(plumber({ errorHandler: report}))
+				.pipe(hb().partials('./src/html/partials/**/*.hbs').helpers('./src/html/helpers/*.js').data('./data/**/*.{js,json}').data({timestamp: Date.now()}))
+				.pipe(include({ basepath: svgPath }))
+				.pipe(rename(function(path) {
+					if(path.basename !== 'index') {
+						path.dirname += '/' + path.basename
+						path.basename = 'index'
+					}
+					path.extname = '.html'
+				})))
 		.pipe(gulp.dest('dist/dev'))
 		.pipe(browserSync.reload({ stream: true }))
 })

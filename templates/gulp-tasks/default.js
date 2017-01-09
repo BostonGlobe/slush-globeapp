@@ -19,6 +19,7 @@ gulp.task('dev', () => {
 		'js-dev-critical',
 		'assets-dev',
 		'html-dev',
+		'nodemon',
 		'browser-sync'
 	)
 })

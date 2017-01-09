@@ -1,0 +1,16 @@
+'use strict';
+
+// simple express server
+var express = require('express');
+var app = express();
+var router = express.Router();
+
+app.use(express.static('dist/dev'));
+app.get('/**/*', function(req, res) {
+    res.sendFile('./dist/dev' + req.path + '/index.html', { root: __dirname });
+});
+app.get('/', function(req, res) {
+    res.sendFile('./dist/dev/index.html', { root: __dirname });
+});
+
+app.listen(5000);
