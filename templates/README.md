@@ -72,7 +72,7 @@ The only two fonts loaded by default are **Miller regular** and **Benton bold**.
 * **src/css/config.styl**
 * **src/js/critical.js**
 
-In **main.styl**:
+In **config.styl**:
 ```
 set-font('benton-regular')
 ```
