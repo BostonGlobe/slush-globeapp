@@ -1,38 +1,38 @@
-<title>{{meta.title}} - The Boston Globe</title>
+<title>{{#if title}}{{title}}{{else}}{{meta.index.title}}{{/if}} - The Boston Globe</title>
 <meta name='viewport' content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no'>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='author' content='The Boston Globe' />
-<meta name='description' content='{{meta.description}}'/>
+<meta name='description' content='{{#if description}}{{description}}{{else}}{{meta.index.description}}{{/if}}'/>
 
 {{!-- for business --}}
-<meta property='title' content='{{meta.title}}' />
-<meta property='section' content='{{meta.section}}' />
-<meta property='author' content='{{meta.author}}' />
-<meta property='meter' content='{{meta.meter}}' />
-<meta property='socialConnect' content='{{meta.socialConnect}}' />
+<meta property='title' content='{{#if title}}{{title}}{{else}}{{meta.index.title}}{{/if}}' />
+<meta property='section' content='{{meta.index.section}}' />
+<meta property='author' content='{{#if author}}{{author}}{{else}}{{meta.index.author}}{{/if}}' />
+<meta property='meter' content='{{#if meter}}{{meter}}{{else}}{{meta.index.meter}}{{/if}}' />
+<meta property='socialConnect' content='{{#if socialConnect}}{{socialConnect}}{{else}}{{meta.index.socialConnect}}{{/if}}' />
 
 <meta property='og:city' content='Boston' />
 <meta property='og:state' content='MA' />
 <meta property='og:country' content='US' />
 <meta property='og:type' content='article'/>
-<meta property='og:title' content='{{meta.title}}' />
-<meta property='og:description' content='{{meta.description}}' />
-<meta property='og:url' content='{{meta.url}}' />
-<meta property='og:image' content='{{meta.imageUrl}}' />
-<meta property='og:site_name' content='BostonGlobe.com' /> 
-<meta property='fb:admins' content='100001044693856,507486035' /> 
+<meta property='og:title' content='{{#if title}}{{title}}{{else}}{{meta.index.title}}{{/if}}' />
+<meta property='og:description' content='{{#if description}}{{description}}{{else}}{{meta.index.description}}{{/if}}' />
+<meta property='og:url' content='{{#if url}}{{url}}{{else}}{{meta.index.url}}{{/if}}' />
+<meta property='og:image' content='{{#if imageUrl}}{{imageUrl}}{{else}}{{meta.index.imageUrl}}{{/if}}' />
+<meta property='og:site_name' content='BostonGlobe.com' />
+<meta property='fb:admins' content='100001044693856,507486035' />
 <meta property='fb:app_id' content='103933749691726' />
 <meta property='article:publisher' content='https://www.facebook.com/globe' />
 
 <meta property='twitter:account_id' content='95431448' />
 <meta name='twitter:card' content='summary' />
-<meta name='twitter:url' content='{{meta.url}}' />
-<meta name='twitter:title' content='{{meta.title}}' />
-<meta name='twitter:description' content='{{meta.description}}' />
-<meta name='twitter:image' content='{{meta.imageUrl}}' />
+<meta name='twitter:url' content='{{#if url}}{{url}}{{else}}{{meta.index.url}}{{/if}}' />
+<meta name='twitter:title' content='{{#if title}}{{title}}{{else}}{{meta.index.title}}{{/if}}' />
+<meta name='twitter:description' content='{{#if description}}{{description}}{{else}}{{meta.index.description}}{{/if}}' />
+<meta name='twitter:image' content='{{#if imageUrl}}{{imageUrl}}{{else}}{{meta.index.imageUrl}}{{/if}}' />
 <meta name='twitter:site' content='@BostonGlobe'>
 <meta name='twitter:creator' content='@BostonGlobe'>
 
 <meta name='robots' content='noarchive' />
-<meta name='news_keywords' content='Boston Globe, Boston, interactive, graphic, {{meta.title}}, {{meta.keywords}}' />
+<meta name='news_keywords' content='Boston Globe, Boston, interactive, graphic, {{#if title}}{{title}}{{else}}{{meta.index.title}}{{/if}}, {{#if keywords}}{{keywords}}{{else}}{{meta.index.keywords}}{{/if}}' />

@@ -1,5 +1,5 @@
 <footer role='contentinfo' class='g-footer'>
-	<p class='g-footer--credits'>{{meta.credits}}</p>
-	
+	<p class='g-footer--credits'>{{#if credits}}credits{{else}}{{meta.index.credits}}{{/if}}</p>
+
 	{{> base/base-teasers}}
 </footer>

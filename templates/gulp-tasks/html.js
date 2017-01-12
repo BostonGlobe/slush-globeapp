@@ -25,11 +25,16 @@ gulp.task('html-dev', () => {
 				.pipe(hbStream)
 				.pipe(include({ basepath: svgPath }))
 				.pipe(rename('index.html')),
-			gulp.src('./src/html/subdirectories/**/*.hbs')
+			gulp.src('./src/html/multipage/**/*.hbs')
 				.pipe(plumber({ errorHandler: report}))
-				.pipe(hb().partials('./src/html/partials/**/*.hbs').helpers('./src/html/helpers/*.js').data('./data/**/*.{js,json}').data({timestamp: Date.now()}))
+				.pipe(
+					hb()
+						.partials('./src/html/partials/**/*.hbs')
+						.helpers('./src/html/helpers/*.js')
+						.data('./data/**/*.{js,json}')
+						.data({timestamp: Date.now()}))
 				.pipe(include({ basepath: svgPath }))
-				.pipe(rename(function(path) {
+				.pipe(rename((path) => {
 					if(path.basename !== 'index') {
 						path.dirname += '/' + path.basename
 						path.basename = 'index'
