@@ -96,6 +96,7 @@ gulp.task('check-for-updates', function(done) {
 		console.log('Your version of slush-globeapp is outdated. Please update and try again.')
 		shell.exit(1)
 	} else {
+		console.log('Using version ' + installedVersion)
 		done()
 	}
 
