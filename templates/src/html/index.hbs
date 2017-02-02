@@ -18,7 +18,9 @@
 
 		<main id='content'>
 			{{> graphic/graphic }}
+			{{#if config.copy.methode.story}}
 			{{> graphic/methode }}
+			{{/if}}
 		</main>
 
 		{{> base/base-footer }}
