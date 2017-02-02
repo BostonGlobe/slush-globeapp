@@ -137,6 +137,9 @@ center(type, child = false)
 	if type == flex
 		// No child, set to false in function
 		display flex
+		flex-direction column
+		justify-content center
+		// aligns horizontally as well
 		align-items center
 	else if type == translate
 		transform-style preserve-3d
