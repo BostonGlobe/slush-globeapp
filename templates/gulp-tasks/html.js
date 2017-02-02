@@ -5,7 +5,7 @@ const gcallback = require('gulp-callback')
 const include = require('gulp-file-include')
 const fs = require('fs')
 const plumber = require('gulp-plumber')
-const report = require('../report-error.js')
+const report = require('./report-error.js')
 const browserSync = require('browser-sync')
 
 const srcIndex = 'src/html/index.hbs'

@@ -14,3 +14,7 @@ To create a new app, create a new directory (ex: `mkdir project-name`), `cd` int
     slush globeapp
 
 Follow all prompts.
+
+### Documentation
+
+See the generated [README](https://github.com/BostonGlobe/slush-globeapp/blob/master/templates/README.md) for project-specific documentation.
