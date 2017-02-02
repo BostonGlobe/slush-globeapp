@@ -47,7 +47,7 @@ gulp.task('setup-ssh', function(done) {
 				'news/nation',
 				'news/politics',
 				'news/world',
-				'opinion/ideas',
+				'opinion',
 				'sports',
 			]
 		}
