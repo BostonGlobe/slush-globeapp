@@ -72,7 +72,7 @@ The only two fonts loaded by default are **Miller regular** and **Benton bold**.
 * **src/css/config.styl**
 * **src/js/critical.js**
 
-In **main.styl**:
+In **config.styl**:
 ```
 set-font('benton-regular')
 ```
@@ -124,6 +124,22 @@ Fill out *data/meta.json*, the bare minimum needed for seo, analytics, and busin
 * **credits** text of who made this
 * **teasers**: array of urls
 
+## Handlebars Helpers
+Handlebars helpers exist for `greaterThan`, `lessThan`, and `ifEquals` comparisons. You can add your own handlebars helpers in `src/html/helpers`.
+
+### Usage examples
+
+```
+{{#greaterThan foo 0}}{{foo}}{{/greaterThan}}
+```
+
+```
+{{#lessThan results 1}}<p>No results found. Sorry!</p>{{/lessThan}}
+```
+
+```
+<div class="foo {{#ifEquals hidden true}}hidden{{/ifEquals}}">...</div>
+```
 
 ## Deploy
 #### Step 1: make a project folder on apps

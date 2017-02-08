@@ -6,7 +6,7 @@ const rename = require('gulp-rename')
 const browserSync = require('browser-sync')
 const plumber = require('gulp-plumber')
 const replace = require('gulp-replace')
-const report = require('../report-error.js')
+const report = require('./report-error.js')
 
 //compile styl to css and autoprefix
 gulp.task('css-dev', () => {

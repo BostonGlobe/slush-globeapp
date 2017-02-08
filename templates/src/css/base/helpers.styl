@@ -10,6 +10,15 @@ mq(breakpoint)
 	else
 		error('Not a defined media query')
 
+//===============================
+// Z-INDEX
+//===============================
+set-index(layer)
+	if layer in $z-index
+		return $z-index[layer]
+	else
+		error('Not a layer in z-index')
+
 //=======================
 // CLEARFIX
 //=======================
@@ -18,6 +27,8 @@ clearfix()
 		content ''
 		display table
 		clear both
+
+
 
 //=======================
 // VERTICAL RHYTHM
@@ -126,6 +137,9 @@ center(type, child = false)
 	if type == flex
 		// No child, set to false in function
 		display flex
+		flex-direction column
+		justify-content center
+		// aligns horizontally as well
 		align-items center
 	else if type == translate
 		transform-style preserve-3d

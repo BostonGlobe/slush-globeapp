@@ -4,7 +4,7 @@ const browserSync = require('browser-sync')
 const webpackStream = require('webpack-stream')
 const webpack = require('webpack')
 const plumber = require('gulp-plumber')
-const report = require('../report-error.js')
+const report = require('./report-error.js')
 
 const config = {
 	module: {
