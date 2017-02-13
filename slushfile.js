@@ -55,7 +55,7 @@ gulp.task('setup-ssh', function(done) {
 
 		const now = new Date()
 		const year = now.getFullYear()
-		const month = (now.getMonth() < 10 ? '0' : '') + now.getMonth()
+		const month = ((now.getMonth() + 1) < 10 ? '0' : '') + (now.getMonth() + 1)
 		const section = answers.section
 		const sectionTitled = toTitleCase(section.split('/').slice(-1)[0])
 		const url = `${section}/graphics/${year}/${month}/${getGraphicName()}`
