@@ -1,0 +1,31 @@
+<% if(projectType === 'Multipage') { %>{{#> layout}}
+	{{> graphic/graphic}}
+	{{> graphic/methode}}
+{{/layout}}<% } else { %><!doctype html>
+<!--[if IE 7 ]>    <html class='ie7'> <![endif]-->
+<!--[if IE 8 ]>    <html class='ie8'> <![endif]-->
+<!--[if IE 9 ]>    <html class='ie9'> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class='' lang='en'> <!--<![endif]-->
+
+	<head>
+		{{> base/base-meta }}
+		{{> base/base-head }}
+		{{> base/base-critical }}
+
+		{{#if meta.index.ads}}
+		{{> base/base-ad-script}}
+		{{/if}}
+	</head>
+	<body>
+		{{> base/base-header }}
+
+		<main id='content'>
+      {{> graphic/graphic}}
+			{{> graphic/methode}}
+		</main>
+
+		{{> base/base-footer }}
+		{{> base/base-js}}
+	</body>
+</html>
+<% } %>

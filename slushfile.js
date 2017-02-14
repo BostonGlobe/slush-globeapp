@@ -1,5 +1,6 @@
 const yarn        = require('gulp-yarn')
 const gulp        = require('gulp')
+const template		= require('gulp-template')
 const inquirer    = require('inquirer')
 const runSequence = require('run-sequence')
 const shell       = require('shelljs')
@@ -17,11 +18,27 @@ function getGraphicName() {
 	return s.slugify(shell.pwd().split('/').slice(-1)[0])
 }
 
-gulp.task('copy', function() {
-
-	return gulp.src(__dirname + '/templates/**', {dot: true})
-		.pipe(gulp.dest('./'))
-
+gulp.task('copy', function(done) {
+	const log = (err) => {
+		console.log(err);
+	}
+	inquirer.prompt([
+		{
+			type: 'list',
+			name: 'projectType',
+			message: 'Select a project type',
+			choices: [
+				'Default',
+				'Multipage'
+			],
+			default: 'Default'
+		}
+	]).then(function(answers) {
+		return gulp.src(__dirname + '/templates/default/**', {dot: true})
+						.pipe(template(answers, { interpolate: /${{{([\s\S]+?)}}}$/g }))
+						.pipe(gulp.dest('./'))
+						.on('end', done)
+	}).catch(err => { console.log(err); })
 })
 
 gulp.task('install', function() {

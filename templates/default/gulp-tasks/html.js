@@ -3,7 +3,6 @@ const hb = require('gulp-hb')
 const rename = require('gulp-rename')
 const gcallback = require('gulp-callback')
 const include = require('gulp-file-include')
-const fs = require('fs')
 const plumber = require('gulp-plumber')
 const report = require('./report-error.js')
 const browserSync = require('browser-sync')
@@ -18,13 +17,13 @@ gulp.task('html-dev', () => {
 		.helpers('./src/html/helpers/*.js')
 		.data('./data/**/*.{js,json}')
 		.data({timestamp: Date.now()})
-
+	<% if(projectType === 'Multipage') { %>
 	return es.merge(
-			gulp.src(srcIndex)
+		<% } else { %>	return <% } %>gulp.src(srcIndex)
 				.pipe(plumber({ errorHandler: report}))
 				.pipe(hbStream)
 				.pipe(include({ basepath: svgPath }))
-				.pipe(rename('index.html')),
+				.pipe(rename('index.html'))<% if(projectType === 'Multipage') { %>,
 			gulp.src('./src/html/multipage/**/*.hbs')
 				.pipe(plumber({ errorHandler: report}))
 				.pipe(
@@ -40,9 +39,9 @@ gulp.task('html-dev', () => {
 						path.basename = 'index'
 					}
 					path.extname = '.html'
-				})))
-		.pipe(gulp.dest('dist/dev'))
-		.pipe(browserSync.reload({ stream: true }))
+				})))<% } %>
+				.pipe(gulp.dest('dist/dev'))
+				.pipe(browserSync.reload({ stream: true }))
 })
 
 gulp.task('html-prod', () => {
@@ -51,10 +50,28 @@ gulp.task('html-prod', () => {
 		.helpers('./src/html/helpers/*.js')
 		.data('./data/**/*.{js,json}')
 		.data({timestamp: Date.now()})
-
-	return gulp.src(srcIndex)
-		.pipe(hbStream)
-		.pipe(include({ basepath: svgPath }))
-		.pipe(rename('index.html'))
-		.pipe(gulp.dest('.tmp'))
+	<% if(projectType === 'Multipage') { %>
+	return es.merge(
+		<% } else { %>	return <% } %>gulp.src(srcIndex)
+				.pipe(plumber({ errorHandler: report}))
+				.pipe(hbStream)
+				.pipe(include({ basepath: svgPath }))
+				.pipe(rename('index.html'))<% if(projectType === 'Multipage') { %>,
+			gulp.src('./src/html/multipage/**/*.hbs')
+				.pipe(plumber({ errorHandler: report}))
+				.pipe(
+					hb()
+						.partials('./src/html/partials/**/*.hbs')
+						.helpers('./src/html/helpers/*.js')
+						.data('./data/**/*.{js,json}')
+						.data({timestamp: Date.now()}))
+				.pipe(include({ basepath: svgPath }))
+				.pipe(rename((path) => {
+					if(path.basename !== 'index') {
+						path.dirname += '/' + path.basename
+						path.basename = 'index'
+					}
+					path.extname = '.html'
+				})))<% } %>
+			.pipe(gulp.dest('.tmp'))
 })
