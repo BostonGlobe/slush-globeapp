@@ -34,10 +34,14 @@ gulp.task('copy', function(done) {
 			default: 'Default'
 		}
 	]).then(function(answers) {
-		return gulp.src(__dirname + '/templates/default/**', {dot: true})
-						.pipe(template(answers, { interpolate: /${{{([\s\S]+?)}}}$/g }))
-						.pipe(gulp.dest('./'))
-						.on('end', done)
+		const srcdirs = answers.projectType === 'Multipage' ? [
+			__dirname + '/templates/default/**',
+			__dirname + '/templates/multipage/**'
+		] : __dirname + '/templates/default/**'
+		return gulp.src(srcdirs, {dot: true})
+			.pipe(template(answers, { interpolate: /${{{([\s\S]+?)}}}$/g }))
+			.pipe(gulp.dest('./'))
+			.on('end', done)
 	}).catch(err => { console.log(err); })
 })
 

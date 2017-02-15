@@ -7,10 +7,10 @@ gulp.task('fetch-teaser', (cb) => {
 	const metaFile = 'data/meta.json'
 
 	fs.readFile(metaFile, (err, data) => {
-		const urls = JSON.parse(data).teasers
+		const urls = JSON.parse(data)<% if(projectType === 'Multipage') { %>.index<% } %>.teasers
 		if (urls.length) fetchAllTeasers(urls, cb)
 		else cb()
-	})	
+	})
 })
 
 const fetchAllTeasers = (urls, cb) => {
@@ -19,7 +19,7 @@ const fetchAllTeasers = (urls, cb) => {
 		fetchTeaser(urls[index], (err, datum) => {
 			index++
 			if (!err && datum) data.push(datum)
-			
+
 			if (index < urls.length) fetchNext(index)
 			else writeData(data, cb)
 		})
@@ -34,7 +34,7 @@ const fetchTeaser = (url, cb) => {
 			const titleRaw = $('title').first().text()
 			const title = titleRaw.split('- The Boston Globe')[0].trim()
 			const datum = { url, title }
-			
+
 			const meta = $('meta')
 			meta.each(function(i, el) {
 				if(el.attribs.property && el.attribs.property === 'og:image') {

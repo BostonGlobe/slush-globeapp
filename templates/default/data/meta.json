@@ -1,5 +1,5 @@
-{
-  "index": {
+{<% if(projectType === 'Multipage') { %>
+  "index": {<% } %>
     "title": "Graphic title",
     "author": "",
     "description": "Description of graphic",
@@ -13,6 +13,6 @@
     "social": true,
     "meter": true,
     "socialConnect": true,
-    "ads": false
-  }
+    "ads": false<% if(projectType === 'Multipage') { %>
+  }<% } %>
 }
