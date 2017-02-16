@@ -141,6 +141,83 @@ Handlebars helpers exist for `greaterThan`, `lessThan`, and `ifEquals` compariso
 <div class="foo {{#ifEquals hidden true}}hidden{{/ifEquals}}">...</div>
 ```
 
+##Multipage
+If a project is to be serialized with multiple articles, you can set up the functionality and architecture by choosing the `Multipage` option when generating a project with [slush-globeapp](https://github.com/BostonGlobe/slush-globeapp).
+
+####File Structure
+The main index file for a multipage project remains `src/html/index.hbs`.
+
+To add subpages, create folders and handlebar files under  `src/html/multipage/` and their names will be reflected in the url.
+
+For example:
+
+```
+.
++--src
+|	 +--html
+|	 		+--multipage
+|				 +--part
+|						+--one.hbs
+|						+--two
+|							 +--index.hbs
+```
+
+Will produce pages at `/[section]/graphics/[year]/[month]/[graphic-name]/part/one` and `/[section]/graphics/[year]/[month]/[graphic-name]/part/two` respectively.
+
+####Layout
+A `layout` template is provided that sets up a page's HTML and is used as follows:
+
+```
+{{#> layout}}
+	{{> graphic/your-partial-here}}
+	{{> graphic/another-partial-here}}
+{{/layout}}
+```
+
+This will render a full page's markup with the partial blocks nested within `<main id="content"></main>`
+
+####Metadata
+Metadata can be set up for each page by creating a new object in `data/meta.json` like so:
+
+```
+{
+	"index": {...},
+	"partOne": {
+		"title": "Part One title",
+		"author": "Author name",
+		"description": "Description of part one",
+		"keywords": "Comma, delimited, for, seo",
+		"url": "https://apps.bostonglobe.com/graphics/path/to/graphic/part/one",
+		"imageUrl": "https://apps.bostonglobe.com/graphics/path/to/image",
+		"section": "Metro",
+		"sectionUrl": "https://bostonglobe.com/metro",
+		"credits": "",
+		"teasers": [],
+		"social": true,
+		"meter": true,
+		"socialConnect": true,
+		"ads": false
+	}
+}
+```
+
+And passing it to the `layout` template like the following:
+
+```
+{{#> layout meta.partOne}}
+	{{> graphic/your-partial-here}}
+{{/layout}}
+```
+
+Any undefined fields will default to the index object.
+
+####Other Notes
+- `main.css`, `bundle.js`, and `critical.js` are global for all subpages.
+- Asset paths should be absolute, referencing the config path. For example: `/[section]/graphics/[year]/[month]/[graphic-name]/assets`
+- `gulp fetch-teaser` will only pull from the `teasers` array in `meta.index`.
+- `gulp fetch-methode` still only outputs to one `methode.hbs` file.
+- Future enhancements will allow for more flexibility with the previous notes.
+
 ## Deploy
 #### Step 1: make a project folder on apps
 - Either connect to the apps server (`smb://legacydocroot.globe.com/web/bgapps/html/`) or connect to shell and navigate to your directory (`cd /web/bgapps/html/[section]/graphics/[year]/[month]/`).
