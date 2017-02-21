@@ -8,7 +8,7 @@ gulp.task('default', ['dev'], () => {
 	gulp.watch('src/html/**/*.hbs', ['html-dev'])
 	gulp.watch('src/js/**/*.js', ['js-dev', 'js-dev-critical'])
 	gulp.watch('src/assets/**/*', ['assets-dev'])
-	gulp.watch('dist/dev/index.html', ['browser-sync-reload'])
+	gulp.watch('dist/dev/**/index.html', ['browser-sync-reload'])
 })
 
 gulp.task('dev', () => {
@@ -18,7 +18,8 @@ gulp.task('dev', () => {
 		'js-dev',
 		'js-dev-critical',
 		'assets-dev',
-		'html-dev',
+		'html-dev',<% if(projectType === 'Multipage') { %>
+		'nodemon',<% } %>
 		'browser-sync'
 	)
 })

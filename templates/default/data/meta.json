@@ -1,0 +1,18 @@
+{<% if(projectType === 'Multipage') { %>
+  "index": {<% } %>
+    "title": "Graphic title",
+    "author": "",
+    "description": "Description of graphic",
+    "keywords": "Comma, delimited, for, seo",
+    "url": "||path||",
+    "imageUrl": "https://apps.bostonglobe.com/path/to/image",
+    "section": "||section||",
+    "sectionUrl": "||sectionUrl||",
+    "credits": "",
+    "teasers": [],
+    "social": true,
+    "meter": true,
+    "socialConnect": true,
+    "ads": false<% if(projectType === 'Multipage') { %>
+  }<% } %>
+}

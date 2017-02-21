@@ -8,9 +8,9 @@
 			</a>
 		</div>
 		<nav class='g-header__title benton-bold'>
-			<a href="{{meta.sectionUrl}}">{{meta.section}}</a>
+			<a href="{{<% if(projectType === 'Multipage') { %>@root.meta.index.sectionUrl<% } else { %>meta.sectionUrl<% } %>}}">{{<% if(projectType === 'Multipage') { %>@root.meta.index.section<% } else { %>meta.section<% } %>}}</a>
 		</nav>
-		{{#if meta.social}}
+		{{#if <% if(projectType === 'Multipage') { %>@root.meta.index.social<% } else { %>meta.social<% } %>}}
 		<div class='g-header__share'>
 			<a href='' class='g-header__share-button g-header__share-button--fb'>
 				@@include('facebook.svg')
