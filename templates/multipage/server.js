@@ -6,6 +6,13 @@ var app = express();
 var router = express.Router();
 
 app.use(express.static('dist/dev'));
+
+app.get('/**/assets/**/*.*', function(req, res) {
+    const srcpath = req.path.split('/assets')
+    const file = srcpath[(srcpath.length - 1)]
+    res.sendFile('./dist/dev/assets' + file , { root: __dirname });
+});
+
 app.get('/**/*.*', function(req, res) {
     const srcpath = req.path.split('/')
     const file = srcpath[(srcpath.length - 1)]

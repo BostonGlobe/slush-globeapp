@@ -2,6 +2,7 @@ const gulp = require('gulp')
 const fs = require('fs')
 const request = require('request')
 const jimp = require('jimp')
+const { groupBy, forIn } = require('lodash')
 
 const configPath = process.cwd() + '/data/config.json'
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
@@ -14,15 +15,15 @@ let firstAdSlotted = false
 const getImageDirectory = () => {
 	const dir = methode.imageDirectory || ''
 	const finalDir = dir ? `${dir}/` : dir
-	
+
 }
 
 const createPicturefill = ({ name, extension, caption }) => {
 	const srcset = methode.imageLibrary === 'picturefill' ? 'srcset' : 'data-srcset'
 	const lazyload = methode.imageLibrary === 'picturefill' ? '' : 'lazyload'
-	const defaultSrc = `${imageDirectory}${name}placeholder.${extension}`
-	
-	const getPath = (sz) => `${imageDirectory}${name}${sz}.${extension}`
+	const defaultSrc = `<% if(projectType === 'Multipage') { %>/${config.path}/<% } %>${imageDirectory}${name}placeholder.${extension}`
+
+	const getPath = (sz) => `<% if(projectType === 'Multipage') { %>/${config.path}/<% } %>${imageDirectory}${name}${sz}.${extension}`
 	const getSource = (src, mq) => `<source ${srcset}='${src}' media='(min-width:${mq}px)'>`
 	const reversed = imageSizes.map(i => i).reverse()
 
@@ -50,7 +51,7 @@ const createFigureSource = ({ name, extension, caption }) => {
 		return createPicturefill({ name, extension, caption })
 	}
 	// plain old image default
-	const src = `${imageDirectory}${name}${imageSizes[imageSizes.length - 1]}.${extension}`
+	const src = `<% if(projectType === 'Multipage') { %>/${config.path}/<% } %>${imageDirectory}${name}${imageSizes[imageSizes.length - 1]}.${extension}`
 	return `<img src='${src}' alt='${caption}' />`
 }
 
@@ -74,12 +75,12 @@ const createFigure = ({ href, credit, caption, alt }) => {
 
 	// start generating markup
 	const src = createFigureSource({ name, extension, caption })
-	
+
 	// add to download queue
 	const imageSize = 1920
 	const url = `http:${replaceMethodeImageSize({ imagePath, imageSize })}`
 	const filename = `${name}${imageSize}.${extension}`
-	
+
 	imagesToDownload.push({ url, filename })
 
 	return `
@@ -128,7 +129,7 @@ const createContentMarkup = (item) => {
 			return `{{#if meta.ads}}{{> base/base-ad-slot}}{{/if}}`
 		},
 	}
-	
+
 	if (item.type === 'ad' && firstAdSlotted) return ''
 	return types[item.type] ? types[item.type](item) : ''
 }
@@ -144,8 +145,8 @@ const createHTML = (stories) =>
 		`
 	}).join('')
 
-const writeHTML = (html) =>
-	fs.writeFileSync('src/html/partials/graphic/methode.hbs', html)
+const writeHTML = (html, filename = 'methode') =>
+	fs.writeFileSync(`src/html/partials/graphic/${filename}.hbs`, html)
 
 const resizeImage = ({ path, resolve, reject }) => {
 	console.log('resizing image...')
@@ -173,14 +174,14 @@ const resizeImage = ({ path, resolve, reject }) => {
 			).catch(err => rej(err))
 		})
 	)
-	
+
 	Promise.all(promises)
 		.then(result => resolve(result))
 		.catch(error => reject(error))
 }
 
 const downloadImages = (cb) => {
-	const promises = imagesToDownload.map(image => 
+	const promises = imagesToDownload.map(image =>
 		new Promise((resolve, reject) => {
 			const { url, filename } = image
 			const path = `src/${imageDirectory}${filename}`
@@ -228,8 +229,13 @@ const fetchMethode = (cb) => {
 
 	Promise.all(promises)
 		.then(results => {
-			const html = createHTML(results)
+			const individuals = groupBy(results.filter(story => typeof story.filename !== 'undefined'), 'filename')
+			const combined = results.filter(story => typeof story.filename === 'undefined')
+			const html = createHTML(combined)
 			writeHTML(html)
+			forIn(individuals, (stories, file) => {
+				writeHTML(createHTML(stories), file)
+			})
 			downloadImages(cb)
 		})
 		.catch(error => {
