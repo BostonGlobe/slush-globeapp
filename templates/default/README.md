@@ -23,12 +23,20 @@ So you want to tussle with Methode huh? You are brave. Fill out `config.js` like
 ```
 	...
 	"methode": {
-		"story": [{"path": "path/to/xml"}]
+		"story": [
+			{
+				"path": "path/to/xml"
+			},
+			{
+				"path": "path/to/another/xml",
+				"filename": "name-of-hbs-file"
+			}
+		]
 	}
 
 ```
 
-This pipes text and images from Methode into methode.hbs and downloads the images locally.
+This pipes text and images from Methode into a handlebar file and downloads the images locally. Objects with a `filename` string will have their Methode text and images written to a file with a corresponding name; using the example above would result in name-of-hbs-file.hbs. Objects without a `filename` will be written to methode.hbs.
 
 To insert a graphic partial inside methode, simply create a new p tag and use the convention `{{graphic:test}}`. Make sure you have the partial `src/html/partials/graphic/test.hbs`.
 
