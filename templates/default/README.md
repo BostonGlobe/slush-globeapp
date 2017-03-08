@@ -133,20 +133,46 @@ Fill out *data/meta.json*, the bare minimum needed for seo, analytics, and busin
 * **teasers**: array of urls
 
 ## Handlebars Helpers
-Handlebars helpers exist for `greaterThan`, `lessThan`, and `ifEquals` comparisons. You can add your own handlebars helpers in `src/html/helpers`.
+Handlebars helpers exist for comparisons, iteration, and string manipulation. You can add your own handlebars helpers in `src/html/helpers`.
 
 ### Usage examples
 
+#### Greater than
+Takes 2 parameters and compares if `a > b`.
+Outputs a block if true.
 ```
 {{#greaterThan foo 0}}{{foo}}{{/greaterThan}}
 ```
 
+#### Less than
+Takes 2 parameters and compares if `a < b`.
+Outputs a block if true.
 ```
 {{#lessThan results 1}}<p>No results found. Sorry!</p>{{/lessThan}}
 ```
 
+#### If Equals
+Takes 2 parameters and compares if `a === b`.
+Outputs a block if true.
 ```
 <div class="foo {{#ifEquals hidden true}}hidden{{/ifEquals}}">...</div>
+```
+
+#### Loop
+Takes 3 parameters (start number, end number, incremenation per iteration).
+Outputs blocks based on iteration count. 
+```
+<ul>
+	{{#loop 1 10 1}}
+		<li>{{this}}</li>
+	{{/loop}}
+</ul>
+```
+
+#### String to Url
+Takes string, converts it to lowercase, and replaces spaces with hyphens
+```
+<div style='background-image: url("assets/lead/{{stringToUrl 'Part one Lead image'}}.jpg")'>
 ```
 
 ##Multipage
