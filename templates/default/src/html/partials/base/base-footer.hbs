@@ -1,5 +1,5 @@
 <footer role='contentinfo' class='g-footer'>
-	<p class='g-footer--credits'><% if(projectType === 'Multipage') { %>{{#if credits}}credits{{else}}{{meta.index.credits}}{{/if}}<% } else { %>{{meta.credits}}<% } %></p>
+	<% if(projectType === 'Multipage') { %> {{#if credits}}<p class='g-footer--credits'>{{credits}}</p>{{else}}<p class='g-footer--credits'>{{meta.index.credits}}</p>{{/if}}<% } else { %>{{#if meta.credits}}<p class='g-footer--credits'>{{meta.credits}}</p>{{/if}}<% } %>
 
 	{{> base/base-teasers}}
 </footer>
