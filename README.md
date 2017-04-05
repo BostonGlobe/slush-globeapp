@@ -17,4 +17,4 @@ Follow all prompts.
 
 ### Documentation
 
-See the generated [README](https://github.com/BostonGlobe/slush-globeapp/blob/master/templates/README.md) for project-specific documentation.
+See the generated [README](https://github.com/BostonGlobe/slush-globeapp/blob/master/templates/default/README.md) for project-specific documentation.
