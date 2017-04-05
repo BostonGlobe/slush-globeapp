@@ -13,6 +13,17 @@ If pulling from google or methode, run the command(s) below to stay up-to-date:
 
 To start the local server, run `gulp`.
 
+## Using Apps with Github
+Your apps project is not automatically tracked via git. To do this:
+
+* Initialize git in your project: `git init`
+
+* Add and commit changes as needed
+
+* Start a new repository on Github and follow the instructions to add a remote repository: `git remote add origin [remote repository url]`
+
+* Push to your remote repository: `git push -u origin master`
+
 ## Copy
 
 You can pull copy from either [Methode](#methode) or a [Google Doc](#google-doc).
