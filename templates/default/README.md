@@ -180,7 +180,7 @@ Outputs blocks based on iteration count.
 </ul>
 ```
 
-#### String to Url
+#### Slugify
 Takes string, converts it to lowercase, and replaces spaces with hyphens
 ```
 <div style='background-image: url("assets/lead/{{stringToUrl 'Part one Lead image'}}.jpg")'>
