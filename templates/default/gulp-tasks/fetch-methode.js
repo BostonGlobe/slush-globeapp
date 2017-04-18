@@ -28,7 +28,7 @@ const createPicturefill = ({ name, extension, caption }) => {
 	const reversed = imageSizes.map(i => i).reverse()
 
 	return `
-		<picture>
+		<picture class='figure__img'>
 			<!--[if IE 9]><video style='display: none;'><![endif]-->
 			${
 				reversed.map((sz, index) => {
@@ -84,10 +84,10 @@ const createFigure = ({ href, credit, caption, alt }) => {
 	imagesToDownload.push({ url, filename })
 
 	return `
-		<figure>
+		<figure class='figure'>
 			${src}
-			<small class='figure-credit'>${credit}</small>
-			<figcaption class='figure-caption'>${caption}</figcaption>
+			<small class='figure__credit'>${credit}</small>
+			<figcaption class='figure__caption'>${caption}</figcaption>
 		</figure>
 	`.trim()
 }
