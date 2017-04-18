@@ -103,8 +103,10 @@ const cleanP = (content) => {
 	const stripped = content
 		.replace(/<span(.*?)>/g, '') // remove spans
 		.replace(/<\/span>/g, '')
-		.replace(/<b(.*?)>/g, '') // remove bolds
-		.replace(/<\/b>/g, '')
+		.replace(/<b(.*?)>/g, '<strong>') // replace b with strong
+		.replace(/<\/b>/g, '</strong>')
+		.replace(/<i(.*?)>/g, '<em>') // replace i with em
+		.replace(/<\/i>/g, '</em>')
 
 	// hr
 	if (stripped.match(/(\*\s*){3}/)) return '<hr>'
