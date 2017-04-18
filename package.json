@@ -1,6 +1,6 @@
 {
   "name": "slush-globeapp",
-  "version": "3.7.2",
+  "version": "3.7.3",
   "main": "slushfile.js",
   "repository": "https://github.com/BostonGlobe/slush-globeapp.git",
   "author": "Russell Goldenberg",
