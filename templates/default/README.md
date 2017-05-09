@@ -115,6 +115,9 @@ Available fonts:
 * `{ family: 'Benton-Cond', suffix: 'regular'}` - `.benton-cond-regular`
 * `{ family: 'Benton-Comp', suffix: 'regular'}` - `.benton-comp-regular`
 
+## Debugger
+If you'd like to debug your HTML for accessibility and semantics, uncomment the `debug.styl` file in your `config.styl`. Documentation is available in `debug.styl`, however most items that are flagged are hoverable with information on what's wrong. Remember to comment it out again before pushing to prod!
+
 ## Teasers
 Run `gulp fetch-teaser` to pull down the teaser information (based on urls in meta.json).
 
