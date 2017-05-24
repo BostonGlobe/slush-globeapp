@@ -244,6 +244,7 @@ Metadata can be set up for each page by creating a new object in `data/meta.json
 		"social": true,
 		"meter": true,
 		"socialConnect": true,
+		"incognitoWall": true,
 		"ads": false
 	}
 }
