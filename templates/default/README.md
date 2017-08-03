@@ -137,8 +137,9 @@ Fill out *data/meta.json*, the bare minimum needed for seo, analytics, and busin
 	"credits": "",
 	"teasers": [],
 	"social": true,
-	"meter": true,
-	"socialConnect": true,
+	"meter": true, // If false, article is exempt from metering and meter assets do not show
+	"socialConnect": true, // Show SocialConnect meter asset (shows even if undefined)
+	"progressBar": true, // Show Progress Bar meter asset at bottom (shows even if undefined)
 	"ads": false
 }
 ```
