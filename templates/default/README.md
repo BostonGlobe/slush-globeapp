@@ -175,7 +175,7 @@ Outputs a block if true.
 
 #### Loop
 Takes 3 parameters (start number, end number, incremenation per iteration).
-Outputs blocks based on iteration count. 
+Outputs blocks based on iteration count.
 ```
 <ul>
 	{{#loop 1 10 1}}
@@ -190,10 +190,10 @@ Takes string, converts it to lowercase, and replaces spaces with hyphens
 <div style='background-image: url("assets/lead/{{stringToUrl 'Part one Lead image'}}.jpg")'>
 ```
 
-##Multipage
+## Multipage
 If a project is to be serialized with multiple articles, you can set up the functionality and architecture by choosing the `Multipage` option when generating a project with [slush-globeapp](https://github.com/BostonGlobe/slush-globeapp).
 
-####File Structure
+#### File Structure
 The main index file for a multipage project remains `src/html/index.hbs`.
 
 To add subpages, create folders and handlebar files under  `src/html/multipage/` and their names will be reflected in the url.
@@ -203,17 +203,17 @@ For example:
 ```
 .
 +--src
-|	 +--html
-|	 		+--multipage
-|				 +--part
-|						+--one.hbs
-|						+--two
-|							 +--index.hbs
+| +--html
+|   +--multipage
+|     +--part
+|       +--one.hbs
+|       +--two
+|         +--index.hbs
 ```
 
 Will produce pages at `/[section]/graphics/[year]/[month]/[graphic-name]/part/one` and `/[section]/graphics/[year]/[month]/[graphic-name]/part/two` respectively.
 
-####Layout
+#### Layout
 A `layout` template is provided that sets up a page's HTML and is used as follows:
 
 ```
@@ -225,7 +225,7 @@ A `layout` template is provided that sets up a page's HTML and is used as follow
 
 This will render a full page's markup with the partial blocks nested within `<main id="content"></main>`
 
-####Metadata
+#### Metadata
 Metadata can be set up for each page by creating a new object in `data/meta.json` like so:
 
 ```
@@ -260,7 +260,46 @@ And passing it to the `layout` template like the following:
 
 Any undefined fields will default to the index object.
 
-####Other Notes
+#### Dynamic Nav
+If your project is a series and requires you to have links to the other stories on every page, boy do we have a nav for you! You can include a dynamic nav that will determine what the current page is and displays a nav that starts with the next story in the series and goes from there.
+
+You just need to set up `meta.json` like so:
+```
+{
+	"one": {
+		...,
+		"page": {
+			"path": "part/one",
+			"text": "First story",
+			"order": 1,
+			"imgPath": "assets/path/to/image.jpg"
+		}
+	},
+	"two": {
+		...,
+		"page": {
+			"path": "part/two",
+			"text": "Second story",
+			"order": 2,
+			"imgPath": "assets/path/to/another/image.jpg"
+		}
+	}
+}
+```
+The page object has the following properties:
+- `"path"` - the multipage path from the root of your project.
+- `"text"` - the text you want to display in the anchor link.
+- `"order"` (optional) - the order of the story in the series. If not present, then it will be in whatever order the meta object is in.
+- `"imgPath"` (optional) - includes an img
+
+After that, you'll just need to include the handlebar file with the current page meta attached:
+```
+{{> base/base-dynamic-nav.hbs @root.meta.one}}
+```
+
+No styles have been attached yet so it'll need some love.
+
+#### Other Notes
 - `main.css`, `bundle.js`, and `critical.js` are global for all subpages.
 - Asset paths should be absolute, referencing the config path. For example: `/[section]/graphics/[year]/[month]/[graphic-name]/assets`
 - `gulp fetch-teaser` will only pull from the `teasers` array in `meta.index`.
