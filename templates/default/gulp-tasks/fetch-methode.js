@@ -2,6 +2,7 @@ const gulp = require('gulp')
 const fs = require('fs')
 const request = require('request')
 const jimp = require('jimp')
+const nodePath = require('path')
 const { groupBy, forIn } = require('lodash')
 
 const configPath = process.cwd() + '/data/config.json'
@@ -147,8 +148,13 @@ const createHTML = (stories) =>
 		`
 	}).join('')
 
-const writeHTML = (html, filename = 'methode') =>
-	fs.writeFileSync(`src/html/partials/graphic/${filename}.hbs`, html)
+const writeHTML = (html, filename = 'methode') => {
+	const methodeDir = nodePath.join(__dirname, '../', '/src/html/partials/methode')
+	if (!fs.existsSync(methodeDir)){
+    fs.mkdirSync(methodeDir)
+	}
+	fs.writeFileSync(`${methodeDir}/${filename}.hbs`, html)
+}
 
 const resizeImage = ({ path, resolve, reject }) => {
 	console.log('resizing image...')
