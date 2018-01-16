@@ -9,7 +9,7 @@ const host = 'shell.boston.com'
 
 gulp.task('ssh-prod', (cb) => {
 	const username = argv.u
-	const files = argv.html ? 'index.html bundle.js' : '.'
+	const files = argv.html ? <% if(projectType === 'Multipage') { %>'$(ls | grep -v -e assets -e archive.zip)'<% } else { %>'index.html bundle.js'<% } %> : '.'
 	const filepath = base + config.path
 	const configured = checkConfiguration(username)
 
