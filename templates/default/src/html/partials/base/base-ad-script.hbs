@@ -19,8 +19,7 @@
 				.addService(googletag.pubads())
 				.setTargeting('pos', ['btf', 'bigbox1']);
 
-		section.split('/')
-				.forEach(function setSValueTargeting(targeting, index) {
+        section.split('/').forEach(function setSValueTargeting(targeting, index) {
 					var key = 's' + (index + 1);
 					pgTargeting[key] = targeting;
 				});
