@@ -13,7 +13,7 @@
 	var slots = {};
 	googletag.cmd.push(function () {
 		var pgTargeting = {};
-		var section = '{{@root.meta.sectionUrl}}'.replace(/http[s]*?:\/\//, '');
+		var section = '{{@root.meta.sectionUrl}}'.replace(/http[s]*?:\/\/www\./, '');
 
 		googletag.defineSlot('/61381659/' + section, [300, 250], 'ad_bigbox1')
 				.addService(googletag.pubads())
