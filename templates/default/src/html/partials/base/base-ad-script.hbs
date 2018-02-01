@@ -1,50 +1,83 @@
 <script>
-	var googletag = googletag || {};
-	googletag.cmd = googletag.cmd || [];
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
 
-	(function () {
-		var gads = document.createElement("script");
-		gads.async = true;
-		gads.type = "text/javascript";
-		gads.src = "https://www.googletagservices.com/tag/js/gpt.js";
-		var node = document.getElementsByTagName("script")[0];
-		node.parentNode.insertBefore(gads, node);
-	})();
-	var slots = {};
-	googletag.cmd.push(function () {
-		var pgTargeting = {};
-		var section = '{{@root.meta.sectionUrl}}'.replace(/http[s]*?:\/\/(www\.)?/, '');
+    (function () {
+        var gads = document.createElement("script");
+        gads.async = true;
+        gads.type = "text/javascript";
+        gads.src = "https://www.googletagservices.com/tag/js/gpt.js";
+        var node = document.getElementsByTagName("script")[0];
+        node.parentNode.insertBefore(gads, node);
+    })();
 
-		googletag.defineSlot('/61381659/' + section, [300, 250], 'ad_bigbox1')
-				.addService(googletag.pubads())
-				.setTargeting('pos', ['btf', 'bigbox1']);
+    var dfpAdUnits = {};
 
-		section.split('/').forEach(function setSValueTargeting(targeting, index) {
-					var key = 's' + (index + 1);
-					pgTargeting[key] = targeting;
-				});
+    googletag.cmd.push(function () {
+        var pgTargeting = {};
+        var section = '{{@root.meta.sectionUrl}}'.replace(/http[s]*?:\/\/(www\.)?/, '');
+        var adUnit = '/61381659/' + section;
 
-		pgTargeting.pgtype = 'article';
+        {{#each @root.meta.ads}}
+            switch('{{this}}') {
+                case 'ad_lead1':
+                    dfpAdUnits.ad_lead1 = googletag.defineSlot(adUnit, [728, 90], 'ad_lead1')
+                            .addService(googletag.pubads())
+                            .setTargeting('pos', ['lead1', 'atf']);
 
-		{{#if @root.meta.keywords}}
-			pgTargeting.meta = '{{@root.meta.keywords}}'.split(',')
-					.map(function removeWhitespaceFromKeywords(keyword) {
-						return keyword.trim();
-					});
-		{{/if}}
+                    dfpAdUnits.ad_lead1.defineSizeMapping(
+                            googletag.sizeMapping()
+                                    .addSize([970, 0], [[970, 90], [728, 90]])
+                                    .addSize([768, 0], [[728, 90]])
+                                    .addSize([0, 0], [[320, 50]])
+                                    .build()
+                    );
+                    break;
+                case 'ad_inarticle1':
+                case 'ad_inarticle2':
+                case 'ad_inarticle3':
+                    var posVal = '{{this}}'.replace('ad_', '');
+                    dfpAdUnits['{{this}}'] = googletag.defineSlot(adUnit, [728, 90], '{{this}}')
+                            .addService(googletag.pubads())
+                            .setTargeting('pos', [posVal, 'atf']);
 
-		pgTargeting.pageurl = '{{@root.meta.url}}'
-				.replace('https://apps.bostonglobe.com', '')
-				.replace(/\//g, '_');
+                    dfpAdUnits['{{this}}'].defineSizeMapping(
+                            googletag.sizeMapping()
+                                    .addSize([970, 0], [[970, 250], [970, 90], [728, 90], [300, 250]])
+                                    .addSize([768, 0], [[728, 90], [300, 250]])
+                                    .addSize([0, 0], [[320, 50], [300, 250]])
+                                    .build()
+                    );
+                    break;
+            }
+        {{/each}}
 
-		for (var k in pgTargeting) {
-			if (pgTargeting.hasOwnProperty(k)) {
-				googletag.pubads().setTargeting(k, pgTargeting[k]);
-			}
-		}
+        section.split('/').forEach(function setSValueTargeting(targeting, index) {
+            var key = 's' + (index + 1);
+            pgTargeting[key] = targeting;
+        });
 
-		googletag.pubads().enableAsyncRendering();
-		googletag.pubads().enableSingleRequest();
-		googletag.enableServices();
-	});
+        pgTargeting.pgtype = 'article';
+
+        {{#if @root.meta.keywords}}
+            pgTargeting.meta = '{{@root.meta.keywords}}'.split(',')
+                    .map(function removeWhitespaceFromKeywords(keyword) {
+                        return keyword.trim();
+                    });
+        {{/if}}
+
+        pgTargeting.pageurl = '{{@root.meta.url}}'
+                .replace('https://apps.bostonglobe.com', '')
+                .replace(/\//g, '_');
+
+        for (var k in pgTargeting) {
+            if (pgTargeting.hasOwnProperty(k)) {
+                googletag.pubads().setTargeting(k, pgTargeting[k]);
+            }
+        }
+
+        googletag.pubads().enableAsyncRendering();
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+    });
 </script>
