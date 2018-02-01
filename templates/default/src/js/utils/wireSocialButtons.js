@@ -2,6 +2,7 @@ export default function wireSocialButtons(params) {
 	const href = window.location.href
 	const text = document.title
 	const encodedText = encodeURIComponent(text)
+	
 	const mail = `mailto:?subject=Amazon%20headquarters%20in%20Boston%20-%20Boston%20Globe&
 	body=Amazon%20headquarters%20in%20Boston%20-%20Boston%20Globe%0A%0A
 	https%3A%2F%2Fapps.bostonglobe.com%2Fmetro%2Fgraphics%2F2017%2F10%2Famazon-boston%2F`
@@ -11,7 +12,7 @@ export default function wireSocialButtons(params) {
 		mailNode[m].setAttribute('href', mail)
 	}
 
-		const facebook = `https://www.facebook.com/sharer/sharer.php?u=${encodeURI(href)}`
+	const facebook = `https://www.facebook.com/sharer/sharer.php?u=${encodeURI(href)}`
 	const facebookNode = document.querySelectorAll(params.facebook)
 
 	for (let f = 0; f < facebookNode.length; f++) {
