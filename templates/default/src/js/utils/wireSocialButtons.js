@@ -11,7 +11,7 @@ export default function wireSocialButtons(params) {
 		mailNode[m].setAttribute('href', mail)
 	}
 
-		const facebook = `https://www.facebook.com/sharer/sharer.php?u=${encodeURI(href)}`
+	const facebook = `https://www.facebook.com/sharer/sharer.php?u=${encodeURI(href)}`
 	const facebookNode = document.querySelectorAll(params.facebook)
 
 	for (let f = 0; f < facebookNode.length; f++) {
