@@ -11,6 +11,49 @@
         node.parentNode.insertBefore(gads, node);
     })();
 
+    var catalog = {
+        ad_lead1: {
+            id: 'ad_lead1',
+            pos: ['lead1', 'atf'],
+            defaultSize: [728, 90],
+            sizeMapping: [
+                [[970, 0], [[970, 90], [728, 90]]],
+                [[768, 0], [[728, 90]]],
+                [[0, 0], [[320, 50]]]
+            ]
+        },
+        ad_inarticle1: {
+            id: 'ad_inarticle1',
+            pos: ['inarticle1', 'atf'],
+            defaultSize: [728, 90],
+            sizeMapping: [
+                [[970, 0], [[970, 250], [970, 90], [728, 90], [300, 250]]],
+                [[768, 0], [[728, 90], [300, 250]]],
+                [[0, 0], [[320, 50], [300, 250]]]
+            ]
+        },
+        ad_inarticle2: {
+            id: 'ad_inarticle2',
+            pos: ['inarticle2', 'atf'],
+            defaultSize: [728, 90],
+            sizeMapping: [
+                [[970, 0], [[970, 250], [970, 90], [728, 90], [300, 250]]],
+                [[768, 0], [[728, 90], [300, 250]]],
+                [[0, 0], [[320, 50], [300, 250]]]
+            ]
+        },
+        ad_inarticle3: {
+            id: 'ad_inarticle3',
+            pos: ['inarticle3', 'atf'],
+            defaultSize: [728, 90],
+            sizeMapping: [
+                [[970, 0], [[970, 250], [970, 90], [728, 90], [300, 250]]],
+                [[768, 0], [[728, 90], [300, 250]]],
+                [[0, 0], [[320, 50], [300, 250]]]
+            ]
+        }
+    }
+
     var dfpAdUnits = {};
 
     googletag.cmd.push(function () {
@@ -19,36 +62,12 @@
         var adUnit = '/61381659/' + section;
 
         {{#each @root.meta.ads}}
-            switch('{{this}}') {
-                case 'ad_lead1':
-                    dfpAdUnits.ad_lead1 = googletag.defineSlot(adUnit, [728, 90], 'ad_lead1')
-                            .addService(googletag.pubads())
-                            .setTargeting('pos', ['lead1', 'atf']);
+            if (catalog['{{this}}']) {
+                dfpAdUnits['{{this}}'] = googletag.defineSlot(adUnit, catalog['{{this}}'].defaultSize, catalog['{{this}}'].id)
+                        .addService(googletag.pubads())
+                        .setTargeting('pos', catalog['{{this}}'].pos);
 
-                    dfpAdUnits.ad_lead1.defineSizeMapping(
-                            googletag.sizeMapping()
-                                    .addSize([970, 0], [[970, 90], [728, 90]])
-                                    .addSize([768, 0], [[728, 90]])
-                                    .addSize([0, 0], [[320, 50]])
-                                    .build()
-                    );
-                    break;
-                case 'ad_inarticle1':
-                case 'ad_inarticle2':
-                case 'ad_inarticle3':
-                    var posVal = '{{this}}'.replace('ad_', '');
-                    dfpAdUnits['{{this}}'] = googletag.defineSlot(adUnit, [728, 90], '{{this}}')
-                            .addService(googletag.pubads())
-                            .setTargeting('pos', [posVal, 'atf']);
-
-                    dfpAdUnits['{{this}}'].defineSizeMapping(
-                            googletag.sizeMapping()
-                                    .addSize([970, 0], [[970, 250], [970, 90], [728, 90], [300, 250]])
-                                    .addSize([768, 0], [[728, 90], [300, 250]])
-                                    .addSize([0, 0], [[320, 50], [300, 250]])
-                                    .build()
-                    );
-                    break;
+                dfpAdUnits['{{this}}'].defineSizeMapping(catalog['{{this}}'].sizeMapping);
             }
         {{/each}}
 
