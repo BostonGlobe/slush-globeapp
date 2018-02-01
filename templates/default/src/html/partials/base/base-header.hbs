@@ -12,6 +12,9 @@
 		</nav>
 		{{#if <% if(projectType === 'Multipage') { %>@root.meta.index.social<% } else { %>meta.social<% } %>}}
 		<div class='g-header__share'>
+			<a href='' class='g-header__share-button g-header__share-button--ma'>
+				@@include('mail.svg')
+			</a>
 			<a href='' class='g-header__share-button g-header__share-button--fb'>
 				@@include('facebook.svg')
 			</a>

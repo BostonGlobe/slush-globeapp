@@ -11,5 +11,6 @@ if (document.querySelectorAll('.g-header__share').length) {
 	wireSocialButtons({
 		facebook: '.g-header__share-button--fb',
 		twitter: '.g-header__share-button--tw',
+		mail: '.g-header__share-button--ma',
 	})
 }
