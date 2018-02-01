@@ -3,9 +3,7 @@ export default function wireSocialButtons(params) {
 	const text = document.title
 	const encodedText = encodeURIComponent(text)
 	
-	const mail = `mailto:?subject=Amazon%20headquarters%20in%20Boston%20-%20Boston%20Globe&
-	body=Amazon%20headquarters%20in%20Boston%20-%20Boston%20Globe%0A%0A
-	https%3A%2F%2Fapps.bostonglobe.com%2Fmetro%2Fgraphics%2F2017%2F10%2Famazon-boston%2F`
+	const mail = `mailto:?subject=${encodedText}&body=${encodedText}%0A%0A${href}`
 	const mailNode = document.querySelectorAll(params.mail)
 
 	for (let m = 0; m < mailNode.length; m++) {
