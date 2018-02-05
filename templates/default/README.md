@@ -147,6 +147,36 @@ Fill out *data/meta.json*, the bare minimum needed for seo, analytics, and busin
 * **credits** text of who made this
 * **teasers**: array of urls
 
+#### Ads
+In order for you to slot ads on the page, you must set the specific slots in *data/meta.json* as an array. For example:
+
+```
+{
+	...,
+	"ads": [
+		'ad_lead1',
+		'ad_inarticle1',
+		'ad_inarticle2'
+	]
+}
+```
+
+In order to display the ads, you must slot them using the *base/base-ad-slot* partials. Here are some examples:
+
+```
+{{> base/base-ad-slot ad="ad_lead1"}}
+```
+or
+```
+{{> base/base-ad-slot ad="ad_inarticle1"}}
+```
+and if you would like to show an overline to tell the user that what they're seeing is an advertisement:
+```
+{{> base/base-ad-slot ad="ad_inarticle2" overlive="true"}}
+```
+
+**Note:** It's important that, when you choose to insert ads in an article, you place the lead1 at the top of the article and then place the 3 inarticle units in the correct order 1 through 3
+
 ## Handlebars Helpers
 Handlebars helpers exist for comparisons, iteration, and string manipulation. You can add your own handlebars helpers in `src/html/helpers`.
 
@@ -175,7 +205,7 @@ Outputs a block if true.
 
 #### Loop
 Takes 3 parameters (start number, end number, incremenation per iteration).
-Outputs blocks based on iteration count. 
+Outputs blocks based on iteration count.
 ```
 <ul>
 	{{#loop 1 10 1}}
