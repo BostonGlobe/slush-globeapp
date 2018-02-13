@@ -46,14 +46,11 @@ gulp.task('copy', function(done) {
 })
 
 gulp.task('install', function() {
-
 	return gulp.src('./package.json')
 		.pipe(yarn())
-
 })
 
 gulp.task('setup-ssh', function(done) {
-
 	inquirer.prompt([
 		{
 			type: 'list',
@@ -109,7 +106,6 @@ gulp.task('setup-ssh', function(done) {
 })
 
 gulp.task('check-for-updates', function(done) {
-
 	const latestVersion = shell.exec('npm view slush-globeapp version', {silent:true}).output.split('\n')[0]
 	const installedVersion = pkg.version
 
@@ -124,7 +120,6 @@ gulp.task('check-for-updates', function(done) {
 })
 
 gulp.task('default', function(done) {
-
 	runSequence(
 		'check-for-updates',
 		'copy',
