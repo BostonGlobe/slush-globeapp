@@ -82,19 +82,19 @@ gulp.task('setup-ssh', function(done) {
 		console.log('Setting app url to /' + url)
 
 		// add correct url to config.json
-		shell.sed('-i', '||PATH-TO-APP||', url, 'data/config.json')
+		shell.sed('-i', 'PATH-TO-APP', url, 'data/config.json')
 
 		// add correct path to meta.json
-		shell.sed('-i', '||path||', `https://apps.bostonglobe.com/${url}`, 'data/meta.json')
+		shell.sed('-i', 'path', `https://apps.bostonglobe.com/${url}`, 'data/meta.json')
 
 		// add correct section to meta.json
-		shell.sed('-i', '||section||', sectionTitled, 'data/meta.json')
+		shell.sed('-i', 'section', sectionTitled, 'data/meta.json')
 
 		// add correct sectionUrl to meta.json
-		shell.sed('-i', '||sectionUrl||', sectionUrl, 'data/meta.json')
+		shell.sed('-i', 'sectionUrl', sectionUrl, 'data/meta.json')
 
 		// add correct year to LICENSE
-		shell.sed('-i', '||YEAR||', year, 'LICENSE')
+		shell.sed('-i', 'YEAR', year, 'LICENSE')
 
 		// add correct graphic name to README
 		shell.sed('-i', /APPNAME/g, getGraphicName(), 'README.md')
@@ -106,7 +106,9 @@ gulp.task('setup-ssh', function(done) {
 })
 
 gulp.task('check-for-updates', function(done) {
-	const latestVersion = shell.exec('npm view slush-globeapp version', {silent:true}).output.split('\n')[0]
+	console.log(shell.exec('npm view slush-globeapp version', {silent:true}))
+
+	const latestVersion = shell.exec('npm view slush-globeapp version', {silent:true}).stdout.split('\n')[0]
 	const installedVersion = pkg.version
 
 	if (latestVersion !== installedVersion) {

@@ -10,6 +10,7 @@
   },
   "homepage": "https://github.com/BostonGlobe/slush-globeapp",
   "dependencies": {
+    "gulp": "3.9.1",
     "gulp-template": "^5.0.0",
     "gulp-yarn": "1.0.1",
     "inquirer": "5.1.0",
