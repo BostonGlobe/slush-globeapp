@@ -20,7 +20,8 @@ gulp.task('dev', () => {
     'js-dev',
     'js-dev-critical',
     'assets-dev',
-    'html-dev',
+    'html-dev',<% if(projectType === 'Multipage') { %>
+    'nodemon',<% } %>
     'browser-sync'
   )
 })
