@@ -19,7 +19,9 @@ const config = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['babel-preset-env']
+            presets: [
+              ['env', {'modules': true }] // Default to CommonJS because we need to support IE11
+            ]
           }
         }
       }
