@@ -172,7 +172,7 @@ or
 ```
 and if you would like to show an overline to tell the user that what they're seeing is an advertisement:
 ```
-{{> base/base-ad-slot ad="ad_inarticle2" overlive="true"}}
+{{> base/base-ad-slot ad="ad_inarticle2" overline="true"}}
 ```
 
 **Note:** It's important that, when you choose to insert ads in an article, you place the lead1 at the top of the article and then place the 3 inarticle units in the correct order 1 through 3
