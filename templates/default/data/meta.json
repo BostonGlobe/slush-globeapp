@@ -1,19 +1,19 @@
 {<% if(projectType === 'Multipage') { %>
-  "index": {<% } %>
-    "title": "Graphic title",
+  "index": {
+    <% } %>"title": "Graphic title",
     "author": "",
     "description": "Description of graphic",
     "keywords": "Comma, delimited, for, seo",
-    "url": "||path||",
+    "url": "${{{path}}}$",
     "imageUrl": "https://apps.bostonglobe.com/path/to/image",
-    "section": "||section||",
-    "sectionUrl": "||sectionUrl||",
+    "section": "${{{sectionTitled}}}$",
+    "sectionUrl": "${{{sectionUrl}}}$",
     "credits": "",
     "teasers": [],
     "social": true,
     "meter": true,
     "socialConnect": true,
     "progressBar": true,
-    "ads": false<% if(projectType === 'Multipage') { %>
-  }<% } %>
-}
+    "ads": false <% if(projectType === 'Multipage') { %>
+  }
+  <% } %>}

@@ -1,4 +1,4 @@
-# APPNAME
+# ${{{appName}}}$
 
 This project was generated with [slush-globeapp](https://github.com/BostonGlobe/slush-globeapp). Consult its [README](https://github.com/BostonGlobe/slush-globeapp) for more information.
 
@@ -12,6 +12,8 @@ If pulling from google or methode, run the command(s) below to stay up-to-date:
 `gulp fetch-google` and `gulp fetch-methode`.
 
 To start the local server, run `gulp`.
+
+To start a local production server to check how your app will perform in a production environment (without having to deploy to the testing server), run `gulp --prod`.
 
 ## Using Apps with Github
 Your apps project is not automatically tracked via git. To do this:
@@ -220,10 +222,10 @@ Takes string, converts it to lowercase, and replaces spaces with hyphens
 <div style='background-image: url("assets/lead/{{stringToUrl 'Part one Lead image'}}.jpg")'>
 ```
 
-##Multipage
+## Multipage
 If a project is to be serialized with multiple articles, you can set up the functionality and architecture by choosing the `Multipage` option when generating a project with [slush-globeapp](https://github.com/BostonGlobe/slush-globeapp).
 
-####File Structure
+#### File Structure
 The main index file for a multipage project remains `src/html/index.hbs`.
 
 To add subpages, create folders and handlebar files under  `src/html/multipage/` and their names will be reflected in the url.
@@ -243,7 +245,7 @@ For example:
 
 Will produce pages at `/[section]/graphics/[year]/[month]/[graphic-name]/part/one` and `/[section]/graphics/[year]/[month]/[graphic-name]/part/two` respectively.
 
-####Layout
+#### Layout
 A `layout` template is provided that sets up a page's HTML and is used as follows:
 
 ```
@@ -255,7 +257,7 @@ A `layout` template is provided that sets up a page's HTML and is used as follow
 
 This will render a full page's markup with the partial blocks nested within `<main id="content"></main>`
 
-####Metadata
+#### Metadata
 Metadata can be set up for each page by creating a new object in `data/meta.json` like so:
 
 ```
@@ -290,7 +292,7 @@ And passing it to the `layout` template like the following:
 
 Any undefined fields will default to the index object.
 
-####Other Notes
+#### Other Notes
 - `main.css`, `bundle.js`, and `critical.js` are global for all subpages.
 - Asset paths should be absolute, referencing the config path. For example: `/[section]/graphics/[year]/[month]/[graphic-name]/assets`
 - `gulp fetch-teaser` will only pull from the `teasers` array in `meta.index`.
