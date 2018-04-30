@@ -119,10 +119,10 @@ Available fonts:
 If you'd like to debug your HTML for accessibility and semantics, uncomment the `debug.styl` file in your `config.styl`. Documentation is available in `debug.styl`, however most items that are flagged are hoverable with information on what's wrong. Remember to comment it out again before pushing to prod!
 
 ## Teasers
-Run `gulp fetch-teaser` to pull down the teaser information (based on urls in meta.json).
+Run `gulp fetch-teaser` to pull down the teaser information (based on urls in meta.json). This also pulls in the OG image from each file.
 
 ## SEO and Analytics
-Fill out *data/meta.json*, the bare minimum needed for seo, analytics, and business.
+Fill out *data/meta.json*, the bare minimum needed for seo, analytics, and business. In general, it's a good idea to consult with web editors on the best wording for the "title", "description" and "keywords" fields.
 
 ```
 {
@@ -144,7 +144,7 @@ Fill out *data/meta.json*, the bare minimum needed for seo, analytics, and busin
 }
 ```
 
-* **credits** text of who made this
+* **credits** text of who made this. 
 * **teasers**: array of urls
 
 #### Ads
