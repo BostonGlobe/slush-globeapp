@@ -32,26 +32,7 @@ gulp.task('copy', function(done) {
         'Multipage'
       ],
       default: 'Default'
-    }
-  ]).then(function(answers) {
-    const srcdirs = answers.projectType === 'Multipage' ? [
-      __dirname + '/templates/default/**',
-      __dirname + '/templates/multipage/**'
-    ] : __dirname + '/templates/default/**'
-    return gulp.src(srcdirs, {dot: true})
-      .pipe(template(answers, { interpolate: /${{{([\s\S]+?)}}}$/g }))
-      .pipe(gulp.dest('./'))
-      .on('end', done)
-  }).catch(err => { console.log(err); })
-})
-
-gulp.task('install', function() {
-  return gulp.src('./package.json')
-    .pipe(yarn())
-})
-
-gulp.task('setup-ssh', function(done) {
-  inquirer.prompt([
+    },
     {
       type: 'list',
       name: 'section',
@@ -70,7 +51,10 @@ gulp.task('setup-ssh', function(done) {
       ]
     }
   ]).then(function(answers) {
-
+    const srcdirs = answers.projectType === 'Multipage' ? [
+      __dirname + '/templates/default/**',
+      __dirname + '/templates/multipage/**'
+    ] : __dirname + '/templates/default/**'
     const now = new Date()
     const year = now.getFullYear()
     const month = ((now.getMonth() + 1) < 10 ? '0' : '') + (now.getMonth() + 1)
@@ -79,30 +63,23 @@ gulp.task('setup-ssh', function(done) {
     const url = `${section}/graphics/${year}/${month}/${getGraphicName()}`
     const sectionUrl = `http://www.bostonglobe.com/${section}`
 
-    console.log('Setting app url to /' + url)
+    answers.pathToApp = url
+    answers.path = `https://apps.bostonglobe.com/${url}`
+    answers.appName = getGraphicName()
+    answers.sectionTitled = sectionTitled
+    answers.sectionUrl = sectionUrl
+    answers.year = year
 
-    // add correct url to config.json
-    shell.sed('-i', 'PATH-TO-APP', url, 'data/config.json')
+    return gulp.src(srcdirs, {dot: true})
+      .pipe(template(answers, { interpolate: /\${{{([\s\S]+?)}}}\$/g }))
+      .pipe(gulp.dest('./'))
+      .on('end', done)
+  }).catch(err => { console.log(err); })
+})
 
-    // add correct path to meta.json
-    shell.sed('-i', 'path', `https://apps.bostonglobe.com/${url}`, 'data/meta.json')
-
-    // add correct section to meta.json
-    shell.sed('-i', 'section', sectionTitled, 'data/meta.json')
-
-    // add correct sectionUrl to meta.json
-    shell.sed('-i', 'sectionUrl', sectionUrl, 'data/meta.json')
-
-    // add correct year to LICENSE
-    shell.sed('-i', 'YEAR', year, 'LICENSE')
-
-    // add correct graphic name to README
-    shell.sed('-i', /APPNAME/g, getGraphicName(), 'README.md')
-
-    done()
-
-  })
-
+gulp.task('install', function() {
+  return gulp.src('./package.json')
+    .pipe(yarn())
 })
 
 gulp.task('check-for-updates', function(done) {
@@ -124,7 +101,6 @@ gulp.task('default', function(done) {
     'check-for-updates',
     'copy',
     'install',
-    'setup-ssh',
     done
   )
 })

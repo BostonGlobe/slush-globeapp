@@ -1,11 +1,11 @@
 {
-	"copy": {
-		"google": {
-			"id": ""
-		},
-		"methode": {
-			"story": []
-		}
-	},
-	"path": "PATH-TO-APP"
+  "copy": {
+    "google": {
+      "id": ""
+    },
+    "methode": {
+      "story": []
+    }
+  },
+  "path": "${{{pathToApp}}}$"
 }

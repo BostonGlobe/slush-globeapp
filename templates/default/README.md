@@ -1,4 +1,4 @@
-# APPNAME
+# ${{{appName}}}$
 
 This project was generated with [slush-globeapp](https://github.com/BostonGlobe/slush-globeapp). Consult its [README](https://github.com/BostonGlobe/slush-globeapp) for more information.
 
