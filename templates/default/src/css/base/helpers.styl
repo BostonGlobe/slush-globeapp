@@ -39,18 +39,18 @@ rhythm(scale)
 		$em-size = unit(($map / 16), 'em')
 		font-size: $em-size
 		margin-bottom: ($root-lh / $em-size)
-		
-		if $em-size < 1.5em
-			line-height: unit((($root-lh * 1) / $em-size), '')
 
-		if $em-size > 2em
+		if $em-size <= 2em
+			line-height: unit((($root-lh * .75) / $em-size), '')
+
+		else if $em-size > 1.5em && $em-size <= 2em
 			line-height: unit((($root-lh * 1.5) / $em-size), '')
-			
-		if $em-size > 3em
+
+		else if $em-size > 2em
 			line-height: unit((($root-lh * 2) / $em-size), '')
 	else
 		error('Not a defined scale')
-    
+
 //=======================
 // FONT STACKS
 //=======================
@@ -67,7 +67,7 @@ list-style(type = none)
 	list-style-type type
 	margin 0
 	padding 0
-	
+
 //=======================
 // GRIDS
 //=======================
@@ -116,8 +116,8 @@ img-content(img)
 //=======================
 hidden(type = false)
 	if type == accessible
-		width 1px 
-		height 1px 
+		width 1px
+		height 1px
 		overflow hidden
 		position absolute
 	else if type == invisible
@@ -153,7 +153,7 @@ center(type, child = false)
 			position absolute
 			top 50%
 			width 100%
-			
+
 //===============================
 // RANDOM
 // returns a random number between
@@ -210,7 +210,7 @@ replace-num(pattern, replacement, value)
 // Get value of item in list based on index
 nth(list, index)
 	return list[index]
-	
+
 // Replace value of item in list based on index
 set-nth(list, index, value)
 	$input = list[index]
