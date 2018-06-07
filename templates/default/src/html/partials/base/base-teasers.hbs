@@ -4,8 +4,9 @@
 	<ul class='teasers__list'>
 		{{#each teasers}}
 		<li class='teasers__item'>
-			<a class='teasers__link' href='{{url}}' style="background-image: linear-gradient(rgba(0,0,0, 0.3), rgba(0,0,0,0.4)), url({{image}});">
-				<h3 class='teasers__hed miller-regular'>{{title}}</h3>
+			<a class='teasers__link' href='{{url}}' target="_blank">
+				<div class="teasers__img" style="background-image: url({{image}});"></div>
+				<h3 class='teasers__hed miller-bold'>{{title}}</h3>
 			</a>
 		</li>
 		{{/each}}

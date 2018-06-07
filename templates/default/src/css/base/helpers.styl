@@ -40,13 +40,13 @@ rhythm(scale)
 		font-size: $em-size
 		margin-bottom: ($root-lh / $em-size)
 		
-		if $em-size < 1.5em
+		if $em-size > 1em
 			line-height: unit((($root-lh * 1) / $em-size), '')
-
-		if $em-size > 2em
+			
+		if $em-size > 1.5em
 			line-height: unit((($root-lh * 1.5) / $em-size), '')
 			
-		if $em-size > 3em
+		if $em-size > 2em
 			line-height: unit((($root-lh * 2) / $em-size), '')
 	else
 		error('Not a defined scale')
