@@ -40,8 +40,8 @@ rhythm(scale)
 		font-size: $em-size
 		margin-bottom: ($root-lh / $em-size)
 
-		if $em-size > 1em && $em-size <= 1.5em
-			line-height: unit((($root-lh * 1) / $em-size), '')
+		if $em-size <= 2em
+			line-height: unit((($root-lh * .75) / $em-size), '')
 
 		else if $em-size > 1.5em && $em-size <= 2em
 			line-height: unit((($root-lh * 1.5) / $em-size), '')
