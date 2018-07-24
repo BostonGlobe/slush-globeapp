@@ -1,0 +1,97 @@
+{{#if @root.meta.videos}}
+  {{#if @root.meta.ads}}
+    <script type="text/javascript">
+      // *
+      // *  Utility module to provide DFP preroll for ARC
+      // *  Adapted from globe-brightcove-player.js
+      // *
+
+      var extend = function(out) {
+        out = out || {};
+
+        for (var i = 1; i < arguments.length; i++) {
+          if (!arguments[i])
+            continue;
+
+          for (var key in arguments[i]) {
+            if (arguments[i].hasOwnProperty(key))
+              out[key] = arguments[i][key];
+          }
+        }
+
+        return out;
+      };
+
+      if (typeof globe === 'undefined') {
+        globe = {};
+      }
+
+      (function(win, undefined) {
+        'use strict';
+
+        var module = {};
+
+        module.$players = document.querySelectorAll('.powa');
+
+        module.buildCustomParams = function() {
+          var keyValuePairs = {};
+          var testRegex = /[&?]test=([a-zA-Z0-9_]*)/; // test: https://regex101.com/r/Lh1KOE/1
+          var testMatch = testRegex.exec(window.location);
+          var customParamString = 'pos=preroll&';
+
+          if (testMatch) {
+            keyValuePairs.test = testMatch[1];
+          }
+
+          for (var key in keyValuePairs) {
+            customParamString += key + '=' + keyValuePairs[key] + '&';
+          }
+
+          return encodeURIComponent(customParamString.slice(0, customParamString.length - 1));
+        };
+
+          module.adServerURL = function(){
+            var baseUrl = '//pubads.g.doubleclick.net/gampad/ads?';
+            var section = '{{@root.meta.sectionUrl}}'.replace(/http[s]*?:\/\/(www\.)?/, '');
+            var additionalParams = [
+              'env=vp',
+              '&gdfp_req=1',
+              '&impl=s',
+              '&output=xml_vast2',
+              '&cmsid=5699',
+              '&iu=61381659/' + section,
+              '&sz=640x480',
+              '&unviewed_position_start=1',
+              '&description_url=' + encodeURIComponent('http://bostonglobe.com'),
+              '&cust_params=' + module.buildCustomParams(),
+              '&ciu_szs=300x250'
+            ].join('');
+
+            return baseUrl + additionalParams;
+          }; // End adServerURL
+
+        module.defineAdTag = function() {
+
+          window.PoWaSettings = window.PoWaSettings || {};
+          window.PoWaSettings.advertising = window.PoWaSettings.advertising || {};
+          window.PoWaSettings.advertising.adTag = function (videoData) {
+            var retval = videoData.videoData.additional_properties.advertising.playVideoAds ? module.adServerURL() : "";
+            return retval;
+          };  // End adTag
+
+        };
+
+        module.init = function() {
+            module.defineAdTag()
+        };
+
+        // Kickoff
+        document.addEventListener("DOMContentLoaded", function() {
+          if (module.$players.length) {
+            module.init();
+          }
+        });
+      })(window);
+    </script>
+  {{/if}}
+{{/if}}
