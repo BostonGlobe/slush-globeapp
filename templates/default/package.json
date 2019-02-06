@@ -6,6 +6,7 @@
   "dependencies": {
     "archieml": "0.4.2",
     "babel-core": "6.26.0",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "7.1.2",
     "babel-preset-env": "1.6.1",
     "babel-preset-stage-1": "6.24.1",
@@ -14,7 +15,8 @@
     "cheerio": "1.0.0-rc.2",
     "del": "3.0.0",
     "dsv-loader": "2.0.0",
-    "event-stream": "^3.3.4",
+    "eslint-loader": "^2.1.2",
+    "event-stream": "3.3.4",
     "express": "^4.16.2",
     "fontfaceobserver": "^2.0.13",
     "get-json-lite": "2.0.0",
@@ -35,6 +37,7 @@
     "gulp-stylus": "2.7.0",
     "gulp-util": "3.0.8",
     "gulp-zip": "4.1.0",
+    "intersection-observer": "0.5.1",
     "jimp": "0.2.28",
     "json-loader": "0.5.7",
     "lodash": "^4.17.5",
@@ -42,9 +45,17 @@
     "request": "2.83.0",
     "require-dir": "1.0.0",
     "run-sequence": "2.2.1",
+    "scrollama": "1.4.4",
+    "stickyfilljs": "^2.1.0",
     "shelljs": "0.8.1",
+    "typogr": "^0.6.8",
     "webpack": "3.11.0",
     "webpack-stream": "4.0.1",
-    "yargs": "11.0.0"
+    "yargs": "12.0.5"
+  },
+  "devDependencies": {
+    "eslint": "^5.13.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
   }
 }
