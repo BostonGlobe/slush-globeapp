@@ -2,44 +2,38 @@
 
 // private
 const selectionToArray = (selection) => {
-	const len = selection.length
-	const result = []
-	for (var i = 0; i < len; i++) {
-		result.push(selection[i])
-	}
-	return result
-}
+  const len = selection.length;
+  const result = [];
+  for (let i = 0; i < len; i += 1) {
+    result.push(selection[i]);
+  }
+  return result;
+};
 
 // public
-const select = (selector) =>
-	document.querySelector(selector)
+const select = selector => document.querySelector(selector);
 
-const selectAll = (selector) =>
-	selectionToArray(document.querySelectorAll(selector))
+const selectAll = selector => selectionToArray(document.querySelectorAll(selector));
 
-const find = (el, selector) =>
-	selectionToArray(el.querySelectorAll(selector))
+const find = (el, selector) => selectionToArray(el.querySelectorAll(selector));
 
-const removeClass = (el, className) =>
-	el.classList.remove(className)
+const removeClass = (el, className) => el.classList.remove(className);
 
-const addClass = (el, className) =>
-	el.classList.add(className)
+const addClass = (el, className) => el.classList.add(className);
 
-const hasClass = (el, className) =>
-	el.classList.contains(className)
+const hasClass = (el, className) => el.classList.contains(className);
 
 const jumpTo = (el) => {
-	if (document.body.scrollTop) document.body.scrollTop = el.offsetTop + 1
-	else document.documentElement.scrollTop = el.offsetTop + 1
-}
+  if (document.body.scrollTop) document.body.scrollTop = el.offsetTop + 1;
+  else document.documentElement.scrollTop = el.offsetTop + 1;
+};
 
 export {
-	select,
-	selectAll,
-	find,
-	removeClass,
-	addClass,
-	hasClass,
-	jumpTo,
-}
+  select,
+  selectAll,
+  find,
+  removeClass,
+  addClass,
+  hasClass,
+  jumpTo,
+};
