@@ -2,31 +2,31 @@
 // ADD BREAKPOINT
 //=======================
 mq(breakpoint)
-	if breakpoint in $mq_vars
-		condition = unquote($mq_vars[breakpoint])
-		condition = 'only screen and %s' % condition
-		@media condition
-			{block}
-	else
-		error('Not a defined media query')
+  if breakpoint in $mq_vars
+    condition = unquote($mq_vars[breakpoint])
+    condition = 'only screen and %s' % condition
+    @media condition
+      {block}
+  else
+    error('Not a defined media query')
 
 //===============================
 // Z-INDEX
 //===============================
 set-index(layer)
-	if layer in $z-index
-		return $z-index[layer]
-	else
-		error('Not a layer in z-index')
+  if layer in $z-index
+    return $z-index[layer]
+  else
+    error('Not a layer in z-index')
 
 //=======================
 // CLEARFIX
 //=======================
 clearfix()
-	&:after
-		content ''
-		display table
-		clear both
+  &:after
+    content ''
+    display table
+    clear both
 
 
 
@@ -34,96 +34,96 @@ clearfix()
 // VERTICAL RHYTHM
 //=======================
 rhythm(scale)
-	if scale in $type-scale
-		$map = $type-scale[scale]
-		$em-size = unit(($map / 16), 'em')
-		font-size: $em-size
-		margin-bottom: ($root-lh / $em-size)
+  if scale in $type-scale
+    $map = $type-scale[scale]
+    $em-size = unit(($map / 16), 'em')
+    font-size: $em-size
+    margin-bottom: ($root-lh / $em-size)
 
-		if $em-size <= 2em
-			line-height: unit((($root-lh * .75) / $em-size), '')
+    if $em-size <= 2em
+      line-height: unit((($root-lh * .75) / $em-size), '')
 
-		else if $em-size > 1.5em && $em-size <= 2em
-			line-height: unit((($root-lh * 1.5) / $em-size), '')
+    else if $em-size > 1.5em && $em-size <= 2em
+      line-height: unit((($root-lh * 1.5) / $em-size), '')
 
-		else if $em-size > 2em
-			line-height: unit((($root-lh * 2) / $em-size), '')
-	else
-		error('Not a defined scale')
+    else if $em-size > 2em
+      line-height: unit((($root-lh * 2) / $em-size), '')
+  else
+    error('Not a defined scale')
 
 //=======================
 // FONT STACKS
 //=======================
 font(family = $serif, weight = 400, style = normal)
-	font-family family
-	font-weight weight
-	font-style style
+  font-family family
+  font-weight weight
+  font-style style
 
 //=======================
 // LIST STYLES
 //=======================
 // Default is none
 list-style(type = none)
-	list-style-type type
-	margin 0
-	padding 0
+  list-style-type type
+  margin 0
+  padding 0
 
 //=======================
 // GRIDS
 //=======================
 flex-grid(num, child, gutter = false, direction = row)
-	display flex
-	flex-direction direction
-	flex-wrap wrap
-	> .{child}
-		width (100% / num)
-		if num == equal
-			flex 1
-	if gutter
-		justify-content space-between
-		> .{child}
-			flex-basis (100% / num) - gutter
+  display flex
+  flex-direction direction
+  flex-wrap wrap
+  > .{child}
+    width (100% / num)
+    if num == equal
+      flex 1
+  if gutter
+    justify-content space-between
+    > .{child}
+      flex-basis (100% / num) - gutter
 
 //=======================
 // IMAGE DIMENSIONS
 //=======================
 // Outputs width and height of image
 dimensions(img)
-	width image-size($assets-path + img)[0]
-	height image-size($assets-path + img)[1]
+  width image-size($assets-path + img)[0]
+  height image-size($assets-path + img)[1]
 
 // Returns width of image
 get-width(img)
-	return image-size(img)[0]
+  return image-size(img)[0]
 
 // Returns height of image
 get-height(img)
-	return image-size(img)[1]
+  return image-size(img)[1]
 
 //=======================
 // PSEUDO CONTENT
 //=======================
 // Using image
 img-content(img)
-	content ''
-	display inline-block
-	width image-size($assets-path + img)[0]
-	height image-size($assets-path + img)[1]
-	background url($assets-path + img) no-repeat 50%
+  content ''
+  display inline-block
+  width image-size($assets-path + img)[0]
+  height image-size($assets-path + img)[1]
+  background url($assets-path + img) no-repeat 50%
 
 //=======================
 // HIDE
 //=======================
 hidden(type = false)
-	if type == accessible
-		width 1px
-		height 1px
-		overflow hidden
-		position absolute
-	else if type == invisible
-		visibility hidden
-	else
-		display none
+  if type == accessible
+    width 1px
+    height 1px
+    overflow hidden
+    position absolute
+  else if type == invisible
+    visibility hidden
+  else
+    display none
 
 
 //===============================
@@ -134,25 +134,25 @@ hidden(type = false)
 //===============================
 // Put this on the parent element
 center(type, child = false)
-	if type == flex
-		// No child, set to false in function
-		display flex
-		flex-direction column
-		justify-content center
-		// aligns horizontally as well
-		align-items center
-	else if type == translate
-		transform-style preserve-3d
-		> .{child}
-			position relative
-			top 50%
-			transform translateY(-50%)
-	else if type == absolute
-		position relative
-		> .{child}
-			position absolute
-			top 50%
-			width 100%
+  if type == flex
+    // No child, set to false in function
+    display flex
+    flex-direction column
+    justify-content center
+    // aligns horizontally as well
+    align-items center
+  else if type == translate
+    transform-style preserve-3d
+    > .{child}
+      position relative
+      top 50%
+      transform translateY(-50%)
+  else if type == absolute
+    position relative
+    > .{child}
+      position absolute
+      top 50%
+      width 100%
 
 //===============================
 // RANDOM
@@ -160,7 +160,7 @@ center(type, child = false)
 // min and max
 //===============================
 random(min,max)
-	return floor(math(0, 'random')*(max - min + 1) + min)
+  return floor(math(0, 'random')*(max - min + 1) + min)
 
 //===============================
 // QUICKSORT
@@ -174,27 +174,27 @@ random(min,max)
 
 // Filter is a helper for quicksort
 filter-list(function, list)
-	filtered-list = ()
-	for element in list
-		if (function(element))
-			push(filtered-list, element)
-	return filtered-list
+  filtered-list = ()
+  for element in list
+    if (function(element))
+      push(filtered-list, element)
+  return filtered-list
 
 quicksort(list)
-	if (length(list) == 0)
-		return ()
-	pivot = list[0]
-	sorted = ()
-	remaining = ()
-	i = 0
-	for element in list
-		if i != 0
-			push(remaining, element)
-		i = i + 1
-	smaller-sorted = quicksort(filter-list(@(num){return num <= pivot}, remaining))
-	bigger-sorted = quicksort(filter-list(@(num){return num > pivot}, remaining))
-	push(sorted, smaller-sorted, pivot, bigger-sorted)
-	return sorted
+  if (length(list) == 0)
+    return ()
+  pivot = list[0]
+  sorted = ()
+  remaining = ()
+  i = 0
+  for element in list
+    if i != 0
+      push(remaining, element)
+    i = i + 1
+  smaller-sorted = quicksort(filter-list(@(num){return num <= pivot}, remaining))
+  bigger-sorted = quicksort(filter-list(@(num){return num > pivot}, remaining))
+  push(sorted, smaller-sorted, pivot, bigger-sorted)
+  return sorted
 
 //===============================
 // REPLACE NUMBER
@@ -202,16 +202,16 @@ quicksort(list)
 // that replaces non-string values
 //===============================
 replace-num(pattern, replacement, value)
-	return unquote(replace('' + pattern, '' + replacement, '' + value))
+  return unquote(replace('' + pattern, '' + replacement, '' + value))
 
 //===============================
 // LIST GETTERS
 //===============================
 // Get value of item in list based on index
 nth(list, index)
-	return list[index]
+  return list[index]
 
 // Replace value of item in list based on index
 set-nth(list, index, value)
-	$input = list[index]
-	return replace-num($input, value, $input)
+  $input = list[index]
+  return replace-num($input, value, $input)

@@ -1,7 +1,11 @@
 {
   "copy": {
     "google": {
-      "id": ""
+      "id": "",
+      "sheet": {
+        "id": "",
+        "fileName": ""
+      }
     },
     "methode": {
       "story": []
