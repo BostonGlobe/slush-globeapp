@@ -19,24 +19,24 @@ const assetsPath = 'assets'
 
 //compile styl to css and autoprefix
 gulp.task('css-dev', () => {
-	gulp.src('src/css/config.styl')
-		.pipe(plumber({ errorHandler: report }))
-		.pipe(stylus())
-		.pipe(autoprefixer())
-		<% if(projectType === 'Multipage') { %>.pipe(replace(/\.\.\/assets/g, assetsPath))<% } %>
-		.pipe(combineMq())
-		.pipe(rename('main.css'))
-		.pipe(gulp.dest('dist/dev'))
-		.pipe(browserSync.reload({stream:true}))
+  gulp.src('src/css/config.styl')
+    .pipe(plumber({ errorHandler: report }))
+    .pipe(stylus())
+    .pipe(autoprefixer())
+    <% if(projectType === 'Multipage') { %>.pipe(replace(/\.\.\/assets/g, assetsPath))<% } %>
+    .pipe(combineMq())
+    .pipe(rename('main.css'))
+    .pipe(gulp.dest('dist/dev'))
+    .pipe(browserSync.reload({stream:true}))
 })
 
 //compile all styl and autoprefix, and minify
 gulp.task('css-prod', () => {
-	gulp.src('src/css/config.styl')
-		.pipe(stylus())
-		.pipe(autoprefixer())
-		.pipe(replace(/\.\.\/assets/g, assetsPath))
-		.pipe(combineMq())
-		.pipe(rename('main.css'))
-		.pipe(gulp.dest('.tmp'))
+  gulp.src('src/css/config.styl')
+    .pipe(stylus())
+    .pipe(autoprefixer())
+    .pipe(replace(/\.\.\/assets/g, assetsPath))
+    .pipe(combineMq())
+    .pipe(rename('main.css'))
+    .pipe(gulp.dest('.tmp'))
 })

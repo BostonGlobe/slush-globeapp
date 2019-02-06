@@ -5,30 +5,30 @@ const gutil  = require('gulp-util')
 const shell = require('shelljs')
 
 module.exports = function(error) {
-	const lineNumber = (error.lineNumber) ? 'LINE ' + error.lineNumber + ' -- ' : ''
-	const name = shell.exec('whoami', {silent:true}).stdout
-	
-	notify({
-		title: 'Task failed [' + error.plugin + ']',
-		subtitle: 'Goddamnit, ' + name,
-		message: lineNumber + 'See terminal.',
-		icon: 'https://apps.bostonglobe.com/common/img/disapproving.png',
-		sound: 'Sosumi'
-	}).write(error)
+  const lineNumber = (error.lineNumber) ? 'LINE ' + error.lineNumber + ' -- ' : ''
+  const name = shell.exec('whoami', {silent:true}).stdout
 
-	gutil.beep()
+  notify({
+    title: 'Task failed [' + error.plugin + ']',
+    subtitle: 'Goddamnit, ' + name,
+    message: lineNumber + 'See terminal.',
+    icon: 'https://apps.bostonglobe.com/common/img/disapproving.png',
+    sound: 'Sosumi'
+  }).write(error)
 
-	let report = ''
-	let chalk = gutil.colors.white.bgRed
+  gutil.beep()
 
-	report += chalk('TASK:') + ' [' + error.plugin + ']\n'
-	report += chalk('PROB:') + ' ' + error.message + '\n'
+  let report = ''
+  let chalk = gutil.colors.white.bgRed
 
-	if (error.lineNumber) { report += chalk('LINE:') + ' ' + error.lineNumber + '\n' }
+  report += chalk('TASK:') + ' [' + error.plugin + ']\n'
+  report += chalk('PROB:') + ' ' + error.message + '\n'
 
-	if (error.fileName)   { report += chalk('FILE:') + ' ' + error.fileName + '\n' }
+  if (error.lineNumber) { report += chalk('LINE:') + ' ' + error.lineNumber + '\n' }
 
-	console.error(report)
+  if (error.fileName)   { report += chalk('FILE:') + ' ' + error.fileName + '\n' }
 
-	this.emit('end')
+  console.error(report)
+
+  this.emit('end')
 }

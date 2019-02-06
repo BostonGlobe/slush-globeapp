@@ -61,7 +61,7 @@ gulp.task('copy', function(done) {
     const section = answers.section
     const sectionTitled = toTitleCase(section.split('/').slice(-1)[0])
     const url = `${section}/graphics/${year}/${month}/${getGraphicName()}`
-    const sectionUrl = `http://www.bostonglobe.com/${section}`
+    const sectionUrl = `https://www.bostonglobe.com/${section}`
 
     answers.pathToApp = url
     answers.path = `https://apps.bostonglobe.com/${url}`
