@@ -32,7 +32,6 @@ all:
 		gulp-replace \
 		gulp-smoosher \
 		gulp-stylus \
-		gulp-util \
 		gulp-zip \
 		jimp \
 		json-loader \

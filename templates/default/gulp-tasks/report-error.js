@@ -1,8 +1,9 @@
 'use strict';
 
 const notify = require('gulp-notify')
-const gutil  = require('gulp-util')
 const shell = require('shelljs')
+const chalk = require('chalk')
+const beep = require('beep')
 
 module.exports = function(error) {
   const lineNumber = (error.lineNumber) ? 'LINE ' + error.lineNumber + ' -- ' : ''
@@ -16,19 +17,22 @@ module.exports = function(error) {
     sound: 'Sosumi'
   }).write(error)
 
-  gutil.beep()
+  beep()
 
-  let report = ''
-  let chalk = gutil.colors.white.bgRed
+  let report = `
+    TASK: ${ error.plugin }
+    PROB: ${ error.message }
+    `
 
-  report += chalk('TASK:') + ' [' + error.plugin + ']\n'
-  report += chalk('PROB:') + ' ' + error.message + '\n'
+  if (error.lineNumber) {
+    report += 'LINE:' + ' ' + error.lineNumber + '\n'
+  }
 
-  if (error.lineNumber) { report += chalk('LINE:') + ' ' + error.lineNumber + '\n' }
+  if (error.fileName) {
+    report += 'FILE:' + ' ' + error.fileName + '\n'
+  }
 
-  if (error.fileName)   { report += chalk('FILE:') + ' ' + error.fileName + '\n' }
-
-  console.error(report)
+  console.error(chalk.white.bgRed(report))
 
   this.emit('end')
 }
