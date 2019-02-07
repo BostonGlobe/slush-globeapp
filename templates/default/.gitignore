@@ -3,7 +3,9 @@ dist
 .tmp
 *.sw*
 .DS_Store
-data/copy.json
+data/*
+!data/config.json
+!data/meta.json
 src/assets/methode/*.jpg
 src/html/partials/methode
 yarn-error.log

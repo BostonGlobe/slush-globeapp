@@ -97,11 +97,17 @@ gulp.task('check-for-updates', function(done) {
 
 })
 
+gulp.task('gitignore', () => {
+  return gulp.src(__dirname + '/templates/default/.gitignore')
+    .pipe(gulp.dest('./'))
+})
+
 gulp.task('default', function(done) {
   runSequence(
     'check-for-updates',
     'copy',
     'install',
+    'gitignore'
     done
   )
 })
