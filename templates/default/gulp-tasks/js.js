@@ -47,8 +47,7 @@ const config = {
           {
             loader: 'eslint-loader',
             options: {
-              fix: true,
-              quiet: true
+              failOnError: true
             }
           }
         ]

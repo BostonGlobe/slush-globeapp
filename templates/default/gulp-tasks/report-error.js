@@ -3,7 +3,7 @@
 const notify = require('gulp-notify')
 const shell = require('shelljs')
 const chalk = require('chalk')
-const beep = require('beep')
+const beeper = require('beeper')
 
 module.exports = function(error) {
   const lineNumber = (error.lineNumber) ? 'LINE ' + error.lineNumber + ' -- ' : ''
