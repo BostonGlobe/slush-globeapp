@@ -17,7 +17,7 @@ module.exports = function(error) {
     sound: 'Sosumi'
   }).write(error)
 
-  beep()
+  beeper()
 
   let report = `
     TASK: ${ error.plugin }
