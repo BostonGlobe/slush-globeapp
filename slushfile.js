@@ -51,10 +51,11 @@ gulp.task('copy', function(done) {
       ]
     }
   ]).then(function(answers) {
-    const srcdirs = answers.projectType === 'Multipage' ? [
-      __dirname + '/templates/default/**',
-      __dirname + '/templates/multipage/**'
-    ] : __dirname + '/templates/default/**'
+    const srcdirs = answers.projectType === 'Multipage' ? 
+    
+    [ __dirname + '/templates/default/**', __dirname + '/templates/multipage/**'] : 
+    __dirname + '/templates/default/**'
+    
     const now = new Date()
     const year = now.getFullYear()
     const month = ((now.getMonth() + 1) < 10 ? '0' : '') + (now.getMonth() + 1)
