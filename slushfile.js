@@ -107,7 +107,7 @@ gulp.task('default', function(done) {
     'check-for-updates',
     'copy',
     'install',
-    'gitignore'
+    'gitignore',
     done
   )
 })
