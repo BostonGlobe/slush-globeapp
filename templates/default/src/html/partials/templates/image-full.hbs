@@ -1,0 +1,10 @@
+<figure class="figure__full">
+  <picture class="figure__img">
+    <source data-srcset="../assets/images/{{value.url}}_1280.jpg" media="(min-width:850px)">
+    <source data-srcset="../assets/images/{{value.url}}_900.jpg" media="(min-width:400px)">
+    <source data-srcset="../assets/images/{{value.url}}_600.jpg" media="(min-width:1px)">
+    <img class="lazyload" src="../assets/images/{{value.url}}_placeholder.jpg"
+      data-srcset="../assets/images/{{value.url}}_placeholder.jpg" alt="{{value.alt}}" />
+  </picture>
+  <figcaption class="full__caption benton-regular">{{value.caption}} ({{value.credit}})</figcaption>
+</figure>

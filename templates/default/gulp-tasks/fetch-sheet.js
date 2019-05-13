@@ -4,7 +4,7 @@ const fs = require('fs')
 const configPath = `${process.cwd()}/data/config.json`
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
 const google = config.copy.google
-const file = `${google.sheet.fileName}`
+const file = `data/${google.sheet.fileName}.json`
 const _ = require('lodash')
 const typogr = require('typogr')
 
