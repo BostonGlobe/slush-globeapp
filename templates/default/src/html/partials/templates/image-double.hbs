@@ -1,0 +1,21 @@
+<figure class="figure__double">
+  <picture class="figure__img">
+    <source data-srcset="../assets/images/{{value.url_left}}_1280.jpg" media="(min-width:850px)">
+    <source data-srcset="../assets/images/{{value.url_left}}_900.jpg" media="(min-width:400px)">
+    <source data-srcset="../assets/images/{{value.url_left}}_600.jpg" media="(min-width:1px)">
+    <img class="lazyload" src="../assets/images/{{value.url_left}}_placeholder.jpg"
+      data-srcset="../assets/images/{{value.url_left}}_placeholder.jpg" alt="{{value.alt_left}}" />
+    <figcaption class="figure__caption benton-regular">{{value.caption_left}} ({{value.credit_left}})</figcaption>
+  </picture>
+
+  <picture class="figure__img">
+    <source data-srcset="../assets/images/{{value.url_right}}_1280.jpg" media="(min-width:850px)">
+    <source data-srcset="../assets/images/{{value.url_right}}_900.jpg" media="(min-width:400px)">
+    <source data-srcset="../assets/images/{{value.url_right}}_600.jpg" media="(min-width:1px)">
+    <img class="lazyload" src="../assets/images/{{value.url_right}}_placeholder.jpg"
+      data-srcset="../assets/images/{{value.url_right}}_placeholder.jpg" alt="{{value.alt_right}}" />
+    <figcaption class="figure__caption benton-regular">{{value.caption_right}} ({{value.credit_right}})</figcaption>
+  </picture>
+  <div class="clear"></div>
+  <!-- <figcaption class="figure__caption benton-regular">{{value.caption}} ({{value.credit}})</figcaption> -->
+</figure>
