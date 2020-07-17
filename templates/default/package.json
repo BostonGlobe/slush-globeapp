@@ -46,7 +46,7 @@
     "jimp": "0.3.3",
     "json-loader": "0.5.7",
     "lazysizes": "^4.1.5",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "picturefill": "^3.0.3",
     "promis": "1.1.4",
     "request": "2.88.0",
