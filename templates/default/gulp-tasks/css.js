@@ -22,7 +22,7 @@ gulp.task('css-dev', () => {
   gulp.src('src/css/config.styl')
     .pipe(plumber({ errorHandler: report }))
     .pipe(stylus())
-    .pipe(autoprefixer())
+    .pipe(autoprefixer({ grid: true }))
     <% if(projectType === 'Multipage') { %>.pipe(replace(/\.\.\/assets/g, assetsPath))<% } %>
     .pipe(combineMq())
     .pipe(rename('main.css'))
@@ -34,7 +34,7 @@ gulp.task('css-dev', () => {
 gulp.task('css-prod', () => {
   gulp.src('src/css/config.styl')
     .pipe(stylus())
-    .pipe(autoprefixer())
+    .pipe(autoprefixer({ grid: true }))
     .pipe(replace(/\.\.\/assets/g, assetsPath))
     .pipe(combineMq())
     .pipe(rename('main.css'))
