@@ -14,8 +14,14 @@ gulp.task('ssh-prod', (cb) => {
   const configured = checkConfiguration(username)
 
   if (configured) {
-    const command = `(cd dist/prod; scp -r ${files} ${username}@${host}:${filepath})`
-    shell.exec(command, cb)
+    const mkdirCommand = `ssh ${username}@${host} mkdir -p ${filepath}`;
+    shell.exec(mkdirCommand)
+    const scpCommand = `(cd dist/prod; scp -r ${files} ${username}@${host}:${filepath})`
+    shell.exec(scpCommand)
+    const chownCommand = `ssh ${username}@${host} 'chown -Rv :html ${filepath}'`
+    shell.exec(chownCommand)
+    const chmodCommand = `ssh ${username}@${host} 'chmod -Rv g+w ${filepath}'`
+    shell.exec(chmodCommand, cb)
   } else {
     cb()
   }
