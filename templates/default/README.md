@@ -305,7 +305,7 @@ Any undefined fields will default to the index object.
 #### Step 1: gulp
 - Run `gulp prod -u username` to deploy. Outputs files into `dist/prod` folder in root.
 - Optional: Use the flag `--html` to only upload the index.html file (use this if you have no updates to assets and want faster upload)
-- Your graphic is now internally visible at http://dev.apps.bostonglobe.com/[section]/graphics/[year]/[month]/[graphic-name].
+- Your graphic is now internally visible at http://apps-dev.bostonglobe.com/[section]/graphics/[year]/[month]/[graphic-name].
 
 #### Step 2: publish assets
 - In Terminal, connect to shell (your username is usually first initial last name): `ssh rgoldenberg@shell.boston.com`.
