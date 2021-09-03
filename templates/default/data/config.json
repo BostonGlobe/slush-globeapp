@@ -9,7 +9,11 @@
     },
     "methode": {
       "story": []
-    }
+    },
+    "arc": {
+      "sandbox": true,
+      "stories": []
+    },
   },
   "path": "${{{pathToApp}}}$"
 }
