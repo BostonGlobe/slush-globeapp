@@ -37,18 +37,17 @@ const fetchStory = (storyId, cb) => {
   );
   searchParams.set('_id', storyId);
 
-  request.get(
-    {
-      url: apiUrl,
-      qs: searchParams.toString(),
-      headers: {
-        Authorization: arc.sandbox
-          ? process.env.ARC_ACCESS_TOKEN_SANDBOX
-          : process.env.ARC_ACCESS_TOKEN_PRODUCTION,
-      },
+  const bearerToken = arc.sandbox
+    ? process.env.ARC_ACCESS_TOKEN_SANDBOX
+    : process.env.ARC_ACCESS_TOKEN_PRODUCTION;
+  const requestConfig = {
+    url: `${apiUrl}?${searchParams.toString()}`,
+    headers: {
+      Authorization: `Bearer ${bearerToken}`,
     },
-    cb,
-  );
+  };
+
+  request.get(requestConfig, cb);
 };
 
 gulp.task('fetch-arc', (cb) => {
@@ -72,7 +71,7 @@ gulp.task('fetch-arc', (cb) => {
           if (error) {
             reject(error);
           } else if (response.statusCode !== 200) {
-            reject(new Error(`HTTP error ${response.statusCode}`));
+            reject(new Error(`HTTP error ${response.statusCode}\n${body}`));
           } else {
             const parsedBody = JSON.parse(body);
             const file = `data/arc-${parsedBody.slug || storyId}.json`;
