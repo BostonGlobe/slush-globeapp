@@ -28,9 +28,40 @@ Your apps project is not automatically tracked via git. To do this:
 
 ## Copy
 
-You can pull copy from either [Methode](#methode) or a [Google Doc](#google-doc).
+You can pull copy from [Methode](#methode), [Arc](#arc) or a [Google Doc](#google-doc).
+
+#### Arc
+Create a `.env` file with the following keys:
+```dotenv
+ARC_ACCESS_TOKEN_SANDBOX=sandbox-ro-key
+ARC_ACCESS_TOKEN_PRODUCTION=production-ro-key
+THUMBOR_TOKEN=thumbor-token
+```
+
+(Protip: It's the same format used for Gatsby projects.)
+
+Then, add an `arc` key to `config.json`:
+
+```json
+{
+	"copy": {
+		"arc": {
+			"sandbox": true,
+			"stories": [
+				"PKLGHNI64RET5MICL74TGB7V2M"
+			]
+		}
+	}
+}
+```
+
+The `fetch-arc` task will create a JSON file with a little bit of processing around images and
+ArchieML embeds.
 
 #### Methode
+
+(deprecated, since we don't use Methode anymore)
+
 So you want to tussle with Methode huh? You are brave. Fill out `config.js` like such:
 
 ```

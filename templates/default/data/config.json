@@ -13,7 +13,7 @@
     "arc": {
       "sandbox": true,
       "stories": []
-    },
+    }
   },
   "path": "${{{pathToApp}}}$"
 }
