@@ -46,7 +46,7 @@
     "intersection-observer": "^0.5.1",
     "jimp": "0.3.3",
     "json-loader": "0.5.7",
-    "lazysizes": "^4.1.5",
+    "lazysizes": "^5.2.1",
     "lodash": "^4.17.11",
     "lz-string": "^1.4.4",
     "picturefill": "^3.0.3",
