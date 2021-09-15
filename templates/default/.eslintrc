@@ -7,7 +7,15 @@
   "root": true,
   "rules": {
     "import/no-extraneous-dependencies": "off",
-    "import/no-unresolved": "off"
+    "import/no-unresolved": "off",
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": [
+          "_id"
+        ]
+      }
+    ]
   },
   "extends": "airbnb-base"
 }
