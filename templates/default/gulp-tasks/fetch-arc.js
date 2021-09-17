@@ -41,14 +41,37 @@ const requestGet = requestOptions => new Promise((resolve, reject) => {
   );
 });
 
+const getRelativeUrl = (url) => {
+  const parsedUrl = new URL(url, 'https://www.bostonglobe.com');
+  return parsedUrl.pathname;
+};
+
+const getSlugFromUrl = (url) => {
+  const urlPieces = url.split('/');
+  let slug = '';
+  while (slug === '') {
+    slug = urlPieces.pop();
+    if (slug === undefined) {
+      throw new Error(`Unable to get slug from URL ${url}`);
+    }
+  }
+  return slug;
+};
+
 /**
  * Fetches a story.
- * @param {string} storyId
+ * @param {{storyId: string}|{storyUrl: string}} storyIdentifier
  * @return {Promise<{response: string, body: any}>}
  */
-const fetchStory = (storyId) => {
+const fetchStory = (storyIdentifier) => {
   const subdomain = `${arc.sandbox ? 'sandbox.' : ''}bostonglobe`;
   const apiUrl = `https://api.${subdomain}.arcpublishing.com/content/v4`;
+
+  const search = storyIdentifier.storyUrl ? {
+    website_url: getRelativeUrl(storyIdentifier.storyUrl),
+  } : {
+    _id: storyIdentifier.storyId,
+  };
 
   const requestConfig = {
     url: apiUrl,
@@ -67,7 +90,7 @@ const fetchStory = (storyId) => {
         'related_content.basic',
         'slug',
       ].join(','),
-      _id: storyId,
+      ...search,
     },
   };
 
@@ -153,6 +176,19 @@ const fetchImage = imageId => new Promise((resolve) => {
   });
 });
 
+const processPromoItem = promoItem => new Promise((resolve) => {
+  if (promoItem.type === 'image') {
+    fetchImage(promoItem._id).then((image) => {
+      resolve({
+        _id: promoItem._id,
+        image,
+      });
+    });
+    return;
+  }
+  resolve(promoItem);
+});
+
 const processContentElement = contentElement => new Promise((resolve) => {
   // eslint-disable-next-line default-case
   switch (contentElement.type) {
@@ -201,6 +237,29 @@ const processContentElement = contentElement => new Promise((resolve) => {
   resolve(contentElement);
 });
 
+/**
+ * Format a storyId object based on an identifier.
+ * @param {{storyId: string, fileName?: string}|{storyUrl: string, fileName?: string}|string} storyIdentifier
+ * @returns {{storyId: string, fileName: string}|{storyUrl: string, fileName?: string}|string}}
+ */
+const getStoryDetails = (storyIdentifier) => {
+  if (typeof storyIdentifier === 'string') {
+    return {
+      storyId: storyIdentifier,
+      fileName: `arc-${storyIdentifier}`,
+    };
+  }
+  if (!storyIdentifier.fileName) {
+    const fileName = storyIdentifier.storyId ? `arc-${storyIdentifier.storyId}` : `arc-${getSlugFromUrl(storyIdentifier.storyUrl)}`;
+
+    return {
+      ...storyIdentifier,
+      fileName,
+    };
+  }
+  return storyIdentifier;
+};
+
 gulp.task('fetch-arc', (cb) => {
   if (arc && arc.stories && arc.stories.length > 0) {
     // Check to see if there are valid access tokens.
@@ -220,22 +279,37 @@ gulp.task('fetch-arc', (cb) => {
       return;
     }
 
-    const promises = arc.stories.map(storyId => new Promise((resolve) => {
-      fetchStory(storyId).then(({ body }) => {
-        const parsedBody = JSON.parse(body);
-        const file = `data/arc-${storyId}.json`;
-        const parsePromises = parsedBody.content_elements.map(processContentElement);
-        Promise.all(parsePromises).then((parsedElements) => {
-          const result = {
-            ...parsedBody,
-            content_elements: parsedElements,
-          };
+    const summaries = [];
 
-          fs.writeFile(file, JSON.stringify(result, null, 2), (err) => {
-            if (err) {
-              console.error(err);
-            }
-            resolve(file);
+    const promises = arc.stories.map(storyIdentifier => new Promise((resolve) => {
+      const { fileName } = getStoryDetails(storyIdentifier);
+      fetchStory(storyIdentifier).then(({ body }) => {
+        const parsedBody = JSON.parse(body);
+        const file = `data/${fileName}.json`;
+        const contentPromises = parsedBody.content_elements.map(processContentElement);
+        processPromoItem(get(parsedBody, 'promo_items.basic', {})).then((promoItem) => {
+          const summary = {
+            headline: get(parsedBody, 'headlines.basic', ''),
+            subheadline: get(parsedBody, 'subheadlines.basic', ''),
+            description: get(parsedBody, 'description.basic', ''),
+            promoItem,
+            fileName,
+          };
+          summaries.push(summary);
+
+          Promise.all(contentPromises).then((parsedElements) => {
+            const result = {
+              promoItem,
+              ...parsedBody,
+              content_elements: parsedElements,
+            };
+
+            fs.writeFile(file, JSON.stringify(result, null, 2), (err) => {
+              if (err) {
+                console.error(err);
+              }
+              resolve(file);
+            });
           });
         });
       });
@@ -243,6 +317,8 @@ gulp.task('fetch-arc', (cb) => {
 
     Promise.all(promises)
       .then((fileNames) => {
+        fs.writeFileSync('data/arc-summaries.json', JSON.stringify(summaries, null, 2));
+
         console.log(`Fetched ${fileNames.length} stories from Arc`);
         cb();
       })

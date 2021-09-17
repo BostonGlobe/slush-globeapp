@@ -12,7 +12,12 @@
     },
     "arc": {
       "sandbox": true,
-      "stories": []
+      "stories": [
+        {
+          "storyId": "",
+          "fileName": ""
+        }
+      ]
     }
   },
   "path": "${{{pathToApp}}}$"
