@@ -55,7 +55,7 @@
     "require-dir": "1.0.0",
     "run-sequence": "2.2.1",
     "scrollama": "^1.4.4",
-    "shelljs": "0.8.3",
+    "shelljs": "0.8.5",
     "stickyfilljs": "^2.1.0",
     "thumbor-lite": "^0.1.8",
     "typogr": "^0.6.8",
