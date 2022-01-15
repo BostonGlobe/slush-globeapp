@@ -15,7 +15,7 @@
     "gulp-yarn": "1.0.1",
     "inquirer": "5.1.0",
     "run-sequence": "2.2.1",
-    "shelljs": "0.8.1",
+    "shelljs": "0.8.5",
     "underscore.string": "3.3.5"
   },
   "engine": ">node 5.1.1"
