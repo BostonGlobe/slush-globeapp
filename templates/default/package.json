@@ -23,7 +23,7 @@
     "dsv-loader": "2.0.0",
     "eslint-loader": "^2.1.2",
     "event-stream": "3.3.4",
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "fontfaceobserver": "^2.0.13",
     "get-json-lite": "2.0.0",
     "google-spreadsheet-to-json": "^1.0.0",
